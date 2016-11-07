@@ -35,16 +35,33 @@
     var geolayer = L.geoJSON().addTo(map);
 
 
+    function onEachFeature(feature, layer) {
+        // does this feature have a property named popupContent?
+        if (feature.properties && feature.properties.popupContent) {
+            layer.bindPopup("<b>"+feature.properties.name+"</b></br>"+feature.properties.popupContent);
+        }
+    }
+
     $.ajax({
     dataType: "json",
     url: "/aqis/"+id,
     success: function(data) {
-        $(data.features).each(function(key, data) {
-            geolayer.addData(data);
-        });
+        L.geoJSON(data.features, {
+            pointToLayer: function(feature, latlng){
+                console.log(feature.properties.color)
+                var geojsonMarkerOptions = {
+                    color: "#"+feature.properties.color,
+                    weight: 10,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                };
+
+                return L.circle(latlng, geojsonMarkerOptions)
+            },
+            onEachFeature: onEachFeature
+        }) .addTo(map);
     }
     });
-
 
 
     </script> 
