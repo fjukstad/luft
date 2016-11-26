@@ -1,39 +1,21 @@
-<html>
-    <head>
-         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
-         <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
-
-            <script
-              src="https://code.jquery.com/jquery-3.1.1.min.js"
-              integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-              crossorigin="anonymous"></script>
-
-        <style>
-            #mapid { 
-                height: 100%;
-                width: 100%;
-            }
-        </style>
-    </head>
-    <body>
-         <div id="mapid"></div>
-    </body>
-
-    <script> 
-        var id = "d6b8f721-ddff-4a13-a016-3eef94a9b247"
+{{ define "content" }} 
+<div id="mapid"></div>
+   
+<script> 
+    var id = "d6b8f721-ddff-4a13-a016-3eef94a9b247"
 
 
-        var map = L.map('mapid').setView([69.680, 18.951], 9.6);
-        var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
+    var map = L.map('mapid').setView([69.680, 18.951], 9.6);
+    var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
 
-    L.tileLayer(
-            "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token="+accessToken,
-            {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        maxZoom: 18,
-        id: 'fjukstad.2148odo2',
-       accessToken: accessToken
-    }).addTo(map);
+L.tileLayer(
+        "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token="+accessToken,
+        {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'fjukstad.2148odo2',
+   accessToken: accessToken
+}).addTo(map);
 
     var geolayer = L.geoJSON().addTo(map);
 
@@ -88,5 +70,5 @@
     });
 
 
-    </script> 
-</html>
+</script> 
+{{ end }} 

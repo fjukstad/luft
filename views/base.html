@@ -1,0 +1,15 @@
+<html>
+    <head>
+        {{ template "header" . }}
+    </head> 
+    <body>
+        {{template "navbar" . }}
+            <div class="main">         
+                {{ template "content" . }} 
+            </div> 
+
+        <footer id="footer" class="footer">
+            {{ template "footer" . }} 
+        </footer>
+    </body>
+</html> 
