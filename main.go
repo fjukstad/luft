@@ -9,11 +9,12 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", controllers.IndexHandler)
 	mux.HandleFunc("/aqis/", controllers.AquisGeoJSON)
 	mux.HandleFunc("/logs/", controllers.LogHandler)
 
-	http.Handle("/public", http.FileServer(http.Dir("public")))
+	mux.Handle("/public/", http.FileServer(http.Dir(".")))
+
+	mux.HandleFunc("/", controllers.IndexHandler)
 
 	fmt.Println("Server started on localhost:8000")
 	err := http.ListenAndServe(":8000", mux)

@@ -1,0 +1,12 @@
+.topnav{
+    display: inline !important;
+}
+
+li.nav {
+    display: inline;
+}
+
+#mapid { 
+    height: 100%;
+    width: 100%;
+}
