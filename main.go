@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/fjukstad/luft/controllers"
 )
@@ -16,8 +17,14 @@ func main() {
 
 	mux.HandleFunc("/", controllers.IndexHandler)
 
-	fmt.Println("Server started on localhost:8000")
-	err := http.ListenAndServe(":8000", mux)
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "8000"
+	}
+
+	fmt.Println("Server started on port", port)
+	err := http.ListenAndServe(":"+port, mux)
 
 	if err != nil {
 		fmt.Println(err)
