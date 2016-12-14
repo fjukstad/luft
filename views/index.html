@@ -49,25 +49,25 @@ L.tileLayer(
     });
 
 
-    //$.ajax({
-    //    dataType: "json",
-    //    url: "/logs/",
-    //    success: function(data) {
-    //        L.geoJSON(data.features, {
-    //            pointToLayer: function(feature, latlng){
-    //                console.log(feature.properties.color)
-    //                var geojsonMarkerOptions = {
-    //                    weight: 1,
-    //                    opacity: 1,
-    //                    fillOpacity: 0.8
-    //                };
+    $.ajax({
+        dataType: "json",
+        url: "/logs/",
+        success: function(data) {
+            L.geoJSON(data.features, {
+                pointToLayer: function(feature, latlng){
+                    console.log(feature.properties.color)
+                    var geojsonMarkerOptions = {
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.8
+                    };
 
-    //                return L.circle(latlng, geojsonMarkerOptions)
-    //            },
-    //            onEachFeature: onEachFeature
-    //        }) .addTo(map);
-    //    }
-    //});
+                    return L.circle(latlng, geojsonMarkerOptions)
+                },
+                onEachFeature: onEachFeature
+            }) .addTo(map);
+        }
+    });
 
 
 </script> 

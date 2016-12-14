@@ -20,7 +20,7 @@ func AquisGeoJSON(w http.ResponseWriter, r *http.Request) {
 
 	measurements, err := luftkvalitet.GetMeasurements(f)
 	if err != nil {
-		w.Write([]byte("fuck"))
+		w.Write([]byte("could not get data from api.nilu.no."))
 		return
 	}
 
@@ -32,7 +32,6 @@ func AquisGeoJSON(w http.ResponseWriter, r *http.Request) {
 		f.SetProperty("component", m.Component)
 		f.SetProperty("unit", m.Unit)
 		f.SetProperty("value", m.Value)
-		//f.SetProperty("popupContent", aqi.Description)
 		f.SetProperty("color", m.Color)
 		fc = fc.AddFeature(f)
 	}

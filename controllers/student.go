@@ -11,7 +11,7 @@ import (
 )
 
 func LogHandler(w http.ResponseWriter, r *http.Request) {
-	filename := "data/DATA2.csv"
+	filename := "data/smaller.csv"
 	f, err := os.Open(filename)
 	if err != nil {
 		w.Write([]byte("Could not open data file " + err.Error()))
@@ -53,8 +53,10 @@ func LogHandler(w http.ResponseWriter, r *http.Request) {
 
 		geom := geojson.NewPointGeometry([]float64{long, lat})
 		f := geojson.NewFeature(geom)
+		f.SetProperty("name", "Student-A")
 		f.SetProperty("date", date)
-		f.SetProperty("ppm", ppm)
+		f.SetProperty("value", ppm)
+		f.SetProperty("component", "PM2.5")
 		f.SetProperty("humid", humid)
 		f.SetProperty("temp", temp)
 		fc = fc.AddFeature(f)
