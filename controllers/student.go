@@ -11,7 +11,7 @@ import (
 )
 
 func LogHandler(w http.ResponseWriter, r *http.Request) {
-	filename := "data/test-data.csv"
+	filename := "data/DATA2.csv"
 	f, err := os.Open(filename)
 	if err != nil {
 		w.Write([]byte("Could not open data file " + err.Error()))
@@ -26,7 +26,11 @@ func LogHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fc := geojson.NewFeatureCollection()
-	for _, record := range records {
+	for i, record := range records {
+		// skipping header
+		if i == 0 {
+			continue
+		}
 		if len(record) < 6 {
 			w.Write([]byte("error parsing csv"))
 			return

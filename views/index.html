@@ -2,7 +2,7 @@
 <div id="mapid"></div>
    
 <script> 
-    var id = "d6b8f721-ddff-4a13-a016-3eef94a9b247"
+    var area = ""
 
 
     var map = L.map('mapid').setView([69.680, 18.951], 9.6);
@@ -22,14 +22,14 @@ L.tileLayer(
 
     function onEachFeature(feature, layer) {
         // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.popupContent) {
-            layer.bindPopup("<b>"+feature.properties.name+"</b></br>"+feature.properties.popupContent);
+        if (feature.properties && feature.properties.name) {
+            layer.bindPopup("<b>"+feature.properties.name+"</b></br>"+feature.properties.component+": "+feature.properties.value);
         }
     }
 
     $.ajax({
         dataType: "json",
-        url: "/aqis/"+id,
+        url: "/aqis/"+area,
         success: function(data) {
             L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
@@ -49,25 +49,25 @@ L.tileLayer(
     });
 
 
-    $.ajax({
-        dataType: "json",
-        url: "/logs/",
-        success: function(data) {
-            L.geoJSON(data.features, {
-                pointToLayer: function(feature, latlng){
-                    console.log(feature.properties.color)
-                    var geojsonMarkerOptions = {
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    };
+    //$.ajax({
+    //    dataType: "json",
+    //    url: "/logs/",
+    //    success: function(data) {
+    //        L.geoJSON(data.features, {
+    //            pointToLayer: function(feature, latlng){
+    //                console.log(feature.properties.color)
+    //                var geojsonMarkerOptions = {
+    //                    weight: 1,
+    //                    opacity: 1,
+    //                    fillOpacity: 0.8
+    //                };
 
-                    return L.circle(latlng, geojsonMarkerOptions)
-                },
-                onEachFeature: onEachFeature
-            }) .addTo(map);
-        }
-    });
+    //                return L.circle(latlng, geojsonMarkerOptions)
+    //            },
+    //            onEachFeature: onEachFeature
+    //        }) .addTo(map);
+    //    }
+    //});
 
 
 </script> 

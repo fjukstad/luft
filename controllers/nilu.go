@@ -11,23 +11,29 @@ import (
 
 func AquisGeoJSON(w http.ResponseWriter, r *http.Request) {
 	p := r.URL.Path
-	id := strings.Trim(p, "/aqis/")
-	id = "{" + id + "}"
+	as := strings.Trim(p, "/aqis/")
+	areas := strings.Split(as, ",")
 
-	aqis, err := luftkvalitet.GetAqis(id)
+	f := luftkvalitet.Filter{
+		Areas: areas,
+	}
+
+	measurements, err := luftkvalitet.GetMeasurements(f)
 	if err != nil {
-		fmt.Println(err)
-		w.Write([]byte("could not get data from luftkvalutet"))
+		w.Write([]byte("fuck"))
 		return
 	}
 
 	fc := geojson.NewFeatureCollection()
-	for _, aqi := range aqis {
-		geom := geojson.NewPointGeometry([]float64{aqi.Lon, aqi.Lat})
+	for _, m := range measurements {
+		geom := geojson.NewPointGeometry([]float64{m.Longitude, m.Latitude})
 		f := geojson.NewFeature(geom)
-		f.SetProperty("name", aqi.Name)
-		f.SetProperty("popupContent", aqi.Description)
-		f.SetProperty("color", aqi.Color)
+		f.SetProperty("name", m.Station.Station)
+		f.SetProperty("component", m.Component)
+		f.SetProperty("unit", m.Unit)
+		f.SetProperty("value", m.Value)
+		//f.SetProperty("popupContent", aqi.Description)
+		f.SetProperty("color", m.Color)
 		fc = fc.AddFeature(f)
 	}
 
