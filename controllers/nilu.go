@@ -1,46 +1,64 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
-	"strings"
+	"time"
 
 	"github.com/fjukstad/luftkvalitet"
 	"github.com/paulmach/go.geojson"
 )
 
-func AquisGeoJSON(w http.ResponseWriter, r *http.Request) {
-	p := r.URL.Path
-	as := strings.Trim(p, "/aqis/")
-	areas := strings.Split(as, ",")
+const timeLayout = "2006-01-02T15:04:05.000Z"
 
-	f := luftkvalitet.Filter{
-		Areas: areas,
+func AquisGeoJSON(w http.ResponseWriter, r *http.Request) {
+	values := r.URL.Query()
+
+	to, err := time.Parse(timeLayout, values["to"][0])
+	if err != nil {
+		w.Write([]byte("Could not parse time" + err.Error()))
+		return
 	}
 
-	measurements, err := luftkvalitet.GetMeasurements(f)
+	from, err := time.Parse(timeLayout, values["from"][0])
+	if err != nil {
+		w.Write([]byte("Could not parse time" + err.Error()))
+		return
+	}
+
+	components := values["component"]
+
+	areas := values["area"]
+
+	f := luftkvalitet.Filter{
+		Areas:      areas,
+		ToTime:     to,
+		FromTime:   from,
+		Components: components,
+	}
+
+	historical, err := luftkvalitet.GetHistorical(f)
 	if err != nil {
 		w.Write([]byte("could not get data from api.nilu.no."))
 		return
 	}
 
 	fc := geojson.NewFeatureCollection()
-	for _, m := range measurements {
-		geom := geojson.NewPointGeometry([]float64{m.Longitude, m.Latitude})
-		f := geojson.NewFeature(geom)
-		f.SetProperty("name", m.Station.Station)
-		f.SetProperty("component", m.Component)
-		f.SetProperty("unit", m.Unit)
-		f.SetProperty("value", m.Value)
-		f.SetProperty("color", m.Color)
-		fc = fc.AddFeature(f)
+	for _, hist := range historical {
+		geom := geojson.NewPointGeometry([]float64{hist.Location.Longitude, hist.Location.Latitude})
+		for _, m := range hist.Measurements {
+			f := geojson.NewFeature(geom)
+			f.SetProperty("name", hist.Station.Station)
+			f.SetProperty("component", hist.Component)
+			f.SetProperty("unit", m.Unit)
+			f.SetProperty("value", m.Value)
+			f.SetProperty("color", m.Color)
+			fc = fc.AddFeature(f)
+		}
 	}
 
 	b, err := fc.MarshalJSON()
-
 	if err != nil {
-		fmt.Println(err)
-		w.Write([]byte("Could not marshal geojson"))
+		w.Write([]byte("Could not marshal geojson " + err.Error()))
 		return
 	}
 

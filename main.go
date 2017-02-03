@@ -10,8 +10,8 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/aqis/", controllers.AquisGeoJSON)
-	mux.HandleFunc("/logs/", controllers.LogHandler)
+	mux.HandleFunc("/aqis", controllers.AquisGeoJSON)
+	mux.HandleFunc("/logs", controllers.LogHandler)
 
 	mux.Handle("/public/", http.FileServer(http.Dir(".")))
 
