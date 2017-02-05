@@ -5,7 +5,9 @@
     <body>
         {{template "navbar" . }}
             <div class="main">         
-                {{ template "content" . }} 
+                <div class="container-fluid"> 
+                    {{ template "content" . }} 
+                </div> 
             </div> 
 
         <footer id="footer" class="footer">

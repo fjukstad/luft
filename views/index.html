@@ -1,6 +1,22 @@
 {{ define "content" }} 
-<div id="mapid"></div>
-   
+<div class="row"> 
+    <div class="col-9"> 
+        <div id="mapid"></div>
+    </div> 
+    <div class="col-2">
+        <div class="row">
+            <h3>Luftkvalitet de siste 24 timene.</h3> 
+            <div id="chart">
+                <svg id="chart" width="300" height="200"></svg> 
+            </div>
+        </div>
+        <div class="row">
+            <h3>Varsel</h3> 
+            <div id="forecast"></div> 
+        </div> 
+    </div> 
+</div> 
+
 <script> 
 
     // Get current and yesterday's date (want to get data for the last 24 hrs) 
@@ -9,8 +25,6 @@
     yesterday.setDate(now.getDate()-1) 
     
     var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
-
-    console.log(datestring) 
 
     var area = "Tromsø"
     var component = "PM2.5" 
@@ -37,13 +51,90 @@ L.tileLayer(
         }
     }
 
+    var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
+
+
+    var svg = d3.select("svg#chart"),
+    margin = {top: 20, right: 20, bottom: 20, left: 20},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom,
+    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    console.log(width, height) 
+
+    var x = d3.scaleTime()
+        .rangeRound([0, width]);
+
+    var y = d3.scaleLinear()
+        .rangeRound([height, 0]);
+
+    var z = d3.scaleOrdinal(d3.schemeCategory10);
+
+    var line = d3.line()
+        .curve(d3.curveBasis)
+        .x(function(d) { return x(d.from); })
+        .y(function(d) { return y(d.value); });
+
+    var unit = "" ; 
+        
+    var stations = {}; 
+
+    d3.csv("/historical?area="+area+"&"+datestring+"&component="+component,
+            function(d) { 
+                if(!stations[d.station]){
+                    stations[d.station] = []
+                }
+                d.from = parseTime(d.from);
+                d.to = parseTime(d.to);
+                d.value = parseFloat(d.value)
+                component = d.component 
+                unit = d.unit 
+                stations[d.station].push(d) 
+                return d; 
+            },
+            function(error, data){
+
+              console.log(stations) 
+              x.domain(d3.extent(data, function(d) { return d.from; }));
+              y.domain(d3.extent(data, function(d) { return d.value; }));
+
+                g.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x))
+                .select(".domain")
+                .remove();
+
+                g.append("g")
+                  .call(d3.axisLeft(y))
+                  .append("text")
+                  .attr("fill", "#000")
+                  .attr("transform", "rotate(-90)")
+                  .attr("y", 6)
+                  .attr("dy", "0.71em")
+                  .attr("text-anchor", "end")
+                  .text(component + "("+unit+")"); 
+
+                for(var station in stations){ 
+                    g.append("path")
+                      .datum(stations[station])
+                      .attr("fill", "none")
+                      .style("stroke", z(station))
+                      .attr("stroke", "steelblue")
+                      .attr("stroke-linejoin", "round")
+                      .attr("stroke-linecap", "round")
+                      .attr("stroke-width", 1.5)
+                      .attr("d", line);
+                    }
+            })
+
+
+
     $.ajax({
         dataType: "json",
         url: "/aqis?area="+area+"&"+datestring+"&component="+component,
         success: function(data) {
             L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
-                    console.log(feature.properties.color)
                     var geojsonMarkerOptions = {
                         color: "#"+feature.properties.color,
                         weight: 10,
@@ -65,7 +156,6 @@ L.tileLayer(
         success: function(data) {
             L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
-                    console.log(feature.properties.color)
                     var geojsonMarkerOptions = {
                         weight: 1,
                         opacity: 1,
@@ -78,7 +168,6 @@ L.tileLayer(
             }) .addTo(map);
         }
     });
-
 
 </script> 
 {{ end }} 
