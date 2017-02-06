@@ -1,9 +1,9 @@
 {{ define "content" }} 
 <div class="row"> 
-    <div class="col-9"> 
+    <div class="col-8"> 
         <div id="mapid"></div>
     </div> 
-    <div class="col-2">
+    <div class="col-4">
         <div class="row">
             <h3>Luftkvalitet de siste 24 timene.</h3> 
             <div id="chart">
@@ -26,7 +26,7 @@
     
     var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
 
-    var area = "Tromsø"
+    var area = ""
     var component = "PM2.5" 
 
     var map = L.map('mapid').setView([69.680, 18.951], 9.6);
@@ -53,14 +53,15 @@ L.tileLayer(
 
     var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
 
+    var svg = document.querySelector("svg#chart"); 
+    svg.setAttribute("width", document.getElementById('chart').clientWidth) 
+
 
     var svg = d3.select("svg#chart"),
     margin = {top: 20, right: 20, bottom: 20, left: 20},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    console.log(width, height) 
 
     var x = d3.scaleTime()
         .rangeRound([0, width]);
@@ -114,8 +115,21 @@ L.tileLayer(
                   .attr("text-anchor", "end")
                   .text(component + "("+unit+")"); 
 
+                label_offset = width/2
+                g.append("g")
+                    .append("text")
+                    .attr("id","label")
+                    .attr("transform", "translate("+label_offset+",0)")
+                    .attr("fill", "#000")
+                    .text("")
+                    
+
                 for(var station in stations){ 
-                    g.append("path")
+                    var id = station.replace("\ ", "")
+                        id = id.replace(",","")
+                        id = id.replace(".","")
+
+                    path = g.append("path")
                       .datum(stations[station])
                       .attr("fill", "none")
                       .style("stroke", z(station))
@@ -123,7 +137,19 @@ L.tileLayer(
                       .attr("stroke-linejoin", "round")
                       .attr("stroke-linecap", "round")
                       .attr("stroke-width", 1.5)
-                      .attr("d", line);
+                      .attr("d", line)
+                      .attr("id", id)
+                      
+
+                    d3.select("path#"+id).on("mouseover", function(){
+                        d3.select(this).style("stroke-width", 5); 
+                        label = d3.select(this).data()[0][0].station
+                        d3.select("text#label").text(label)
+                     })
+                    .on("mouseout", function(){
+                        d3.select(this).style("stroke-width", 1.5); 
+                        d3.select("text#label").text("")
+                    })
                     }
             })
 
