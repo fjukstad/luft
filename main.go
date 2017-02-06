@@ -12,11 +12,13 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/aqis", controllers.AquisGeoJSON)
 	mux.HandleFunc("/historical", controllers.HistoricalHandler)
+	mux.HandleFunc("/forecast", controllers.ForecastHandler)
 	mux.HandleFunc("/logs", controllers.LogHandler)
 
 	mux.Handle("/public/", http.FileServer(http.Dir(".")))
 
 	mux.HandleFunc("/", controllers.IndexHandler)
+	mux.HandleFunc("/om", controllers.AboutHandler)
 
 	port := os.Getenv("PORT")
 

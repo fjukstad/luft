@@ -118,3 +118,21 @@ func HistoricalHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+// Get the first (current) air quality forecast for a specific area
+func ForecastHandler(w http.ResponseWriter, r *http.Request) {
+	values := r.URL.Query()
+
+	f := luftkvalitet.Filter{
+		Areas: values["area"],
+	}
+
+	forecasts, err := luftkvalitet.GetForecasts(f)
+	if err != nil || len(forecasts) == 0 {
+		w.Write([]byte("Fant ikke luftkvalitetsvarsel fra luftkvalitet.info"))
+		return
+	}
+
+	w.Write([]byte(forecasts[0].Today[0].Description))
+
+}

@@ -1,11 +1,26 @@
 {{ define "navbar" }} 
-<div class="navbar navbar-light bg-faded">
-    <a class="navbar-brand" href="/">Luft</a>
-    <ul class="nav navbar-nav float-lg-right float-md-right float-s-right
-        float-xs-right">
-        <li class="nav">
-            <a class="nav-link topnav" href="#">Om</a>
-        </li>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button"
+      data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">Luft</a>
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <ul class="navbar-nav mr-auto">
+    </ul> 
+    </ul> 
+    <ul class="navbar-nav my-2 my-lg-0"> 
+      <li class="nav-item active">
+        <a class="nav-link" target="_blank" href="http://luftprosjekttromso.herokuapp.com/">Last opp data<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">Søk i tid</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="om">Om</a>
+      </li>
     </ul>
-</div> 
-{{ end }} 
+  </div>
+</nav>
+{{ end }}

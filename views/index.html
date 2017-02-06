@@ -10,9 +10,12 @@
                 <svg id="chart" width="300" height="200"></svg> 
             </div>
         </div>
+        <hr class="my-4">
         <div class="row">
             <h3>Varsel</h3> 
-            <div id="forecast"></div> 
+            <div id="forecast">
+                <p id="forecast"></p> 
+            </div> 
         </div> 
     </div> 
 </div> 
@@ -26,7 +29,7 @@
     
     var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
 
-    var area = ""
+    var area = "Tromsø"
     var component = "PM2.5" 
 
     var map = L.map('mapid').setView([69.680, 18.951], 9.6);
@@ -58,7 +61,7 @@ L.tileLayer(
 
 
     var svg = d3.select("svg#chart"),
-    margin = {top: 20, right: 20, bottom: 20, left: 20},
+    margin = {top: 20, right: 30, bottom: 20, left: 30},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -194,6 +197,15 @@ L.tileLayer(
             }) .addTo(map);
         }
     });
+
+    // get and insert forecast 
+    $.ajax({
+        url: "/forecast?area="+area,
+        success: function(data){
+            $("p#forecast").html(data)
+        }
+
+        })
 
 </script> 
 {{ end }} 
