@@ -4,7 +4,7 @@
             <h4> Velg tidsrommet du vil se luftkvalitetsdata fra </h4> 
     </div> 
     <div class="row"> 
-        <form class="form-inline" style="width:100%"> 
+        <form id="history-form" class="form-inline" style="width:100%"> 
             <div class="form-group">
               <label for="from" class="col-2
                   col-form-label">Fra</label>
@@ -21,23 +21,19 @@
                 value="2016-02-08T14:45:00" id="to">
               </div>
             </div>
-
         <div class="form-check">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox"> Inkludér data fra
             luftkvalitet.info
           </label>
         </div>
-        
-        <div class="float-right" id="history">
-          <button type="submit" class="btn btn-primary float-right">Søk</button>
+        <div class="float-right" id="history-button">
+          <button type="button" class="btn btn-primary float-right">Søk</button>
         </div> 
-
         </form> 
-        </div> 
-
-       <hr class="my-4">
-       
+    </div> 
+   <hr class="my-4">
+</div> 
        <div class="row"> 
         <div class="col-8"> 
             <div id="mapid"></div>
@@ -50,7 +46,53 @@
                 </div>
             </div>
             <hr class="my-4">
+        <div class="float" id="download" style="display:none">
+          <button type="button" class="btn btn-success">Last ned</button>
+        </div> 
+
+
         </div> 
     </div>  
-</div> 
+
+<script> 
+$('#history-button').click(function(e) {
+
+    clearVis() 
+    $("#download").css("display", "none") 
+
+
+    var from = $('#from').val()
+    from = new Date(from)
+
+    var to = $('#to').val()
+    to = new Date(to)
+
+    area = "Tromsø"
+    datestring = "from="+from.toJSON()+"&to="+to.toJSON() 
+    
+    console.log(area, datestring) 
+    vis(area, datestring);
+
+    $("#download").css("display", "block") 
+});
+
+$("#download").click(function(){
+    var from = $('#from').val()
+    from = new Date(from)
+
+    var to = $('#to').val()
+    to = new Date(to)
+
+    area = "Tromsø"
+    datestring = "from="+from.toJSON()+"&to="+to.toJSON() 
+
+    var url = getHistoricalUrl(area, datestring, "PM2.5") 
+    window.open(url, '_blank');
+})
+
+
+
+</script> 
+
+
 {{ end }} 
