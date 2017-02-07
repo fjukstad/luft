@@ -10,7 +10,7 @@
                   col-form-label">Fra</label>
             <div class="col-10">
                 <input class="form-control" type="datetime-local"
-                value="2016-02-08T13:45:00" id="from">
+                value="2017-02-01T08:00:00" id="from">
               </div>
             </div>
            <div class="form-group">
@@ -18,15 +18,17 @@
                   col-form-label">Til</label>
             <div class="col-10">
                 <input class="form-control" type="datetime-local"
-                value="2016-02-08T14:45:00" id="to">
+                value="2017-02-08T20:00:00" id="to">
               </div>
             </div>
+        <!---
         <div class="form-check">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox"> Inkludér data fra
             luftkvalitet.info
           </label>
         </div>
+        --->
         <div class="float-right" id="history-button">
           <button type="button" class="btn btn-primary float-right">Søk</button>
         </div> 
@@ -85,8 +87,9 @@ $("#download").click(function(){
 
     area = "Tromsø"
     datestring = "from="+from.toJSON()+"&to="+to.toJSON() 
-
-    var url = getHistoricalUrl(area, datestring, "PM2.5") 
+    
+    var component = "PM10"
+    var url = getHistoricalUrl(area, datestring, component) 
     window.open(url, '_blank');
 })
 

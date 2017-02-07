@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/fjukstad/luftkvalitet"
@@ -112,11 +113,19 @@ func HistoricalHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	writer := csv.NewWriter(w)
+
+	// set headers since we want users to download this output
+	as := strings.Join(areas, "-")
+	cs := strings.Join(components, "-")
+	filename := "history-" + as + "-" + cs + ".csv"
+	w.Header().Set("Content-Disposition", "attachment; filename="+filename)
+
 	err = writer.WriteAll(records)
 	if err != nil {
 		w.Write([]byte("Could not write csv"))
 		return
 	}
+
 }
 
 // Get the first (current) air quality forecast for a specific area
