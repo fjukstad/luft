@@ -1,7 +1,7 @@
 var map; 
 function vis(area, datestring) { 
     
-    var component = "PM2.5" 
+    var component = "PM10" 
 
     map = L.map('mapid').setView([69.680, 18.951], 9.6);
     var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
