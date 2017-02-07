@@ -17,20 +17,20 @@
 		{
 			"checksumSHA1": "2eK2RKjX2qGPsHJ2fmB6n/Jb7Aw=",
 			"path": "github.com/fjukstad/luft",
-			"revision": "a5d89fcdc27d386bbabddcbe3c6e3745eb92c7ce",
-			"revisionTime": "2017-02-07T13:45:23Z"
+			"revision": "da1e2b85e479c711b75c4a6b9ef026629e8522e5",
+			"revisionTime": "2017-02-07T13:50:49Z"
 		},
 		{
 			"checksumSHA1": "ZpJ4MW9wqFWM6Sgz/x347e4B6Ag=",
 			"path": "github.com/fjukstad/luft/controllers",
-			"revision": "a5d89fcdc27d386bbabddcbe3c6e3745eb92c7ce",
-			"revisionTime": "2017-02-07T13:45:23Z"
+			"revision": "da1e2b85e479c711b75c4a6b9ef026629e8522e5",
+			"revisionTime": "2017-02-07T13:50:49Z"
 		},
 		{
-			"checksumSHA1": "yQGvXiMWxfJLsV4ObzW0bkCrWWQ=",
+			"checksumSHA1": "2tC/Je3TYDob3O4Qje3IruPkEqk=",
 			"path": "github.com/fjukstad/luftkvalitet",
-			"revision": "e99cf6bd91169279e8eb461cd9663ab3909dbec3",
-			"revisionTime": "2016-11-07T02:56:18Z"
+			"revision": "fd1eb43303cfcaa20fde6f0281e63bbe6d09d6f4",
+			"revisionTime": "2017-02-07T13:55:49Z"
 		},
 		{
 			"checksumSHA1": "9IBLcNDQEOQKjIztEcW92oyHARw=",
