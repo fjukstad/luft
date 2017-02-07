@@ -27,3 +27,14 @@ func AboutHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 }
+
+var historyTemplate = template.Must(template.ParseFiles("views/base.html",
+	"views/header.html", "views/navbar.html",
+	"views/history.html", "views/footer.html"))
+
+func HistoryHandler(w http.ResponseWriter, r *http.Request) {
+	err := historyTemplate.Execute(w, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+}

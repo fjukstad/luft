@@ -1,0 +1,56 @@
+{{ define "content" }} 
+<div class="container"> 
+    <div class="row"> 
+            <h4> Velg tidsrommet du vil se luftkvalitetsdata fra </h4> 
+    </div> 
+    <div class="row"> 
+        <form class="form-inline" style="width:100%"> 
+            <div class="form-group">
+              <label for="from" class="col-2
+                  col-form-label">Fra</label>
+            <div class="col-10">
+                <input class="form-control" type="datetime-local"
+                value="2016-02-08T13:45:00" id="from">
+              </div>
+            </div>
+           <div class="form-group">
+              <label for="to" class="col-2
+                  col-form-label">Til</label>
+            <div class="col-10">
+                <input class="form-control" type="datetime-local"
+                value="2016-02-08T14:45:00" id="to">
+              </div>
+            </div>
+
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox"> Inkludér data fra
+            luftkvalitet.info
+          </label>
+        </div>
+        
+        <div class="float-right" id="history">
+          <button type="submit" class="btn btn-primary float-right">Søk</button>
+        </div> 
+
+        </form> 
+        </div> 
+
+       <hr class="my-4">
+       
+       <div class="row"> 
+        <div class="col-8"> 
+            <div id="mapid"></div>
+        </div> 
+        <div class="col-4">
+            <div class="row">
+                <h3>Luftkvalitet</h3> 
+                <div id="chart">
+                    <svg id="chart" width="300" height="200"></svg> 
+                </div>
+            </div>
+            <hr class="my-4">
+        </div> 
+    </div>  
+</div> 
+{{ end }} 

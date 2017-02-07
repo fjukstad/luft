@@ -19,6 +19,7 @@ func main() {
 
 	mux.HandleFunc("/", controllers.IndexHandler)
 	mux.HandleFunc("/om", controllers.AboutHandler)
+	mux.HandleFunc("/historikk", controllers.HistoryHandler)
 
 	port := os.Getenv("PORT")
 

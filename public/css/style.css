@@ -17,3 +17,8 @@ li.nav {
 #om { 
     margin-top: 2em;
 }
+
+#history { 
+    right: 0px;
+    position: absolute;
+} 
