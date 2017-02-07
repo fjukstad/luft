@@ -15,6 +15,18 @@
 			"revisionTime": "2015-07-30T17:44:59Z"
 		},
 		{
+			"checksumSHA1": "2eK2RKjX2qGPsHJ2fmB6n/Jb7Aw=",
+			"path": "github.com/fjukstad/luft",
+			"revision": "a5d89fcdc27d386bbabddcbe3c6e3745eb92c7ce",
+			"revisionTime": "2017-02-07T13:45:23Z"
+		},
+		{
+			"checksumSHA1": "ZpJ4MW9wqFWM6Sgz/x347e4B6Ag=",
+			"path": "github.com/fjukstad/luft/controllers",
+			"revision": "a5d89fcdc27d386bbabddcbe3c6e3745eb92c7ce",
+			"revisionTime": "2017-02-07T13:45:23Z"
+		},
+		{
 			"checksumSHA1": "yQGvXiMWxfJLsV4ObzW0bkCrWWQ=",
 			"path": "github.com/fjukstad/luftkvalitet",
 			"revision": "e99cf6bd91169279e8eb461cd9663ab3909dbec3",
