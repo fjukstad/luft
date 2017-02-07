@@ -10,12 +10,16 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/aqis/", controllers.AquisGeoJSON)
-	mux.HandleFunc("/logs/", controllers.LogHandler)
+	mux.HandleFunc("/aqis", controllers.AquisGeoJSON)
+	mux.HandleFunc("/historical", controllers.HistoricalHandler)
+	mux.HandleFunc("/forecast", controllers.ForecastHandler)
+	mux.HandleFunc("/logs", controllers.LogHandler)
 
 	mux.Handle("/public/", http.FileServer(http.Dir(".")))
 
 	mux.HandleFunc("/", controllers.IndexHandler)
+	mux.HandleFunc("/om", controllers.AboutHandler)
+	mux.HandleFunc("/historikk", controllers.HistoryHandler)
 
 	port := os.Getenv("PORT")
 

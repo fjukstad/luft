@@ -1,73 +1,43 @@
 {{ define "content" }} 
-<div id="mapid"></div>
-   
+<div class="row"> 
+    <div class="col-8"> 
+        <div id="mapid"></div>
+    </div> 
+    <div class="col-4">
+        <div class="row">
+            <h3>Luftkvalitet de siste 24 timene.</h3> 
+            <div id="chart">
+                <svg id="chart" width="300" height="200"></svg> 
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <h3>Varsel</h3> 
+            <div id="forecast">
+                <p id="forecast"></p> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+
 <script> 
-    var id = "d6b8f721-ddff-4a13-a016-3eef94a9b247"
+// Get current and yesterday's date (want to get data for the last 24 hrs) 
+var now = new Date() 
+var yesterday = new Date()
+yesterday.setDate(now.getDate()-1) 
+var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
 
+var area = "Tromsø"
+console.log(datestring) 
+vis(area, datestring); 
 
-    var map = L.map('mapid').setView([69.680, 18.951], 9.6);
-    var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
-
-L.tileLayer(
-        "https://api.mapbox.com/styles/v1/mapbox/dark-v9/tiles/256/{z}/{x}/{y}?access_token="+accessToken,
-        {
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 18,
-    id: 'fjukstad.2148odo2',
-   accessToken: accessToken
-}).addTo(map);
-
-    var geolayer = L.geoJSON().addTo(map);
-
-
-    function onEachFeature(feature, layer) {
-        // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.popupContent) {
-            layer.bindPopup("<b>"+feature.properties.name+"</b></br>"+feature.properties.popupContent);
-        }
+// get and insert forecast 
+$.ajax({
+    url: "/forecast?area="+area,
+    success: function(data){
+        $("p#forecast").html(data)
     }
-
-    $.ajax({
-        dataType: "json",
-        url: "/aqis/"+id,
-        success: function(data) {
-            L.geoJSON(data.features, {
-                pointToLayer: function(feature, latlng){
-                    console.log(feature.properties.color)
-                    var geojsonMarkerOptions = {
-                        color: "#"+feature.properties.color,
-                        weight: 10,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    };
-
-                    return L.circle(latlng, geojsonMarkerOptions)
-                },
-                onEachFeature: onEachFeature
-            }) .addTo(map);
-        }
-    });
-
-
-    $.ajax({
-        dataType: "json",
-        url: "/logs/",
-        success: function(data) {
-            L.geoJSON(data.features, {
-                pointToLayer: function(feature, latlng){
-                    console.log(feature.properties.color)
-                    var geojsonMarkerOptions = {
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    };
-
-                    return L.circle(latlng, geojsonMarkerOptions)
-                },
-                onEachFeature: onEachFeature
-            }) .addTo(map);
-        }
-    });
+})
 
 
 </script> 

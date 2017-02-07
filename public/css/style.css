@@ -5,8 +5,20 @@
 li.nav {
     display: inline;
 }
-
 #mapid { 
     height: 100%;
     width: 100%;
+    margin: 0;
 }
+#chart {
+    width: 100%;
+}
+
+#om { 
+    margin-top: 2em;
+}
+
+#history-button { 
+    right: 0px;
+    position: absolute;
+} 
