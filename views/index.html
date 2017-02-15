@@ -1,4 +1,29 @@
 {{ define "content" }} 
+<div class="row" id="message"> 
+    <div class="col-12">
+    <div class="alert alert-warning" role="alert">
+        <button type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p> 
+        Melding til elever i 2STF: </br>
+        Etter et par timer med feilsøking i går etter at dere hadde dratt fant vi
+        feilen, eller feilene. Dere trenger 1) en annen USB-kabel enn den vi ga
+        dere i går, og 2) en driver som dere kan laste ned 
+        <a href="http://www.wch.cn/downfile/5">her</a>. </br> 
+
+        Vi håper dere hadde det gøy i går og får startet på programmeringsbiten!
+        Som vi nevnte ligger den en link inne på <a href="/om">om-siden</a> med
+        instruksjoner til hvordan dere får hentet ut data fra de forskjellige
+        sensorene. </br> 
+
+        Vi jobber med å få opp nedbørsmålinger i tillegg til NO2 her på siden. 
+        </br> 
+
+        </p> 
+    </div> 
+    </div>
+</div>
 <div class="row"> 
     <div class="col-8"> 
         <div id="mapid"></div>
@@ -39,6 +64,9 @@ $.ajax({
     }
 })
 
+$(".close").click(function(){
+    $("div#message").css("display","none");
+})
 
 </script> 
 {{ end }} 

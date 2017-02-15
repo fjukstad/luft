@@ -21,3 +21,6 @@ li.nav {
     right: 0px;
     position: absolute;
 } 
+#message { 
+    margin-top: 0.5em;
+}
