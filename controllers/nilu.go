@@ -84,14 +84,14 @@ func HistoricalHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Could not parse time" + err.Error()))
 		return
 	}
-	components := values["component"]
+	component := values["component"]
 	areas := values["area"]
 
 	f := luftkvalitet.Filter{
 		Areas:      areas,
 		ToTime:     to,
 		FromTime:   from,
-		Components: components,
+		Components: component,
 	}
 
 	historical, err := luftkvalitet.GetHistorical(f)
@@ -116,7 +116,7 @@ func HistoricalHandler(w http.ResponseWriter, r *http.Request) {
 
 	// set headers since we want users to download this output
 	as := strings.Join(areas, "-")
-	cs := strings.Join(components, "-")
+	cs := strings.Join(component, "-")
 	filename := "history-" + as + "-" + cs + ".csv"
 	w.Header().Set("Content-Disposition", "attachment; filename="+filename)
 
