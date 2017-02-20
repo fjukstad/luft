@@ -1,9 +1,9 @@
-var map; 
-function vis(area, component, datestring, container, element) { 
-    
-    var component = "PM10" 
+// Create new map that we can add data points to. 
+function newMap(id){
+    map = L.map(id, {editable:true})
+    map.setView([69.680, 18.951], 9.6);
 
-    map = L.map('mapid').setView([69.680, 18.951], 9.6);
+
     var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
 
     L.tileLayer(
@@ -15,21 +15,44 @@ function vis(area, component, datestring, container, element) {
     accessToken: accessToken
     }).addTo(map);
 
+    return map; 
+}   
+
+function addToMap(map, area, component, datestring) { 
     var geolayer = L.geoJSON().addTo(map);
-
-
     function onEachFeature(feature, layer) {
         // does this feature have a property named popupContent?
         if (feature.properties && feature.properties.name) {
             layer.bindPopup("<b>"+feature.properties.name+"</b></br>"+feature.properties.component+": "+feature.properties.value);
         }
     }
+    $.ajax({
+        dataType: "json",
+        url: "/aqis?area="+area+"&"+datestring+"&component="+component,
+        success: function(data) {
+            L.geoJSON(data.features, {
+                pointToLayer: function(feature, latlng){
+                    var geojsonMarkerOptions = {
+                        color: "#"+feature.properties.color,
+                        weight: 10,
+                        opacity: 1,
+                        fillOpacity: 0.8
+                    };
 
+                    return L.circle(latlng, geojsonMarkerOptions)
+                },
+                onEachFeature: onEachFeature
+            }) .addTo(map);
+        }
+    });
+}
+
+function barChart(area, component, datestring, container, element) { 
+    
     var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
 
     var svg = document.querySelector(element); 
     svg.setAttribute("width", document.getElementById(container).clientWidth) 
-
 
     var svg = d3.select(element),
     margin = {top: 20, right: 30, bottom: 20, left: 30},
@@ -93,7 +116,7 @@ function vis(area, component, datestring, container, element) {
                 label_offset = width/2
                 g.append("g")
                     .append("text")
-                    .attr("id","label")
+                    .attr("id",component+"-label")
                     .attr("transform", "translate("+label_offset+",0)")
                     .attr("fill", "#000")
                     .text("")
@@ -113,61 +136,40 @@ function vis(area, component, datestring, container, element) {
                       .attr("stroke-linecap", "round")
                       .attr("stroke-width", 1.5)
                       .attr("d", line)
-                      .attr("id", id)
+                      .attr("id", id+"-"+component)
                       
-
-                    d3.select("path#"+id).on("mouseover", function(){
+                    d3.select("path#"+id+"-"+component).on("mouseover", function(){
                         d3.select(this).style("stroke-width", 5); 
                         label = d3.select(this).data()[0][0].station
-                        d3.select("text#label").text(label)
+                        d3.select("text#"+component+"-label").text(label)
                      })
+
                     .on("mouseout", function(){
                         d3.select(this).style("stroke-width", 1.5); 
-                        d3.select("text#label").text("")
+                        d3.select("text#"+component+"-label").text("")
                     })
                     }
             })
 
 
+    //$.ajax({
+    //    dataType: "json",
+    //    url: "/logs?"+datestring,
+    //    success: function(data) {
+    //        L.geoJSON(data.features, {
+    //            pointToLayer: function(feature, latlng){
+    //                var geojsonMarkerOptions = {
+    //                    weight: 1,
+    //                    opacity: 1,
+    //                    fillOpacity: 0.8
+    //                };
 
-    $.ajax({
-        dataType: "json",
-        url: "/aqis?area="+area+"&"+datestring+"&component="+component,
-        success: function(data) {
-            L.geoJSON(data.features, {
-                pointToLayer: function(feature, latlng){
-                    var geojsonMarkerOptions = {
-                        color: "#"+feature.properties.color,
-                        weight: 10,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    };
-
-                    return L.circle(latlng, geojsonMarkerOptions)
-                },
-                onEachFeature: onEachFeature
-            }) .addTo(map);
-        }
-    });
-
-    $.ajax({
-        dataType: "json",
-        url: "/logs?"+datestring,
-        success: function(data) {
-            L.geoJSON(data.features, {
-                pointToLayer: function(feature, latlng){
-                    var geojsonMarkerOptions = {
-                        weight: 1,
-                        opacity: 1,
-                        fillOpacity: 0.8
-                    };
-
-                    return L.circle(latlng, geojsonMarkerOptions)
-                    },
-                    onEachFeature: onEachFeature
-                }) .addTo(map);
-            }
-        });
+    //                return L.circle(latlng, geojsonMarkerOptions)
+    //                },
+    //                onEachFeature: onEachFeature
+    //            }) .addTo(map);
+    //        }
+    //    });
 
 }
 
@@ -175,7 +177,7 @@ function getHistoricalUrl(area, datestring, component) {
     return "/historical?area="+area+"&"+datestring+"&component="+component
 }
 
-function clearVis(element) { 
+function clearVis(element, map) { 
     $(element).html("") 
     if(map != undefined) { 
         map.remove(); 

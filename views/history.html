@@ -43,28 +43,29 @@
         <div class="col-4">
             <div class="row">
                 <h3>Luftkvalitet</h3> 
-                <div id="chart-PM10">
+                <div id="chart-PM10" class="chart">
                     <svg id="chart-PM10" width="300" height="200"></svg> 
+                </div>
+                <div id="chart-NO2" class="chart">
+                    <svg id="chart-NO2" width="300" height="200"></svg> 
                 </div>
             </div>
             <hr class="my-4">
         <div class="float" id="download" style="display:none">
           <button type="button" class="btn btn-success">Last ned</button>
         </div> 
-
-
         </div> 
     </div>  
 
 <script> 
+var map; 
 $('#history-button').click(function(e) {
-    component = "PM10"
-    var element = "svg#chart-"+component
 
-    clearVis(element) 
-    $("#download").css("display", "none") 
-
-
+    if(map != undefined) { 
+        map.remove(); 
+    }
+    
+    map = newMap(mapid); 
     var from = $('#from').val()
     from = new Date(from)
 
@@ -74,8 +75,22 @@ $('#history-button').click(function(e) {
     area = "Tromsø"
     datestring = "from="+from.toJSON()+"&to="+to.toJSON() 
     
-    console.log(area, component, datestring) 
-    vis(area, component, datestring, element);
+    component = "PM10"
+    var element = "svg#chart-"+component
+    container = "chart-"+component
+    $("#download").css("display", "none") 
+    $(element).html("") 
+
+
+    addToMap(map, area, component, datestring) 
+    barChart(area, component, datestring, container, element);
+
+    component = "NO2"
+    var element = "svg#chart-"+component
+    $(element).html("") 
+
+    addToMap(map, area, component, datestring) 
+    barChart(area, component, datestring, container, element);
 
     $("#download").css("display", "block") 
 });
