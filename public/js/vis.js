@@ -1,5 +1,5 @@
 var map; 
-function vis(area, datestring) { 
+function vis(area, component, datestring, container, element) { 
     
     var component = "PM10" 
 
@@ -27,11 +27,11 @@ function vis(area, datestring) {
 
     var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
 
-    var svg = document.querySelector("svg#chart"); 
-    svg.setAttribute("width", document.getElementById('chart').clientWidth) 
+    var svg = document.querySelector(element); 
+    svg.setAttribute("width", document.getElementById(container).clientWidth) 
 
 
-    var svg = d3.select("svg#chart"),
+    var svg = d3.select(element),
     margin = {top: 20, right: 30, bottom: 20, left: 30},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
@@ -150,7 +150,6 @@ function vis(area, datestring) {
         }
     });
 
-    /*
     $.ajax({
         dataType: "json",
         url: "/logs?"+datestring,
@@ -169,7 +168,6 @@ function vis(area, datestring) {
                 }) .addTo(map);
             }
         });
-    */
 
 }
 
@@ -177,8 +175,8 @@ function getHistoricalUrl(area, datestring, component) {
     return "/historical?area="+area+"&"+datestring+"&component="+component
 }
 
-function clearVis() { 
-    $("svg#chart").html("") 
+function clearVis(element) { 
+    $(element).html("") 
     if(map != undefined) { 
         map.remove(); 
     }

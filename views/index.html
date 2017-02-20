@@ -31,8 +31,8 @@
     <div class="col-4">
         <div class="row">
             <h3>Luftkvalitet de siste 24 timene.</h3> 
-            <div id="chart">
-                <svg id="chart" width="300" height="200"></svg> 
+            <div id="chart-PM10">
+                <svg id="chart-PM10" width="300" height="200"></svg> 
             </div>
         </div>
         <hr class="my-4">
@@ -54,7 +54,11 @@ var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON()
 
 var area = "Tromsø"
 console.log(datestring) 
-vis(area, datestring); 
+component = "PM10"
+element = "svg#chart-"+component
+container = "chart-"+component
+
+vis(area, component, datestring, container, element); 
 
 // get and insert forecast 
 $.ajax({

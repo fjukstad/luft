@@ -43,8 +43,8 @@
         <div class="col-4">
             <div class="row">
                 <h3>Luftkvalitet</h3> 
-                <div id="chart">
-                    <svg id="chart" width="300" height="200"></svg> 
+                <div id="chart-PM10">
+                    <svg id="chart-PM10" width="300" height="200"></svg> 
                 </div>
             </div>
             <hr class="my-4">
@@ -58,8 +58,10 @@
 
 <script> 
 $('#history-button').click(function(e) {
+    component = "PM10"
+    var element = "svg#chart-"+component
 
-    clearVis() 
+    clearVis(element) 
     $("#download").css("display", "none") 
 
 
@@ -72,8 +74,8 @@ $('#history-button').click(function(e) {
     area = "Tromsø"
     datestring = "from="+from.toJSON()+"&to="+to.toJSON() 
     
-    console.log(area, datestring) 
-    vis(area, datestring);
+    console.log(area, component, datestring) 
+    vis(area, component, datestring, element);
 
     $("#download").css("display", "block") 
 });
