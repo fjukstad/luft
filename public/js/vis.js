@@ -77,8 +77,15 @@ function barChart(area, component, datestring, container, element) {
         
     var stations = {}; 
     
-    var historicalUrl = getHistoricalUrl(area, datestring, component) 
-    d3.csv(historicalUrl,
+    var url; 
+    if(component == "NO2" || component == "PM10"){ 
+        url = getHistoricalUrl(area, datestring, component);
+    }  else if(component == "dust" || component == "humidity" || component == "temperature"){
+        url = getStudentUrl(datestring, component) 
+    }
+
+
+    d3.csv(url,
             function(d) { 
                 if(!stations[d.station]){
                     stations[d.station] = []
@@ -93,7 +100,6 @@ function barChart(area, component, datestring, container, element) {
             },
             function(error, data){
 
-              console.log(stations) 
               x.domain(d3.extent(data, function(d) { return d.from; }));
               y.domain(d3.extent(data, function(d) { return d.value; }));
 
@@ -114,9 +120,11 @@ function barChart(area, component, datestring, container, element) {
                   .text(component + "("+unit+")"); 
 
                 label_offset = width/2
+                var component_selector = component.replace("/","") 
+                
                 g.append("g")
                     .append("text")
-                    .attr("id",component+"-label")
+                    .attr("id",component_selector+"-label")
                     .attr("transform", "translate("+label_offset+",0)")
                     .attr("fill", "#000")
                     .text("")
@@ -127,6 +135,7 @@ function barChart(area, component, datestring, container, element) {
                         id = id.replace(",","")
                         id = id.replace(".","")
 
+
                     path = g.append("path")
                       .datum(stations[station])
                       .attr("fill", "none")
@@ -136,17 +145,17 @@ function barChart(area, component, datestring, container, element) {
                       .attr("stroke-linecap", "round")
                       .attr("stroke-width", 1.5)
                       .attr("d", line)
-                      .attr("id", id+"-"+component)
+                      .attr("id", id+"-"+component_selector)
                       
-                    d3.select("path#"+id+"-"+component).on("mouseover", function(){
+                    d3.select("path#"+id+"-"+component_selector).on("mouseover", function(){
                         d3.select(this).style("stroke-width", 5); 
                         label = d3.select(this).data()[0][0].station
-                        d3.select("text#"+component+"-label").text(label)
+                        d3.select("text#"+component_selector+"-label").text(label)
                      })
 
                     .on("mouseout", function(){
                         d3.select(this).style("stroke-width", 1.5); 
-                        d3.select("text#"+component+"-label").text("")
+                        d3.select("text#"+component_selector+"-label").text("")
                     })
                     }
             })
@@ -176,6 +185,11 @@ function barChart(area, component, datestring, container, element) {
 function getHistoricalUrl(area, datestring, component) {
     return "/historical?area="+area+"&"+datestring+"&component="+component
 }
+
+function getStudentUrl(datestring, component) {
+    return "/student?"+datestring+"&component="+component
+} 
+
 
 function clearVis(element, map) { 
     $(element).html("") 
