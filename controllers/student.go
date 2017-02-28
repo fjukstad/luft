@@ -4,7 +4,6 @@ import (
 	"encoding/csv"
 	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -13,68 +12,48 @@ import (
 	"github.com/pkg/errors"
 )
 
-func LogHandler(w http.ResponseWriter, r *http.Request) {
-	filename := "data/smaller.csv"
-	f, err := os.Open(filename)
+func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
+	values := r.URL.Query()
+	to, from, err := parseTimeInput(values)
 	if err != nil {
-		w.Write([]byte("Could not open data file " + err.Error()))
+		http.Error(w, "Could not parse time: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	reader := csv.NewReader(f)
-	records, err := reader.ReadAll()
+	component := values["component"][0]
+
+	filter := luftkvalitet.Filter{
+		ToTime:     to,
+		FromTime:   from,
+		Components: []string{component},
+	}
+	data, err := getStudentData(filter)
 	if err != nil {
-		w.Write([]byte("Could not parse csv file " + err.Error()))
+		http.Error(w, "Could not parse student data: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	fc := geojson.NewFeatureCollection()
-	for i, record := range records {
-		// skipping header
-		if i == 0 {
-			continue
-		}
-		if len(record) < 6 {
-			w.Write([]byte("error parsing csv"))
-			return
-		}
-
-		date := record[0]
-		lat, err := strconv.ParseFloat(record[1], 64)
-		if err != nil {
-			w.Write([]byte("error parsing float " + err.Error()))
-			return
-		}
-		long, err := strconv.ParseFloat(record[2], 64)
-		if err != nil {
-			w.Write([]byte("error parsing float " + err.Error()))
-			return
-		}
-		ppm := record[3]
-		humid := record[4]
-		temp := record[5]
-
-		geom := geojson.NewPointGeometry([]float64{long, lat})
+	for _, measurement := range data {
+		geom := geojson.NewPointGeometry([]float64{measurement.Longitude, measurement.Latitude})
 		f := geojson.NewFeature(geom)
-		f.SetProperty("group", "Student-A")
-		f.SetProperty("date", date)
-		f.SetProperty("value", ppm)
-		f.SetProperty("component", "PM2.5")
-		f.SetProperty("humid", humid)
-		f.SetProperty("temp", temp)
+		f.SetProperty("name", measurement.Group)
+		f.SetProperty("date", measurement.Date)
+		f.SetProperty("dust", measurement.Dust)
+		f.SetProperty("humidity", measurement.Humidity)
+		f.SetProperty("temperature", measurement.Temperature)
 		f.SetProperty("weight", 2)
 		fc = fc.AddFeature(f)
 	}
 	b, err := fc.MarshalJSON()
 
 	if err != nil {
-		fmt.Println(err)
-		w.Write([]byte("Could not marshal geojson"))
+		http.Error(w, "Could not marshal geojson"+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.Write(b)
-
+	return
 }
 
 func StudentHandler(w http.ResponseWriter, r *http.Request) {

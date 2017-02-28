@@ -18,13 +18,20 @@ function newMap(id){
     return map; 
 }   
 
-function addToMap(map, area, component, datestring) { 
-    var geolayer = L.geoJSON().addTo(map);
+function addToMap(map, area, provider, component, datestring) { 
+
     function onEachFeature(feature, layer) {
         // does this feature have a property named popupContent?
         if (feature.properties && feature.properties.name) {
             content = "<b>"+feature.properties.name+"</b></br>"
-            content += feature.properties.component+": "+feature.properties.value + "</br>"
+            if(feature.properties.component) {
+                content += feature.properties.component+": "+feature.properties.value + "</br>"
+            } 
+            if(feature.properties.dust){ 
+                content += "Dust: " + feature.properties.dust + "</br>" 
+                content += "Temperature: "+feature.properties.temperature + "</br>"
+                content += "Humidity: "+feature.properties.humidity + "</br>"
+            }
             content += feature.properties.date
             layer.bindPopup(content);
         }
@@ -32,7 +39,7 @@ function addToMap(map, area, component, datestring) {
 
     $.ajax({
         dataType: "json",
-        url: "/aqis?area="+area+"&"+datestring+"&component="+component,
+        url: "/"+ provider+"aqis?area="+area+"&"+datestring+"&component="+component,
         success: function(data) {
             var layer = L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
