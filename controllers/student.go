@@ -62,6 +62,7 @@ func LogHandler(w http.ResponseWriter, r *http.Request) {
 		f.SetProperty("component", "PM2.5")
 		f.SetProperty("humid", humid)
 		f.SetProperty("temp", temp)
+		f.SetProperty("weight", 2)
 		fc = fc.AddFeature(f)
 	}
 	b, err := fc.MarshalJSON()

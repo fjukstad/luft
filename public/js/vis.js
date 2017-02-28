@@ -23,28 +23,35 @@ function addToMap(map, area, component, datestring) {
     function onEachFeature(feature, layer) {
         // does this feature have a property named popupContent?
         if (feature.properties && feature.properties.name) {
-            layer.bindPopup("<b>"+feature.properties.name+"</b></br>"+feature.properties.component+": "+feature.properties.value);
+            content = "<b>"+feature.properties.name+"</b></br>"
+            content += feature.properties.component+": "+feature.properties.value + "</br>"
+            content += feature.properties.date
+            layer.bindPopup(content);
         }
     }
+
     $.ajax({
         dataType: "json",
         url: "/aqis?area="+area+"&"+datestring+"&component="+component,
         success: function(data) {
-            L.geoJSON(data.features, {
+            var layer = L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
                     var geojsonMarkerOptions = {
                         color: "#"+feature.properties.color,
-                        weight: 10,
+                        weight: feature.properties.weight,
                         opacity: 1,
                         fillOpacity: 0.8
                     };
-
                     return L.circle(latlng, geojsonMarkerOptions)
                 },
                 onEachFeature: onEachFeature
-            }) .addTo(map);
+            })
+
+            layer.addTo(map);
         }
     });
+
+
 }
 
 function barChart(area, component, datestring, container, element) { 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/csv"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -22,34 +23,78 @@ func AquisGeoJSON(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	components := values["component"]
+	component := values["component"][0]
 	areas := values["area"]
 
 	f := luftkvalitet.Filter{
 		Areas:      areas,
 		ToTime:     to,
 		FromTime:   from,
-		Components: components,
-	}
-
-	historical, err := luftkvalitet.GetHistorical(f)
-	if err != nil {
-		w.Write([]byte("could not get data from api.nilu.no."))
-		return
+		Components: []string{component},
 	}
 
 	fc := geojson.NewFeatureCollection()
-	for _, hist := range historical {
-		geom := geojson.NewPointGeometry([]float64{hist.Location.Longitude, hist.Location.Latitude})
-		for _, m := range hist.Measurements {
-			f := geojson.NewFeature(geom)
-			f.SetProperty("name", hist.Station.Station)
-			f.SetProperty("component", hist.Component)
-			f.SetProperty("unit", m.Unit)
-			f.SetProperty("value", m.Value)
-			f.SetProperty("color", m.Color)
-			fc = fc.AddFeature(f)
+	if component == "PM10" || component == "NO2" || component == "PM2.5" {
+		historical, err := luftkvalitet.GetHistorical(f)
+		if err != nil {
+			w.Write([]byte("could not get data from api.nilu.no."))
+			return
 		}
+		for _, hist := range historical {
+			geom := geojson.NewPointGeometry([]float64{hist.Location.Longitude, hist.Location.Latitude})
+			for _, m := range hist.Measurements {
+				f := geojson.NewFeature(geom)
+				f.SetProperty("name", hist.Station.Station)
+				f.SetProperty("component", hist.Component)
+				f.SetProperty("unit", m.Unit)
+				f.SetProperty("value", m.Value)
+				f.SetProperty("color", m.Color)
+				f.SetProperty("date", m.FromTime.Format(timeLayout))
+				f.SetProperty("weight", 10)
+				fc = fc.AddFeature(f)
+			}
+		}
+	} else if component == "dust" || component == "humidity" || component == "temperature" {
+
+		data, err := getStudentData(f)
+		if err != nil {
+			http.Error(w, "Could not parse student data: "+err.Error(), http.StatusInternalServerError)
+			fmt.Println("Could not parse student data:" + err.Error())
+			return
+		}
+
+		for _, measurement := range data {
+			var value float64
+			var unit string
+			switch component {
+			case "dust":
+				value = measurement.Dust
+				unit = "ug/m3"
+			case "humidity":
+				value = measurement.Humidity
+				unit = "%"
+			case "temperature":
+				value = measurement.Temperature
+				unit = "C"
+			}
+
+			formattedValue := strconv.FormatFloat(value, 'f', -1, 64)
+			from := measurement.Date.Format(timeLayout)
+			//to := measurement.Date.Format(timeLayout)
+
+			geom := geojson.NewPointGeometry([]float64{measurement.Longitude, measurement.Latitude})
+			f := geojson.NewFeature(geom)
+			f.SetProperty("name", measurement.Group)
+			f.SetProperty("component", component)
+			f.SetProperty("unit", unit)
+			f.SetProperty("value", formattedValue)
+			f.SetProperty("date", from)
+			f.SetProperty("color", "fab")
+			f.SetProperty("weight", 2)
+			fc = fc.AddFeature(f)
+
+		}
+
 	}
 
 	b, err := fc.MarshalJSON()
