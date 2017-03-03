@@ -140,9 +140,21 @@
         var url = getHistoricalUrl(area, datestring, component)
         window.open(url, '_blank');
 
-        var component = "NO2"
-        var url = getHistoricalUrl(area, datestring, component)
+        component = "NO2"
+        url = getHistoricalUrl(area, datestring, component)
         window.open(url, '_blank');
+
+        var component = "dust"
+        url = getStudentUrl(datestring, component);
+        window.open(url, '_blank'); 
+
+        var component = "temperature"
+        url = getStudentUrl(datestring, component);
+        window.open(url, '_blank'); 
+
+        var component = "humidity"
+        url = getStudentUrl(datestring, component);
+        window.open(url, '_blank'); 
     })
 </script>
 

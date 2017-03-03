@@ -15,6 +15,7 @@ func main() {
 	mux.HandleFunc("/forecast", controllers.ForecastHandler)
 	mux.HandleFunc("/studentaqis", controllers.StudentAqisHandler)
 	mux.HandleFunc("/student", controllers.StudentHandler)
+	mux.HandleFunc("/precipitation", controllers.PrecipitationHandler)
 
 	mux.Handle("/public/", http.FileServer(http.Dir(".")))
 
