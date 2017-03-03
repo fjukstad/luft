@@ -3,7 +3,6 @@ function newMap(id){
     map = L.map(id, {editable:true})
     map.setView([69.680, 18.951], 9.6);
 
-
     var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
 
     L.tileLayer(
@@ -67,8 +66,6 @@ function addToMap(map, area, provider, component, datestring) {
             layer.addTo(map);
         }
     });
-
-
 }
 
 function barChart(area, component, datestring, container, element) { 
@@ -182,27 +179,6 @@ function barChart(area, component, datestring, container, element) {
                     })
                     }
             })
-
-
-    //$.ajax({
-    //    dataType: "json",
-    //    url: "/logs?"+datestring,
-    //    success: function(data) {
-    //        L.geoJSON(data.features, {
-    //            pointToLayer: function(feature, latlng){
-    //                var geojsonMarkerOptions = {
-    //                    weight: 1,
-    //                    opacity: 1,
-    //                    fillOpacity: 0.8
-    //                };
-
-    //                return L.circle(latlng, geojsonMarkerOptions)
-    //                },
-    //                onEachFeature: onEachFeature
-    //            }) .addTo(map);
-    //        }
-    //    });
-
 }
 
 function getHistoricalUrl(area, datestring, component) {
