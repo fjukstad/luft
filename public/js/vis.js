@@ -37,14 +37,24 @@ function addToMap(map, area, provider, component, datestring) {
         }
     }
 
+    var colorScheme = d3.scaleOrdinal(d3.schemeCategory20);
+
     $.ajax({
         dataType: "json",
         url: "/"+ provider+"aqis?area="+area+"&"+datestring+"&component="+component,
         success: function(data) {
             var layer = L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
+
+                    var color = "" ; 
+                    if(!feature.properties.color){
+                        color = colorScheme(feature.properties.name)
+                    } else {
+                        color = "#" + feature.properties.color
+                    }
+
                     var geojsonMarkerOptions = {
-                        color: "#"+feature.properties.color,
+                        color: color,
                         weight: feature.properties.weight,
                         opacity: 1,
                         fillOpacity: 0.8
@@ -80,7 +90,7 @@ function barChart(area, component, datestring, container, element) {
     var y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
-    var z = d3.scaleOrdinal(d3.schemeCategory10);
+    var z = d3.scaleOrdinal(d3.schemeCategory20);
 
     var line = d3.line()
         .curve(d3.curveBasis)
