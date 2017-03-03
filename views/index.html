@@ -30,21 +30,33 @@
     </div> 
     <div class="col-4">
         <div class="row">
-            <h3>Luftkvalitet de siste 24 timene.</h3> 
-            <div id="chart-PM10" class="chart">
-                <svg id="chart-PM10" width="300" height="200"></svg> 
-            </div>
-            <div id="chart-NO2" class="chart">
-                <svg id="chart-NO2" width="300" height="200"></svg> 
-            </div>
-        </div>
-        <hr class="my-4">
-        <div class="row">
             <h3>Varsel</h3> 
             <div id="forecast">
                 <p id="forecast"></p> 
             </div> 
         </div> 
+        <div class="row">
+         <h3>Målinger fra studenter</h3>
+            <div id="chart-dust" class="chart">
+                <svg id="chart-dust" width="300" height="200"></svg>
+            </div>
+            <div id="chart-temperature" class="chart">
+                <svg id="chart-temperature" width="300" height="200"></svg>
+            </div>
+            <div id="chart-humidity" class="chart">
+                <svg id="chart-humidity" width="300" height="200"></svg>
+            </div>
+        </div>
+        <div class="row">
+            <h3>Målinger fra NILU</h3>
+            <div id="chart-PM10" class="chart">
+                <svg id="chart-PM10" width="300" height="200"></svg>
+            </div>
+            <div id="chart-NO2" class="chart">
+                <svg id="chart-NO2" width="300" height="200"></svg>
+            </div>
+        </div>
+        <hr class="my-4">
     </div> 
 </div> 
 
@@ -65,16 +77,38 @@ component = "PM10"
 element = "svg#chart-"+component
 container = "chart-"+component
 
+var provider = "nilu" 
 
-addToMap(map, area, component, datestring) 
+addToMap(map, area, provider, component, datestring) 
 barChart(area, component, datestring, container, element); 
 
 component = "NO2" 
 element = "svg#chart-"+component
 container = "chart-"+component
 
-addToMap(map, area, component, datestring) 
+addToMap(map, area, provider, component, datestring) 
 barChart(area, component, datestring, container, element); 
+
+
+provider = "student" 
+component = "dust"
+var element = "svg#chart-" + component
+barChart(area, component, datestring, container, element);
+
+
+component = "humidity"
+var element = "svg#chart-" + component
+barChart(area, component, datestring, container, element);
+
+component = "temperature"
+var element = "svg#chart-" + component
+barChart(area, component, datestring, container, element);
+
+addToMap(map, area, provider, component, datestring)
+
+
+
+
 
 // get and insert forecast 
 $.ajax({

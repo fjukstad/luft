@@ -100,7 +100,6 @@ function barChart(area, component, datestring, container, element) {
     var unit = "" ; 
         
     var stations = {}; 
-    
     var url; 
     if(component == "NO2" || component == "PM10"){ 
         url = getHistoricalUrl(area, datestring, component);
