@@ -10,7 +10,7 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/niluaqis", controllers.AqisGeoJSON)
+	mux.HandleFunc("/niluaqis", controllers.NILUAqiHandler)
 	mux.HandleFunc("/historical", controllers.HistoricalHandler)
 	mux.HandleFunc("/forecast", controllers.ForecastHandler)
 	mux.HandleFunc("/studentaqis", controllers.StudentAqisHandler)

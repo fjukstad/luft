@@ -14,7 +14,7 @@ import (
 
 const timeLayout = "2006-01-02T15:04:05.000Z"
 
-func AqisGeoJSON(w http.ResponseWriter, r *http.Request) {
+func NILUAqiHandler(w http.ResponseWriter, r *http.Request) {
 	values := r.URL.Query()
 	to, from, err := parseTimeInput(values)
 	if err != nil {
