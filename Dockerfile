@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y unzip git \
     && rm -rf /var/lib/apt/lists/*
 
 RUN go get github.com/fjukstad/luftkvalitet
+RUN go get github.com/fjukstad/met
 RUN go get github.com/paulmach/go.geojson
 
 RUN mkdir -p $GOPATH/src/github.com/fjukstad/luft
