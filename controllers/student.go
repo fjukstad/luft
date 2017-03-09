@@ -153,7 +153,9 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 	reader := csv.NewReader(resp.Body)
 	records, err := reader.ReadAll()
 	if err != nil {
-		fmt.Println(resp.Body)
+		if len(records) == 0 {
+			return []Measurement{}, nil
+		}
 		return []Measurement{}, errors.Wrap(err, "Could not read csv from "+u)
 	}
 
