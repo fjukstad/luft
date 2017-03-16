@@ -27,6 +27,7 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 		FromTime:   from,
 		Components: []string{component},
 	}
+
 	data, err := getStudentData(filter)
 	if err != nil {
 		http.Error(w, "Could not parse student data: "+err.Error(), http.StatusInternalServerError)
@@ -34,6 +35,7 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fc := geojson.NewFeatureCollection()
+
 	for _, measurement := range data {
 		geom := geojson.NewPointGeometry([]float64{measurement.Longitude, measurement.Latitude})
 		f := geojson.NewFeature(geom)
@@ -45,8 +47,8 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 		f.SetProperty("weight", 2)
 		fc = fc.AddFeature(f)
 	}
-	b, err := fc.MarshalJSON()
 
+	b, err := fc.MarshalJSON()
 	if err != nil {
 		http.Error(w, "Could not marshal geojson"+err.Error(), http.StatusInternalServerError)
 		return
@@ -74,7 +76,6 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := getStudentData(filter)
 	if err != nil {
 		http.Error(w, "Could not parse student data: "+err.Error(), http.StatusInternalServerError)
-		fmt.Println("Could not parse student data:" + err.Error())
 		return
 	}
 
@@ -122,7 +123,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var studentTimeLayout string = "02.01.2006"
-var studentResponseTimeLayout string = "2006-01-02 15:04:05 UTC"
+var studentResponseTimeLayout string = "2006-01-02 15:04:05 +0100"
 
 type Measurement struct {
 	Id            string
@@ -151,6 +152,7 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 	}
 
 	reader := csv.NewReader(resp.Body)
+
 	records, err := reader.ReadAll()
 	if err != nil {
 		if len(records) == 0 {
@@ -214,8 +216,12 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 
 		date, err := time.Parse(studentResponseTimeLayout, record[9])
 		if err != nil {
-			msg := "Could not parse date " + record[9]
-			return []Measurement{}, errors.Wrap(err, msg)
+			msg := "Could not parse date " + record[9] + " skipping measurement.\n"
+			msg += "Url: " + u
+			fmt.Println(msg)
+			fmt.Println("Full record: ", record)
+			continue
+			//return []Measurement{}, errors.Wrap(err, msg)
 		}
 
 		data = append(data, Measurement{
