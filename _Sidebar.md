@@ -14,5 +14,5 @@
 [arduino]: https://github.com/fjukstad/uit-luft-arduino/wiki/Arduino-Uno
 [shield]: https://github.com/fjukstad/uit-luft-arduino/wiki/shield
 [gps]: https://github.com/fjukstad/uit-luft-arduino/wiki/gps
-[stov]: https://github.com/fjukstad/uit-luft-arduino/wiki/stov
-[tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/tempfukt
+[stov]: https://github.com/fjukstad/uit-luft-arduino/wiki/SDS011-Luftkvalitetssensor
+[tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/DHT22-Digital-Fukt-og-Temperatur-Sensor
