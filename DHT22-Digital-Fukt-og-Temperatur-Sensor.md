@@ -1,0 +1,1 @@
+Fukt og temp sensor.
