@@ -6,4 +6,5 @@
 
 [hjem]: https://github.com/fjukstad/uit-luft-arduino/wiki/hjem
 [komponenter]: https://github.com/fjukstad/uit-luft-arduino/wiki/Komponenter
-[programmering]: 
+[programmering]: https://github.com/fjukstad/uit-luft-arduino/wiki/Programmering
+[arduino]: https://github.com/fjukstad/uit-luft-arduino/wiki/Arduino-Uno
