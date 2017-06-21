@@ -18,3 +18,5 @@ Man kan lese mer om de forskjellige typene programmer [her](https://en.wikiversi
 
 ## Arduino Programmering
 Et Arduino program er nok mest relatert til en *Applikasjon*, men den kjører gjerne ikke sammen med et fullverdig operativsystem. Noen av ulempene med dette er at det ikke er mulig å kjøre mange programmer samtidig på en Arduino, men det er kun et som kan kjøre om gangen, man har ikke like mye muligheter på en Arduino som en vanlig datamaskin i forhold til skjermer, internett ol. Noen av fordelene er at enkle programmer bruker gjerne lite strøm, det er forholdsvis lett å forstå oppbygningen av programmer og man kan koble sensorer direkte inn i en Arduino som gjør den perfekt til å lage små enheter man kan bære med seg.
+
+Arduino benytter seg av små programmer som kalles *Sketches*. Når man programmerer en Arduino så laster man opp *Sketchen* til Arduinoens flash minne. Når man da kobler strøm til arduinoen så vil den laste inn og kjøre *Sketchen* man lastet opp. For å programmere Arduinoen på nytt så laster man bare opp en ny *Sketch* så vil denne overskrive den forrige. Arduino Uno kan bare programmeres med **en** *Sketch* om gangen.

@@ -7,6 +7,7 @@
   * [Støvsensor][stov]
   * [Temp/Fukt][tempfukt]
 - [Programmering][programmering]
+  1. [Introduksjon][intro]
 
 [hjem]: https://github.com/fjukstad/uit-luft-arduino/wiki/home
 [komponenter]: https://github.com/fjukstad/uit-luft-arduino/wiki/Komponenter
@@ -16,3 +17,4 @@
 [gps]: https://github.com/fjukstad/uit-luft-arduino/wiki/gps
 [stov]: https://github.com/fjukstad/uit-luft-arduino/wiki/SDS011-Luftkvalitetssensor
 [tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/DHT22-Digital-Fukt-og-Temperatur-Sensor
+[intro]: https://github.com/fjukstad/uit-luft-arduino/wiki/1-Introduksjon
