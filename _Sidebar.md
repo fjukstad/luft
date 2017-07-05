@@ -6,6 +6,7 @@
   * [GPS][gps]
   * [Støvsensor][stov]
   * [Temp/Fukt][tempfukt]
+  * [Minnekort][minnekort]
 - [Programmering][programmering]
   1. [Introduksjon][intro]
 
@@ -17,4 +18,5 @@
 [gps]: https://github.com/fjukstad/uit-luft-arduino/wiki/gps
 [stov]: https://github.com/fjukstad/uit-luft-arduino/wiki/SDS011-Luftkvalitetssensor
 [tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/DHT22-Digital-Fukt-og-Temperatur-Sensor
+[tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/minnekort
 [intro]: https://github.com/fjukstad/uit-luft-arduino/wiki/Introduksjon
