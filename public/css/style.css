@@ -4,7 +4,9 @@
 
 li.nav {
     display: inline;
+    color: #fab;
 }
+
 #mapid { 
     height: 100%;
     width: 100%;
@@ -25,3 +27,39 @@ li.nav {
 #message { 
     margin-top: 0.5em;
 }
+
+
+body { 
+    background-color: #eee;
+}
+
+.bg-faded { 
+    background: #1c3249;
+    background-color: #1c3249;
+}
+
+
+.navbar{
+    background-color:#1c3249;
+    border-radius:0;
+}
+
+.navbar .navbar-nav > li > a {
+    color:#fff;
+}
+
+.nav-link {
+    color: #fff !important;
+    
+}
+
+.navbar a:hover{
+     color: #fff !important;
+     font-weight: bold;
+ }
+
+.navbar .navbar-brand {
+    color: #fff;
+    font-family: 'Source Code Pro', monospace;
+}
+

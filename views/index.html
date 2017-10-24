@@ -44,6 +44,17 @@
                 <svg id="chart-NO2" width="300" height="200"></svg>
             </div>
         </div>
+         <div class="row">
+            <h3>Målinger fra MET de siste 24 timene</h3>
+            <div id="chart-percipitation" class="chart">
+                <svg id="chart-percipitation" width="300" height="200"></svg>
+            </div>
+            <div id="chart-snow-cover" class="chart">
+                <svg id="chart-snow-cover" width="300" height="200"></svg>
+            </div>
+          </div>
+
+
         <hr class="my-4">
     </div> 
 </div> 
@@ -95,7 +106,10 @@ barChart(area, component, datestring, container, element);
 addToMap(map, area, provider, component, datestring)
 
 
-
+//time =	"2017-01-01T00:00:00.000Z/2017-03-2T00:00:00.000Z",
+station = "SN90450"
+component = "sum(precipitation_amount PT10M)"
+elem
 
 
 // get and insert forecast 
