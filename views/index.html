@@ -1,128 +1,37 @@
 {{ define "content" }} 
-<!---
-<div class="row" id="message"> 
-    <div class="col-12">
-    <div class="alert alert-warning" role="alert">
-        <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <p> 
-        </p> 
-    </div> 
+<ul class="nav justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link active"
+       target="_blank"
+        href="https://github.com/fjukstad/uit-luft-arduino/blob/master/README.md">Programmering</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Bygging</a>
+  </li>
+</ul>  
+    <div class="jumbotron" id="om">
+      <h1 class="display-3">Hei!</h1>
+      <p class="lead">
+      Velkommen til air:bit-prosjektet til 
+      <a href="https://uit.no/skolelab">Skolelabben på UiT -
+      Norges Arktiske Universitet.</a>
+      På denne siden kan du se på, og laste ned, luftforurensningsdata som er
+      samlet inn av elever i Videregående skoler i hele Nord-Norge!
+      Elevene skal selv bygge en air:bit som består av GPS, en støvmåler,
+      luftfuktighetsmåler og temperatursensor i tillegg til et minnekort for
+      å logge dataene. Vi kommer til å legge ut en oppskrift både på hvordan man
+      bygger et sensorkit, samt hvordan man programmere den til å hente ut
+      måledata fra de forskjellige sensorene. 
+      </br></br> 
+
+      På denne siden finner du også luftkvalitetsdata fra <a href="http://www.nilu.no/">Norsk
+          Institutt for Luftforskning (NILU)</a> her, i tillegg til værdata fra
+      <a href="https://met.no/">Meteorologisk Instiutt</a>. 
+
+      </p>
+      <hr class="my-4">
+      <p>
+      Kontakt: <a href="mailto:skolelaboratoriet@nt.uit.no">skolelaboratoriet@nt.uit.no</a> 
+      </p>
     </div>
-</div>
--->
-<div class="row"> 
-    <div class="col-8"> 
-        <div id="mapid"></div>
-    </div> 
-    <div class="col-4">
-        <div class="row">
-            <h3>Varsel</h3> 
-            <div id="forecast">
-                <p id="forecast"></p> 
-            </div> 
-        </div> 
-        <div class="row">
-         <h3>Målinger fra elevene de siste 24 timene</h3>
-            <div id="chart-dust" class="chart">
-                <svg id="chart-dust" width="300" height="200"></svg>
-            </div>
-            <div id="chart-temperature" class="chart">
-                <svg id="chart-temperature" width="300" height="200"></svg>
-            </div>
-            <div id="chart-humidity" class="chart">
-                <svg id="chart-humidity" width="300" height="200"></svg>
-            </div>
-        </div>
-        <div class="row">
-            <h3>Målinger fra NILU de siste 24 timene</h3>
-            <div id="chart-PM10" class="chart">
-                <svg id="chart-PM10" width="300" height="200"></svg>
-            </div>
-            <div id="chart-NO2" class="chart">
-                <svg id="chart-NO2" width="300" height="200"></svg>
-            </div>
-        </div>
-         <div class="row">
-            <h3>Målinger fra MET de siste 24 timene</h3>
-            <div id="chart-percipitation" class="chart">
-                <svg id="chart-percipitation" width="300" height="200"></svg>
-            </div>
-            <div id="chart-snow-cover" class="chart">
-                <svg id="chart-snow-cover" width="300" height="200"></svg>
-            </div>
-          </div>
-
-
-        <hr class="my-4">
-    </div> 
-</div> 
-
-<script> 
-
-map = newMap(mapid); 
-
-
-// Get current and yesterday's date (want to get data for the last 24 hrs) 
-var now = new Date() 
-var yesterday = new Date()
-yesterday.setDate(now.getDate()-1) 
-var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
-
-var area = "Tromsø"
-console.log(datestring) 
-component = "PM10"
-element = "svg#chart-"+component
-container = "chart-"+component
-
-var provider = "nilu" 
-
-addToMap(map, area, provider, component, datestring) 
-barChart(area, component, datestring, container, element); 
-
-component = "NO2" 
-element = "svg#chart-"+component
-container = "chart-"+component
-
-addToMap(map, area, provider, component, datestring) 
-barChart(area, component, datestring, container, element); 
-
-
-provider = "student" 
-component = "dust"
-var element = "svg#chart-" + component
-barChart(area, component, datestring, container, element);
-
-
-component = "humidity"
-var element = "svg#chart-" + component
-barChart(area, component, datestring, container, element);
-
-component = "temperature"
-var element = "svg#chart-" + component
-barChart(area, component, datestring, container, element);
-
-addToMap(map, area, provider, component, datestring)
-
-
-//time =	"2017-01-01T00:00:00.000Z/2017-03-2T00:00:00.000Z",
-station = "SN90450"
-component = "sum(precipitation_amount PT10M)"
-elem
-
-
-// get and insert forecast 
-$.ajax({
-    url: "/forecast?area="+area,
-    success: function(data){
-        $("p#forecast").html(data)
-    }
-})
-
-$(".close").click(function(){
-    $("div#message").css("display","none");
-})
-
-</script> 
 {{ end }} 

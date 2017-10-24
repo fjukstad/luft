@@ -20,7 +20,7 @@ func main() {
 	mux.Handle("/public/", http.FileServer(http.Dir(".")))
 
 	mux.HandleFunc("/", controllers.IndexHandler)
-	mux.HandleFunc("/om", controllers.AboutHandler)
+	mux.HandleFunc("/live", controllers.LiveHandler)
 	mux.HandleFunc("/historikk", controllers.HistoryHandler)
 
 	port := os.Getenv("PORT")

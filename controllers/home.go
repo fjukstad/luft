@@ -17,12 +17,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-var aboutTemplate = template.Must(template.ParseFiles("views/base.html",
+var liveTemplate = template.Must(template.ParseFiles("views/base.html",
 	"views/header.html", "views/navbar.html",
-	"views/about.html", "views/footer.html"))
+	"views/live.html", "views/footer.html"))
 
-func AboutHandler(w http.ResponseWriter, r *http.Request) {
-	err := aboutTemplate.Execute(w, nil)
+func LiveHandler(w http.ResponseWriter, r *http.Request) {
+	err := liveTemplate.Execute(w, nil)
 	if err != nil {
 		fmt.Println(err)
 	}

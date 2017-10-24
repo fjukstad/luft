@@ -63,3 +63,6 @@ body {
     font-family: 'Source Code Pro', monospace;
 }
 
+#mapdiv { 
+    padding-left: 0;
+}
