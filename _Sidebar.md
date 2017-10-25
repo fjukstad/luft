@@ -33,4 +33,4 @@
 [dht]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-dht-test
 [memory-card]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-memory-card-test
 [data-format]: https://github.com/fjukstad/uit-luft-arduino/wiki/data-format
-[all-sensors]: https://github.com/fjukstad/uit-luft-arduino/wiki/air-bit-all-sensors
+[all-sensors]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-all-sensors
