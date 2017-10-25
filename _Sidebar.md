@@ -13,7 +13,7 @@
   3. [Test temperatur og luftfuktighetssensoren][dht]
   4. [Test støvsensoren][pm]
   4. [Test minnekortet][memory-card]
-  6. [Test GPS-en][gps]
+  6. [Test GPS-en][gps-code]
 
 [hjem]: https://github.com/fjukstad/uit-luft-arduino/wiki/home
 [komponenter]: https://github.com/fjukstad/uit-luft-arduino/wiki/Komponenter
@@ -26,7 +26,7 @@
 [minnekort]: https://github.com/fjukstad/uit-luft-arduino/wiki/Minnekort
 [intro]: https://github.com/fjukstad/uit-luft-arduino/wiki/Introduksjon
 [led]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-led-test
-[gps]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-gps-test
+[gps-code]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-gps-test
 [pm]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-pm-test
 [dht]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-dht-test
 [memory-card]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-memory-card-test
