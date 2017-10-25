@@ -14,6 +14,7 @@
   4. [Test støvsensoren][pm]
   4. [Test minnekortet][memory-card]
   6. [Test GPS-en][gps-code]
+  7. [Dataformat][data-format]
 
 [hjem]: https://github.com/fjukstad/uit-luft-arduino/wiki/home
 [komponenter]: https://github.com/fjukstad/uit-luft-arduino/wiki/Komponenter
@@ -30,4 +31,5 @@
 [pm]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-pm-test
 [dht]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-dht-test
 [memory-card]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-memory-card-test
+[data-format]: https://github.com/fjukstad/uit-luft-arduino/wiki/data-format
 
