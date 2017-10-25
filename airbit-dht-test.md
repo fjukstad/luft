@@ -7,12 +7,10 @@
 SimpleDHT22 dht22;
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(9600); 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   float temperature = 0;
   float humidity = 0;
   dht22.read2(DHTPIN, &temperature, &humidity, NULL);
@@ -22,6 +20,5 @@ void loop() {
   Serial.println("%");
 
   delay(2500);
-  
 }
 ```
