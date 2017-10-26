@@ -8,4 +8,4 @@ I bildet under vil du se pinout-skjemaet til air:bit.
 
 ![air:bit Pinout-Skjema][airbit-pinout-skjema]
 
-[airbit-pinout-skjema]: Værlogger_v2.1_skjema.png
+[airbit-pinout-skjema]: Vaerlogger_v2.1_skjema.png
