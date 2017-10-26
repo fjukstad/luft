@@ -1,5 +1,6 @@
 # Example code to write to a file on the memory card
-```
+
+``` cpp
 #include <SD.h>
 #define SD_PIN 10
 
@@ -12,29 +13,29 @@ void setup() {
     SD.begin();
     char filename[] = "file.txt";
 
-    // If file exsist on the memory card, append to it, if it doesn't exist 
-    // create it and write one line to the file before continuing. 
-    
+    // If file exsist on the memory card, append to it, if it doesn't exist
+    // create it and write one line to the file before continuing.
+
     if(SD.exists(filename)){
-        file.close(); 
-        file = SD.open(filename, O_WRITE | O_APPEND); 
+        file.close();
+        file = SD.open(filename, O_WRITE | O_APPEND);
     } else {
-        file = SD.open(filename, O_WRITE | O_CREAT); 
-        file.print("Dette er første linje. Den vil aldri bli overskrevet.\n"); 
+        file = SD.open(filename, O_WRITE | O_CREAT);
+        file.print("Dette er første linje. Den vil aldri bli overskrevet.\n");
         file.flush();
-    } 
+    }
 }
 
 void loop() {
-    
+
     file.print("Linje ");
     file.print(i);
-    file.print("\n"); 
+    file.print("\n");
     file.flush();
 
     i = i + 1;
 
-    delay(5000); 
+    delay(5000);
 
 }
 ```

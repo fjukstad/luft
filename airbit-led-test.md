@@ -1,12 +1,12 @@
 # Example code to test the two LEDs on the air:bit
 
-```
+``` cpp
 #define LED_WHITE A1
 #define LED_GREEN A0
 
 void setup() {
-  pinMode(LED_WHITE, OUTPUT); 
-  pinMode(LED_GREEN, OUTPUT); 
+  pinMode(LED_WHITE, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
 }
 
 void loop() {

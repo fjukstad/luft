@@ -1,8 +1,8 @@
 # Example code to print all measurements
 
-The only thing left to do is to write them to the memory card! 
+The only thing left to do is to write them to the memory card!
 
-```
+``` cpp
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 #include <stdlib.h>

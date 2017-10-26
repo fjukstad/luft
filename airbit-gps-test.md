@@ -1,8 +1,8 @@
-# Example code to test the GPS 
+# Example code to test the GPS
 
 - First download the [TinyGPS++ library](http://arduiniana.org/libraries/tinygpsplus/)
 
-```
+``` cpp
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 #include <stdlib.h>
@@ -44,10 +44,10 @@ void loop() {
         Serial.print(gps.time.second());
         Serial.print(",");
 
-        // Latitude. 
+        // Latitude.
         // Note that we convert the float output to a string. This is
         // for convenience when we're later going to write it to a file
-        // on a SD memory card. 
+        // on a SD memory card.
 
         char lat[15];
         dtostrf(gps.location.lat(), 3, 6, lat);
@@ -74,6 +74,6 @@ void loop() {
       }
       Serial.print("\n");
     }
-  } 
+  }
 }
 ```

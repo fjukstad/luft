@@ -1,14 +1,14 @@
 # Example code to test the SDS011 PM2.5 PM10 sensor
 
-- Download the [SDS011 library](http://github.com/skolelab/sds011) first. 
+- Download the [SDS011 library](http://github.com/skolelab/sds011) first.
 
-```
+``` cpp
 #include <SoftwareSerial.h>
 #include <SDS011.h>
 #define PM_TX 2
 #define PM_RX 3
 
-SDS011 sds; 
+SDS011 sds;
 
 void setup() {
   sds.begin(PM_TX,PM_RX);
@@ -16,7 +16,7 @@ void setup() {
 }
 
 void loop() {
-  float pm25, pm10; 
+  float pm25, pm10;
   int error = sds.read(&pm25,&pm10);
     if (! error) {
     Serial.print(pm25);
