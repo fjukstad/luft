@@ -9,6 +9,13 @@
   * [Minnekort][minnekort]
 - [Programmering][programmering]
   1. [Introduksjon][intro]
+  2. [Blinke med LEDs][led]
+  3. [Test temperatur og luftfuktighetssensoren][dht]
+  4. [Test støvsensoren][pm]
+  4. [Test minnekortet][memory-card]
+  6. [Test GPS-en][gps-code]
+  7. [Dataformat][data-format]
+  8. [Alle sensorene][all-sensors]
 
 [hjem]: https://github.com/fjukstad/uit-luft-arduino/wiki/home
 [komponenter]: https://github.com/fjukstad/uit-luft-arduino/wiki/Komponenter
@@ -20,3 +27,10 @@
 [tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/DHT22-Digital-Fukt-og-Temperatur-Sensor
 [minnekort]: https://github.com/fjukstad/uit-luft-arduino/wiki/Minnekort
 [intro]: https://github.com/fjukstad/uit-luft-arduino/wiki/Introduksjon
+[led]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-led-test
+[gps-code]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-gps-test
+[pm]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-pm-test
+[dht]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-dht-test
+[memory-card]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-memory-card-test
+[data-format]: https://github.com/fjukstad/uit-luft-arduino/wiki/data-format
+[all-sensors]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-all-sensors
