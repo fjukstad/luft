@@ -1,36 +1,39 @@
 # Meny
+
 - [Hjem][hjem]
+- [Pinout][pinout]
 - [Komponenter][komponenter]
-  * [Arduino Uno][arduino]
-  * [Shield][shield]
-  * [GPS][gps]
-  * [Støvsensor][stov]
-  * [Temp/Fukt][tempfukt]
-  * [Minnekort][minnekort]
+  - [Arduino Uno][arduino]
+  - [Shield][shield]
+  - [GPS][gps]
+  - [Støvsensor][stov]
+  - [Temp/Fukt][tempfukt]
+  - [Minnekort][minnekort]
 - [Programmering][programmering]
   1. [Introduksjon][intro]
-  2. [Blinke med LEDs][led]
-  3. [Test temperatur og luftfuktighetssensoren][dht]
-  4. [Test støvsensoren][pm]
-  4. [Test minnekortet][memory-card]
-  6. [Test GPS-en][gps-code]
-  7. [Dataformat][data-format]
-  8. [Alle sensorene][all-sensors]
+  1. [Blinke med LEDs][led]
+  1. [Test temperatur og luftfuktighetssensoren][dht]
+  1. [Test støvsensoren][pm]
+  1. [Test minnekortet][memory-card]
+  1. [Test GPS-en][gps-code]
+  1. [Dataformat][data-format]
+  1. [Alle sensorene][all-sensors]
 
-[hjem]: https://github.com/fjukstad/uit-luft-arduino/wiki/home
-[komponenter]: https://github.com/fjukstad/uit-luft-arduino/wiki/Komponenter
-[programmering]: https://github.com/fjukstad/uit-luft-arduino/wiki/Programmering
-[arduino]: https://github.com/fjukstad/uit-luft-arduino/wiki/Arduino-Uno
-[shield]: https://github.com/fjukstad/uit-luft-arduino/wiki/shield
-[gps]: https://github.com/fjukstad/uit-luft-arduino/wiki/gps
-[stov]: https://github.com/fjukstad/uit-luft-arduino/wiki/SDS011-Luftkvalitetssensor
-[tempfukt]: https://github.com/fjukstad/uit-luft-arduino/wiki/DHT22-Digital-Fukt-og-Temperatur-Sensor
-[minnekort]: https://github.com/fjukstad/uit-luft-arduino/wiki/Minnekort
-[intro]: https://github.com/fjukstad/uit-luft-arduino/wiki/Introduksjon
-[led]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-led-test
-[gps-code]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-gps-test
-[pm]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-pm-test
-[dht]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-dht-test
-[memory-card]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-memory-card-test
-[data-format]: https://github.com/fjukstad/uit-luft-arduino/wiki/data-format
-[all-sensors]: https://github.com/fjukstad/uit-luft-arduino/wiki/airbit-all-sensors
+[hjem]: Home
+[pinout]: airbit-pinout-schema
+[komponenter]: Komponenter
+[programmering]: Programmering
+[arduino]: Arduino-Uno
+[shield]: shield
+[gps]: gps
+[stov]: SDS011-Luftkvalitetssensor
+[tempfukt]: DHT22-Digital-Fukt-og-Temperatur-Sensor
+[minnekort]: Minnekort
+[intro]: Introduksjon
+[led]: airbit-led-test
+[gps-code]: airbit-gps-test
+[pm]: airbit-pm-test
+[dht]: airbit-dht-test
+[memory-card]: airbit-memory-card-test
+[data-format]: data-format
+[all-sensors]: airbit-all-sensors
