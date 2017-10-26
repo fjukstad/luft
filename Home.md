@@ -4,3 +4,9 @@ sammen måleren og hvordan å programmere de individuelle sensorene.
 
 Eksemplene vil ikke gi en komplett fasit, men elevene må selv sette all koden
 sammen til et sammenhengende program for Arduinoen.
+
+Gå til [Introduksjon](Introduksjon) for å komme i gang med å sette opp
+datamaskinen din slik at du kan begynne å programmere Arduino Mikrokontrolleren
+som følger med air:bit.
+**[Gå til Introduksjon](Introduksjon)**
+
