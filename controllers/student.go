@@ -39,9 +39,8 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	for _, measurement := range data {
 		geom := geojson.NewPointGeometry([]float64{measurement.Longitude, measurement.Latitude})
 		f := geojson.NewFeature(geom)
-		f.SetProperty("name", measurement.Group)
 		f.SetProperty("date", measurement.Date)
-		f.SetProperty("dust", measurement.Dust)
+		f.SetProperty("dust", measurement.PmTen)
 		f.SetProperty("humidity", measurement.Humidity)
 		f.SetProperty("temperature", measurement.Temperature)
 		f.SetProperty("weight", 2)
@@ -80,7 +79,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	records := [][]string{}
-	header := []string{"station", "from", "to", "value", "component", "unit"}
+	header := []string{"from", "to", "value", "component", "unit"}
 	records = append(records, header)
 
 	for _, measurement := range data {
@@ -89,7 +88,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 
 		switch component {
 		case "dust":
-			value = measurement.Dust
+			value = measurement.PmTen
 			unit = "ug/m3"
 		case "humidity":
 			value = measurement.Humidity
@@ -104,9 +103,9 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		from := measurement.Date.Format(timeLayout)
 		to := measurement.Date.Format(timeLayout)
 
-		station := measurement.Group
+		// station := measurement.Group
 
-		record := []string{station, from, to, formattedValue, component, unit}
+		record := []string{from, to, formattedValue, component, unit}
 		records = append(records, record)
 	}
 
@@ -126,15 +125,14 @@ var studentTimeLayout string = "02.01.2006"
 var studentResponseTimeLayout string = "2006-01-02 15:04:05 +0100"
 
 type Measurement struct {
-	Id            string
 	Latitude      float64
 	Longitude     float64
-	Dust          float64
+	PmTen         float64
+	PmTwoFive     float64
 	Humidity      float64
 	Temperature   float64
-	SubmittedDate time.Time
-	UpdatedDate   time.Time
-	Group         string
+	// SubmittedDate time.Time
+	// UpdatedDate   time.Time
 	Date          time.Time
 }
 
@@ -144,7 +142,8 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 	fromDate := filter.FromTime.Format(studentTimeLayout)
 	toDate := filter.ToTime.Format(studentTimeLayout)
 
-	u := "http://luftprosjekttromso.herokuapp.com/files/get_data?totime=" + toDate + "&fromtime=" + fromDate
+	u := "http://localhost:8080/download?totime=" + toDate + "&fromtime=" + fromDate + "&within=[69.698048,18.849053,7]"
+	// u := "https://luft-184208.appspot.com/download?totime=" + toDate + "&fromtime=" + fromDate
 
 	resp, err := http.Get(u)
 	if err != nil {
@@ -154,6 +153,7 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 	reader := csv.NewReader(resp.Body)
 
 	records, err := reader.ReadAll()
+	fmt.Println(len(records))
 	if err != nil {
 		if len(records) == 0 {
 			return []Measurement{}, nil
@@ -174,7 +174,16 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 			return []Measurement{}, errors.Wrap(err, "error prasing csv, not enough records")
 		}
 
-		id := record[0]
+		date, err := time.Parse(studentResponseTimeLayout, record[0])
+		if err != nil {
+			msg := "Could not parse date " + record[0] + " skipping measurement.\n"
+			msg += "Url: " + u
+			fmt.Println(msg)
+			fmt.Println("Full record: ", record)
+			continue
+			//return []Measurement{}, errors.Wrap(err, msg)
+		}
+
 		lat, err := strconv.ParseFloat(record[1], 64)
 		if err != nil {
 			return []Measurement{}, errors.Wrap(err, "error parsing float (latitude)")
@@ -183,57 +192,51 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 		if err != nil {
 			return []Measurement{}, errors.Wrap(err, "error parsing float (longitude)")
 		}
-		dust, err := strconv.ParseFloat(record[3], 64)
+		pmTen, err := strconv.ParseFloat(record[3], 64)
 		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (dust)")
+			return []Measurement{}, errors.Wrap(err, "error parsing float (pmTen)")
+		}
+		pmTwoFive, err := strconv.ParseFloat(record[4], 64)
+		if err != nil {
+			return []Measurement{}, errors.Wrap(err, "error parsing float (pmTwoFive)")
 		}
 
-		humid, err := strconv.ParseFloat(record[4], 64)
+		humid, err := strconv.ParseFloat(record[5], 64)
 		if err != nil {
 			return []Measurement{}, errors.Wrap(err, "error parsing float (humidity)")
 		}
 
-		temp, err := strconv.ParseFloat(record[5], 64)
+		temp, err := strconv.ParseFloat(record[6], 64)
 		if err != nil {
 			return []Measurement{}, errors.Wrap(err, "error parsing float (temperature)")
 		}
 
-		submittedDate, err := time.Parse(studentResponseTimeLayout, record[6])
-		if err != nil {
-			fmt.Println("Could not parse submitted date.")
-			fmt.Println(record[6])
-			fmt.Println("Continuing.")
-		}
+		// submittedDate, err := time.Parse(studentResponseTimeLayout, record[7])
+		// if err != nil {
+		// 	fmt.Println("Could not parse submitted date.")
+		// 	fmt.Println(record[6])
+		// 	fmt.Println("Continuing.")
+		// }
 
-		updatedDate, err := time.Parse(studentResponseTimeLayout, record[7])
-		if err != nil {
-			fmt.Println("Could not parse updated date.")
-			fmt.Println(record[7])
-			fmt.Println("Continuing.")
-		}
+		// updatedDate, err := time.Parse(studentResponseTimeLayout, record[7])
+		// if err != nil {
+		// 	fmt.Println("Could not parse updated date.")
+		// 	fmt.Println(record[7])
+		// 	fmt.Println("Continuing.")
+		// }
 
-		group := record[8]
+		// group := record[8]
 
-		date, err := time.Parse(studentResponseTimeLayout, record[9])
-		if err != nil {
-			msg := "Could not parse date " + record[9] + " skipping measurement.\n"
-			msg += "Url: " + u
-			fmt.Println(msg)
-			fmt.Println("Full record: ", record)
-			continue
-			//return []Measurement{}, errors.Wrap(err, msg)
-		}
 
 		data = append(data, Measurement{
-			id,
 			lat,
 			long,
-			dust,
+			pmTen,
+			pmTwoFive,
 			humid,
 			temp,
-			submittedDate,
-			updatedDate,
-			group,
+			// submittedDate,
+			// updatedDate,
 			date,
 		})
 	}

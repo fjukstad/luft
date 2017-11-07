@@ -1,0 +1,95 @@
+{{ define "content" }}   
+<div class="container">
+	<div class="row">
+	  <div class="col col-sm-3">
+	  </div>
+	  <div class="col-6 col-sm-6" id="input-div">
+		 	<br/>
+		 	<h4>Last opp fil(er)</h4>
+	    <form action=" " method="post" id="upload-form">	
+		    <div class="input-group">
+		      <label class="input-group-btn">
+		          <span class="btn btn-primary">
+		              Utforsk&hellip; <input type="file" style="display: none;" multiple>
+		          </span>
+		      </label>
+		      <input type="text" class="form-control" name="browsefile" readonly>
+		    </div>
+		  	<div class="form-group">
+				  <button type="submit" class="btn btn-primary" >Last opp <span class="glyphicon glyphicon-send"></span></button>
+				</div>
+			</form>
+		</div>	  
+	</div>
+<div class="alert alert-success" role="alert" id="success_message">
+	Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.
+</div>
+
+<script>
+	$(function() {
+	  // We can attach the `fileselect` event to all file inputs on the page
+	  $(document).on('change', ':file', function() {
+	    var input = $(this),
+	        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+	        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+	    input.trigger('fileselect', [numFiles, label]);
+	  });
+
+	  // We can watch for our custom `fileselect` event like this
+	  $(document).ready( function() {
+	      $(':file').on('fileselect', function(event, numFiles, label) {
+
+	          var input = $(this).parents('.input-group').find(':text'),
+	              log = numFiles > 1 ? numFiles + ' valgte filer' : label;
+
+	          if( input.length ) {
+	              input.val(log);
+	          } else {
+	              if( log ) alert(log);
+	          }
+
+	      });
+	  });
+	  
+	});
+
+
+
+  $(document).ready(function() {
+    $('#upload-form').bootstrapValidator({   
+      fields: {
+        browsefile: {
+          validators: {
+            notEmpty: {
+            	message: 'Vennligst angi en fil for opplastning.'
+            },
+        		file: {
+        			extension: 'csv',
+       				type: 'text/csv',
+       				message: 'Filen må være av typen csv'
+        		}
+          }
+        }
+      }
+    }).on('success.form.bv', function(e) {
+      $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+          $('#upload-form').data('bootstrapValidator').resetForm();
+
+      // Prevent form submission
+      e.preventDefault();
+
+      // Get the form instance
+      var $form = $(e.target);
+
+      // Get the BootstrapValidator instance
+      var bv = $form.data('bootstrapValidator');
+
+      // Use Ajax to submit form data
+      $.post($form.attr('action'), $form.serialize(), function(result) {
+          console.log(result);
+      }, 'json');
+    });
+  });
+ 
+</script>
+{{ end }}

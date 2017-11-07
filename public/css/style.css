@@ -1,68 +1,115 @@
 .topnav{
-    display: inline !important;
+  display: inline !important;
 }
 
 li.nav {
-    display: inline;
-    color: #fab;
+  display: inline;
+  color: #fab;
 }
 
 #mapid { 
-    height: 100%;
-    width: 100%;
-    margin: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .chart {
-    width: 100%;
+  width: 100%;
 }
 
 #om { 
 }
 
 #history-button { 
-    right: 0px;
-    position: absolute;
+  right: 0px;
+  position: absolute;
 } 
+
+.container {
+  margin-top: 15px;
+}
+
 #message { 
-    margin-top: 0.5em;
+  margin-top: 0.5em;
 }
 
 
 body { 
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .bg-faded { 
-    background: #1c3249;
-    background-color: #1c3249;
+  background: #1c3249;
+  background-color: #1c3249;
 }
 
 
 .navbar{
-    background-color:#1c3249;
-    border-radius:0;
+  background-color:#1c3249;
+  border-radius:0;
 }
 
 .navbar .navbar-nav > li > a {
-    color:#fff;
+  color:#fff;
 }
 
 .nav-link {
-    color: #fff !important;
-    
+  color: #fff !important;    
 }
 
 .navbar a:hover{
-     color: #fff !important;
-     font-weight: bold;
- }
+  color: #fff !important;
+  font-weight: bold;
+}
 
 .navbar .navbar-brand {
-    color: #fff;
-    font-family: 'Source Code Pro', monospace;
+  color: #fff;
+  font-family: 'Source Code Pro', monospace;
+}
+
+#nav-link {
+  color: black !important;
 }
 
 #mapdiv { 
-    padding-left: 0;
+  padding-left: 0;
 }
+
+#select-area > h3, #select-area > .form-group{
+  display: inline-block;
+}
+
+.form-check {
+  display: inline-block;
+}
+
+.form-check-label {
+  padding-right: 10px;
+}
+
+#forecast {
+  width: 100%;
+}
+
+#upload-form > .input-group > .form-control {
+  margin-bottom: 8px;
+}
+
+#input-div, .form-group {
+  text-align: center;
+}
+
+#input-div > h4 {
+  padding-bottom: 20px;
+}
+
+.btn.btn-primary {
+  background-color: #1c3249;
+  border-color: #1c3249; 
+  box-shadow: -2px 1px 1px #888888;
+}
+
+#success_message{ 
+  display: none;
+}
+

@@ -1,119 +1,176 @@
 {{ define "content" }} 
 <!---
 <div class="row" id="message"> 
-    <div class="col-12">
-    <div class="alert alert-warning" role="alert">
-        <button type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <p> 
-        </p> 
-    </div> 
-    </div>
+  <div class="col-12">
+  <div class="alert alert-warning" role="alert">
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <p> 
+      </p> 
+  </div> 
+  </div>
 </div>
 -->
-<div class="row"> 
-    <div class="col-8" id="mapdiv"> 
-        <div id="mapid"></div>
-    </div> 
-    <div class="col-4">
-        <div class="row">
-            <h3>Varsel</h3> 
-            <div id="forecast">
-                <p id="forecast"></p> 
-            </div> 
-        </div> 
-        <!---
-        <div class="row">
-         <h3>Målinger fra elevene de siste 24 timene</h3>
-            <div id="chart-dust" class="chart">
-                <svg id="chart-dust" width="300" height="200"></svg>
-            </div>
-            <div id="chart-temperature" class="chart">
-                <svg id="chart-temperature" width="300" height="200"></svg>
-            </div>
-            <div id="chart-humidity" class="chart">
-                <svg id="chart-humidity" width="300" height="200"></svg>
-            </div>
-        </div>
-        --->
-        <div class="row">
-            <h3>Målinger fra NILU de siste 24 timene</h3>
-            <div id="chart-PM10" class="chart">
-                <svg id="chart-PM10" width="300" height="200"></svg>
-            </div>
-            <div id="chart-NO2" class="chart">
-                <svg id="chart-NO2" width="300" height="200"></svg>
-            </div>
-        </div>
-        <!---
-         <div class="row">
-            <h3>Målinger fra MET de siste 24 timene</h3>
-            <div id="chart-percipitation" class="chart">
-                <svg id="chart-percipitation" width="300" height="200"></svg>
-            </div>
-            <div id="chart-snow-cover" class="chart">
-                <svg id="chart-snow-cover" width="300" height="200"></svg>
-            </div>
-          </div>
-        --->
 
-        <hr class="my-4">
+<div class="row"> 
+  <div class="col-8" id="mapdiv"> 
+      <div id="mapid"></div>
+  </div> 
+  <div class="col-4">
+    <br>
+    <div id="select-area" align="center">
+      <h3> Velg område </h3>
+      <div class="form-group">
+        <select class="form-control" id="select-box" onChange="updatePosition();">
+          <option value="Tromsø">Tromsø</option>
+          <option value="Bodø">Bodø</option>
+          <option value="Narvik">Narvik</option>
+        </select>
+      </div>
+    </div>
+    <div align="center">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" checked="true" onClick="toggleInfo(this, 'forecast-row')"> Luftvarsel
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" checked="true" onClick="toggleInfo(this, 'student-row')"> Elevdata
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" checked="true" onClick="toggleInfo(this, 'nilu-row')"> NILU
+        </label>
+      </div>
+    </div>
+    <br>
+    <div class="row" id="forecast-row">
+      <h3>Varsel</h3> 
+      <div id="forecast">
+        <p id="forecast"></p> 
+      </div> 
     </div> 
+
+     
+    <div class="row" id="student-row">
+     <h3>Målinger fra elevene de siste 24 timene</h3>
+      <div id="chart-dust" class="chart">
+          <svg id="chart-dust" width="300" height="200"></svg>
+      </div>
+      <div id="chart-temperature" class="chart">
+          <svg id="chart-temperature" width="300" height="200"></svg>
+      </div>
+      <div id="chart-humidity" class="chart">
+          <svg id="chart-humidity" width="300" height="200"></svg>
+      </div>
+    </div>
+
+    <div class="row" id="nilu-row">
+      <h3>Målinger fra NILU de siste 24 timene</h3>
+      <div id="chart-PM10" class="chart">
+          <svg id="chart-PM10" width="300" height="200"></svg>
+      </div>
+      <div id="chart-NO2" class="chart">
+          <svg id="chart-NO2" width="300" height="200"></svg>
+      </div>
+    </div>
+  
+<!--   <div class="row">
+    <h3>Målinger fra MET de siste 24 timene</h3>
+    <div id="chart-percipitation" class="chart">
+        <svg id="chart-percipitation" width="300" height="200"></svg>
+    </div>
+    <div id="chart-snow-cover" class="chart">
+        <svg id="chart-snow-cover" width="300" height="200"></svg>
+    </div>
+  </div>
+  
+    <hr class="my-4"> -->
+  </div> 
 </div> 
 
 <script> 
 
-map = newMap(mapid); 
-var area = "Tromsø"
+var areas = {
+    "Tromsø" : [69.680, 18.95],
+    "Bodø"   : [67.28, 14.405],
+    "Narvik" : [68.438,17.427] 
+
+};
+map = newMap(mapid, "Tromsø");
+setPosition(); 
 
 
-// get and insert forecast 
-$.ajax({
-    url: "/forecast?area="+area,
-    success: function(data){
-        $("p#forecast").html(data)
-    }
-})
+function setPosition() {
+  var area = document.getElementById("select-box").value 
+  map.setView(areas[area], 9.6);
+  
+  // get and insert forecast 
+  $.ajax({
+      url: "/forecast?area="+area,
+      success: function(data){
+          $("p#forecast").html(data)
+      }
+  })
 
-// Get current and yesterday's date (want to get data for the last 24 hrs) 
-var now = new Date() 
-var yesterday = new Date()
-yesterday.setDate(now.getDate()-1) 
-var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
+  // Get current and yesterday's date (want to get data for the last 24 hrs) 
+  var now = new Date() 
+  var yesterday = new Date()
+  yesterday.setDate(now.getDate()-1) 
+  var datestring = "from="+yesterday.toJSON()+"&to="+now.toJSON() 
 
-console.log(datestring) 
-component = "PM10"
-element = "svg#chart-"+component
-container = "chart-"+component
+  component = "PM10"
+  element = "svg#chart-"+component
+  container = "chart-"+component
 
-var provider = "nilu" 
+  var provider = "nilu" 
 
-addToMap(map, area, provider, component, datestring) 
-barChart(area, component, datestring, container, element); 
+  addToMap(map, area, provider, component, datestring) 
+  barChart(area, component, datestring, container, element); 
 
-component = "NO2" 
-element = "svg#chart-"+component
-container = "chart-"+component
+  component = "NO2" 
+  element = "svg#chart-"+component
+  container = "chart-"+component
 
-addToMap(map, area, provider, component, datestring) 
-barChart(area, component, datestring, container, element); 
+  addToMap(map, area, provider, component, datestring) 
+  barChart(area, component, datestring, container, element); 
 
-provider = "student" 
-component = "dust"
-var element = "svg#chart-" + component
-barChart(area, component, datestring, container, element);
+  // provider = "student" 
+  // component = "dust"
+  // var element = "svg#chart-" + component
+  // barChart(area, component, datestring, container, element);
 
 
-component = "humidity"
-var element = "svg#chart-" + component
-barChart(area, component, datestring, container, element);
+  // component = "humidity"
+  // var element = "svg#chart-" + component
+  // barChart(area, component, datestring, container, element);
 
-component = "temperature"
-var element = "svg#chart-" + component
-barChart(area, component, datestring, container, element);
+  // component = "temperature"
+  // var element = "svg#chart-" + component
+  // barChart(area, component, datestring, container, element);
+}
 
-addToMap(map, area, provider, component, datestring)
+function updatePosition() {
+  $("svg#chart-PM10").empty()
+  $("svg#chart-NO2").empty()
+  $("svg#chart-dust").empty()
+  $("svg#chart-temperature").empty()
+  $("svg#chart-humidity").empty()
+  setPosition();
+}
+
+function toggleInfo(checkbox, id) {
+  if (checkbox.checked){
+    document.getElementById(id).style.display = 'block';
+  } else {
+    document.getElementById(id).style.display = 'none';
+  }
+}
+
+// addToMap(map, area, provider, component, datestring)
 
 
 /*

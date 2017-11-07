@@ -1,163 +1,163 @@
 {{ define "content" }}
-<div class="container">
-    <div class="row">
-        <h4> Velg tidsrommet du vil se luftkvalitetsdata fra </h4>
-    </div>
-    <div class="row">
-        <form id="history-form" class="form-inline" style="width:100%">
-            <div class="form-group">
-                <label for="from" class="col-2
-                  col-form-label">Fra</label>
-                <div class="col-10">
-                    <input class="form-control" type="datetime-local" value="2017-02-01T08:00:00" id="from">
-                </div>
+<div class="container" id="history-container">
+  <div class="row">
+      <h4> Velg tidsrommet du vil se luftkvalitetsdata fra </h4>
+  </div>
+  <div class="row">
+    <form id="history-form" class="form-inline" style="width:100%">
+        <div class="form-group">
+            <label for="from" class="col-2
+              col-form-label">Fra</label>
+            <div class="col-10">
+                <input class="form-control" type="datetime-local" value="2017-10-30T20:00:00" id="from">
             </div>
-            <div class="form-group">
-                <label for="to" class="col-2
-                  col-form-label">Til</label>
-                <div class="col-10">
-                    <input class="form-control" type="datetime-local" value="2017-02-20T20:00:00" id="to">
-                </div>
-            </div>
-            <!---
-        <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox"> Inkludér data fra
-            luftkvalitet.info
-          </label>
         </div>
-        --->
-            <div class="float-right" id="history-button">
-                <button type="button" class="btn btn-primary float-right">Søk</button>
+        <div class="form-group">
+            <label for="to" class="col-2
+              col-form-label">Til</label>
+            <div class="col-10">
+                <input class="form-control" type="datetime-local" value="2017-11-01T20:00:00" id="to">
             </div>
-        </form>
+        </div>
+        <!---
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox"> Inkludér data fra
+        luftkvalitet.info
+      </label>
     </div>
-    <hr class="my-4">
+    --->
+        <div class="float-right" id="history-button">
+            <button type="button" class="btn btn-primary float-right">Søk</button>
+        </div>
+    </form>
+  </div>
+  <hr class="my-4">
 </div>
 <div class="row">
-    <div class="col-8">
-        <div id="mapid"></div>
-    </div>
-    <div class="col-4">
-        <!---
-        <div class="row">
-            <h3>Elever</h3>
-            <div id="chart-dust" class="chart">
-                <svg id="chart-dust" width="300" height="200"></svg>
-            </div>
-            <div id="chart-temperature" class="chart">
-                <svg id="chart-temperature" width="300" height="200"></svg>
-            </div>
-            <div id="chart-humidity" class="chart">
-                <svg id="chart-humidity" width="300" height="200"></svg>
-            </div>
+  <div class="col-8">
+      <div id="mapid"></div>
+  </div>
+  <div class="col-4">
+    <!-- 
+    <div class="row">
+        <h3>Elever</h3>
+        <div id="chart-dust" class="chart">
+            <svg id="chart-dust" width="300" height="200"></svg>
         </div>
-        -->
-        <div class="row">
-            <!-- <h3>NILU</h3> -->
-            <div id="chart-PM10" class="chart">
-                <svg id="chart-PM10" width="300" height="200"></svg>
-            </div>
-            <div id="chart-NO2" class="chart">
-                <svg id="chart-NO2" width="300" height="200"></svg>
-            </div>
+        <div id="chart-temperature" class="chart">
+            <svg id="chart-temperature" width="300" height="200"></svg>
         </div>
-        <hr class="my-4">
-        <div class="float" id="download" style="display:none">
-            <button type="button" class="btn btn-success">Last ned</button>
+        <div id="chart-humidity" class="chart">
+            <svg id="chart-humidity" width="300" height="200"></svg>
         </div>
     </div>
+    -->
+    <div class="row">
+        <!-- <h3>NILU</h3> -->
+        <div id="chart-PM10" class="chart">
+            <svg id="chart-PM10" width="300" height="200"></svg>
+        </div>
+        <div id="chart-NO2" class="chart">
+            <svg id="chart-NO2" width="300" height="200"></svg>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div class="float" id="download" style="display:none">
+        <button type="button" class="btn btn-success">Last ned</button>
+    </div>
+  </div>
 </div>
 
 <script>
-    var map;
-    $('#history-button').click(function(e)
+
+  var map;
+  $('#history-button').click(function(e)
+  {
+    if (map != undefined)
     {
+        map.remove();
+    }
 
-        if (map != undefined)
-        {
-            map.remove();
-        }
+    map = newMap(mapid);
+    var from = $('#from').val()
+    from = new Date(from)
 
-        map = newMap(mapid);
-        var from = $('#from').val()
-        from = new Date(from)
+    var to = $('#to').val()
+    to = new Date(to)
 
-        var to = $('#to').val()
-        to = new Date(to)
+    area = "Tromsø"
+    datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
 
-        area = "Tromsø"
-        datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
+    component = "PM10"
+    var element = "svg#chart-" + component
+    container = "chart-" + component
+    $("#download").css("display", "none")
+    $(element).html("")
 
-        component = "PM10"
-        var element = "svg#chart-" + component
-        container = "chart-" + component
-        $("#download").css("display", "none")
-        $(element).html("")
+    provider = "nilu" 
 
-        provider = "nilu" 
+    addToMap(map, area, provider, component, datestring)
+    barChart(area, component, datestring, container, element);
 
-        addToMap(map, area, provider, component, datestring)
-        barChart(area, component, datestring, container, element);
+    component = "NO2"
+    var element = "svg#chart-" + component
+    $(element).html("")
 
-        component = "NO2"
-        var element = "svg#chart-" + component
-        $(element).html("")
-
-        addToMap(map, area, provider, component, datestring)
-        barChart(area, component, datestring, container, element);
+    addToMap(map, area, provider, component, datestring)
+    barChart(area, component, datestring, container, element);
 
 
-        provider = "student" 
-        component = "dust"
-        var element = "svg#chart-" + component
-        barChart(area, component, datestring, container, element);
+    provider = "student" 
+    component = "dust"
+    var element = "svg#chart-" + component
+    barChart(area, component, datestring, container, element);
 
 
-        component = "humidity"
-        var element = "svg#chart-" + component
-        barChart(area, component, datestring, container, element);
+    component = "humidity"
+    var element = "svg#chart-" + component
+    barChart(area, component, datestring, container, element);
 
-        component = "temperature"
-        var element = "svg#chart-" + component
-        barChart(area, component, datestring, container, element);
+    component = "temperature"
+    var element = "svg#chart-" + component
+    barChart(area, component, datestring, container, element);
 
-        addToMap(map, area, provider, component, datestring)
+    addToMap(map, area, provider, component, datestring)
 
-        $("#download").css("display", "block")
-    });
+    $("#download").css("display", "block")
+  });
 
-    $("#download").click(function()
-    {
-        var from = $('#from').val()
-        from = new Date(from)
+  $("#download").click(function()
+  {
+    var from = $('#from').val()
+    from = new Date(from)
 
-        var to = $('#to').val()
-        to = new Date(to)
+    var to = $('#to').val()
+    to = new Date(to)
 
-        area = "Tromsø"
-        datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
+    area = "Tromsø"
+    datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
 
-        var component = "PM10"
-        var url = getHistoricalUrl(area, datestring, component)
-        window.open(url, '_blank');
+    var component = "PM10"
+    var url = getHistoricalUrl(area, datestring, component)
+    window.open(url, '_blank');
 
-        component = "NO2"
-        url = getHistoricalUrl(area, datestring, component)
-        window.open(url, '_blank');
+    component = "NO2"
+    url = getHistoricalUrl(area, datestring, component)
+    window.open(url, '_blank');
 
-        var component = "dust"
-        url = getStudentUrl(datestring, component);
-        window.open(url, '_blank'); 
+    var component = "dust"
+    url = getStudentUrl(datestring, component);
+    window.open(url, '_blank'); 
 
-        var component = "temperature"
-        url = getStudentUrl(datestring, component);
-        window.open(url, '_blank'); 
+    var component = "temperature"
+    url = getStudentUrl(datestring, component);
+    window.open(url, '_blank'); 
 
-        var component = "humidity"
-        url = getStudentUrl(datestring, component);
-        window.open(url, '_blank'); 
-    })
+    var component = "humidity"
+    url = getStudentUrl(datestring, component);
+    window.open(url, '_blank'); 
+  })
 </script>
 
 

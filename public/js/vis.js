@@ -101,7 +101,7 @@ function barChart(area, component, datestring, container, element) {
     if(component == "NO2" || component == "PM10"){ 
         url = getHistoricalUrl(area, datestring, component);
     }  else if(component == "dust" || component == "humidity" || component == "temperature"){
-        url = getStudentUrl(datestring, component) 
+        url = getStudentUrl(area, datestring, component) 
     }
 
 
@@ -186,7 +186,7 @@ function getHistoricalUrl(area, datestring, component) {
 }
 
 function getStudentUrl(datestring, component) {
-    return "/student?"+datestring+"&component="+component
+    return "/student?area="+area+"&"+datestring+"&component="+component
 } 
 
 
