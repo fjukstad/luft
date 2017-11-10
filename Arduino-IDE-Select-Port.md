@@ -1,4 +1,4 @@
-# Valg av Port for din Arduino
+<!-- --- title: Valg av Port for din Arduino -->
 
 Nå er det på tide å bruke USB-ledningen til Arduino'en og plugge den inn i PCen
 på en helt vanlig USB-port. Om du har skrudd på lyden på maskinen din, vil du
@@ -25,4 +25,4 @@ Vanligvis vil `Arduino/Genuino Uno` være valgt som er den rette. Skjekk at den
 rette enhetstypen er valgt. Du vil også se enhetstypen stående nederst i høyre
 hjørnet av vinduet.
 
-[select-arduino-ide-port]: Arduino-IDE-Select-Port.png
+[select-arduino-ide-port]: Arduino-IDE-Select-Port-Screen.png

@@ -1,39 +1,33 @@
 # Meny
 
 - [Hjem][hjem]
+- [Guider][guides]
+  - [Bygging og Lodding][building]
+  - [Programmering][programming]
+- Kodeeksempler
+  - [LED Blink][ex-led]
+  - [Temperatur][ex-dht]
+  - [Støv][ex-pm]
+  - [GPS][ex-gps]
+  - [Minnekort][ex-sd]
+  - [Alle sensorer][ex-allsensors]
 - [Pinout][pinout]
 - [Komponenter][komponenter]
-  - [Arduino Uno][arduino]
-  - [Shield][shield]
-  - [GPS][gps]
-  - [Støvsensor][stov]
-  - [Temp/Fukt][tempfukt]
-  - [Minnekort][minnekort]
-- [Programmering][programmering]
-  1. [Introduksjon][intro]
-  1. [Blinke med LEDs][led]
-  1. [Test temperatur og luftfuktighetssensoren][dht]
-  1. [Test støvsensoren][pm]
-  1. [Test minnekortet][memory-card]
-  1. [Test GPS-en][gps-code]
-  1. [Dataformat][data-format]
-  1. [Alle sensorene][all-sensors]
+- [Dataformat][data-format]
+- [Generell info om Programmering][info-prog]
 
 [hjem]: Home
-[pinout]: airbit-pinout-schema
-[komponenter]: Komponenter
-[programmering]: Programmering
-[arduino]: Arduino-Uno
-[shield]: shield
-[gps]: gps
-[stov]: SDS011-Luftkvalitetssensor
-[tempfukt]: DHT22-Digital-Fukt-og-Temperatur-Sensor
-[minnekort]: Minnekort
-[intro]: Introduksjon
-[led]: airbit-led-test
-[gps-code]: airbit-gps-test
-[pm]: airbit-pm-test
-[dht]: airbit-dht-test
-[memory-card]: airbit-memory-card-test
+[guides]: guides-home
+[building]: guides-build-home
+[programming]: guides-programming
+[komponenter]: components
+[pinout]: airbit-pinout
 [data-format]: data-format
-[all-sensors]: airbit-all-sensors
+[info-prog]: info-programming
+
+[ex-led]: airbit-led-test
+[ex-dht]: airbit-dht-test
+[ex-pm]: airbit-pm-test
+[ex-gps]: airbit-gps-test
+[ex-sd]: airbit-memory-card-test
+[ex-allsensors]: airbit-all-sensors
