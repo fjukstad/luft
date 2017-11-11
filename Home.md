@@ -5,9 +5,8 @@ hvordan å programmere de individuelle sensorene.
 Eksemplene vil ikke gi en komplett fasit, men elevene må selv sette all koden
 sammen til et sammenhengende program for Arduinoen.
 
-Gå til [Introduksjon](Introduksjon) for å komme i gang med å sette opp
-datamaskinen din slik at du kan begynne å programmere Arduino Mikrokontrolleren
-som følger med air:bit.
-**[Gå til Introduksjon](Introduksjon)**
+Gå til [Guider][guides] for å få tilgang til detaljerte steg-for-steg
+gejnnomganger for å sette sammen, lodde og programmere air:bit.
+**[Guider][guides]**
 
-[logo-full]: airbit-logo-full.png
+[guides]: airbit-Guider
