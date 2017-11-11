@@ -1,7 +1,3 @@
-<!-- --- title: Hjem -->
-
-![air:bit logo][logo-full]
-
 Denne wikien vil gi en oversikt over Skolelaben ved UiT sin air:bit. Her vil du
 finne informasjon om sensorene, hvordan å bygge og lodde sammen måleren og 
 hvordan å programmere de individuelle sensorene.
