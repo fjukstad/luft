@@ -1,5 +1,3 @@
-<!-- --- title: air:bit Guider -->
-
 Dette er hjemmesiden for alle tutorials og guider som du finner i denne Wiki'en
 for å bygge sammen, lodde og programmere air:bit måleren.
 
