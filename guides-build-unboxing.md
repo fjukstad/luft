@@ -4,9 +4,9 @@ Første steg i å bygge sammen air:bit er å pakke ut alle delene og identifiese
 dem. I tillegg er det alltids mulig at noe har gått galt i pakke-prosessen, så
 det kan være en god idé å forsikre seg at delene er der.
 
-Klikk **[her](#skjekkliste)** får å hoppe rett til bunnen av siden, f.eks. dersom du
+Klikk **[her](#sjekkliste)** får å hoppe rett til bunnen av siden, f.eks. dersom du
 allerede kjenner til delene i air:bit og bare skal forsikre deg om innholdet:
-**[Skjekkliste](#skjekkliste)**
+**[Sjekkliste](#sjekkliste)**
 
 ## Boksen
 
@@ -152,9 +152,9 @@ Det kan hende at du vil finne flere deler her enn du etterpå trenger. Vi har
 lagt nok deler for at du skal ha noen reservedeler til overs dersom noe går galt
 under loddingen.
 
-## Skjekkliste
+## Sjekkliste
 
-Her er en liten skjekkliste for deg, for å sikre at du har alle delene. Du vil
+Her er en liten sjekkliste for deg, for å sikre at du har alle delene. Du vil
 også finne en slik liste inni eksen air:bit kommer med.
 
 * 1 Arduino Uno (*Mikrokontrolleren*)
