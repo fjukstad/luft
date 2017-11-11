@@ -63,6 +63,67 @@ rundt pinnen.
 
 ![Loddetinn føres til fra venstre mot loddebolten fra høyre][soldering-begin]
 
+Vri tinnet og bolten rundt pinnen, slik at tinnet legger seg jevnt runt pinnen
+fra alle sider og dekker hullet den stikker opp fra. Etterpå vil du ende med en
+liten haug der hullet var før med resten av pinnen stikkende ut på toppen.
+
+![Ferdig loddet header-pinne][soldering-complete]
+
+Når alle pinnene er loddet fast, slik som vist i bildet over, burde du kunne
+løfte av header shieldet fra Arduinoen igjen med alle header pinnene hengende
+fast i shieldet. Gratulerer! Du har nå et header shield som du enkelt kan plugge
+på hvilken som helst Arduino Uno.
+
+## Lodde fast mostandene
+
+I midten av shieldet finner du to små firkanter under hverandre som er labelet
+`R1 220` og `R2 220`. Her skal vi plassere de to elektriske motstanderene som
+du finner i ZipLock-posen med smådeler.
+
+Dra av papirstripen som motstandene henger fast i, og bøy til de lange
+endestykkene til motstandene slik at dem passer inn i hullene på shieldet på
+høyre- og venstresiden av firkantene.
+
+![Plassering av motstandene på shieldet][resistors-placement]
+
+Lodd fast endestykkene til begge motstandene på shieldet, akkurat som du gjorde
+tidligere med header-pinnene til Arduino'en. Når du har loddet fast motstandene
+klipper du av de lange endestykkene som stikker ut på undersiden av shieldet 
+med en avbitertang.
+
+## Lodde fast LED
+
+Øverst i høyre hjørnet av shieldet, ved siden av firkanten der det står GPS,
+skal LED'ene plasseres. 
+
+`D` i LED står for `Diode`. Dette vil si at strømretningen er veldig viktig å
+passe på, strømmen kan bare flyte én vei gjennom en diode, så du må passe på
+å montere den rett vei på shieldet.
+
+![Plassering av LED][led-placement]
+
+I bildet over kan du se plasseringen av LED på shieldet. Den blanke LED'en vil
+lyse rødt, men opprinnelig brukte vi en blå LED i tidligere versjoner av
+air:bit. Derfor er den andre LED'en grønn, selv om den monteres der det står
+`LED2 Blå` på shieldet.
+
+Se nøye på bildet over. Legg merke til at diodene har en flat kant mot den ene
+siden. I bildet vises det best på den grønne dioden som har sin flate kant
+pekende mot venstresiden av bildet. Den flate kanten av dioden skal peke mot
+den flate siden av tegningen på shieldet (der det står `LED1` og `LED2`).
+
+Lodd fast diodene slik du gjorde med motstandene. Klipp så av endestykkene med
+avbitertang.
+
+## Ferdig
+
+Du skal nå har et helt funksjonellt shield klart for bruk. Dersom du vil hoppe
+over montering av sensorer kan du i teorien nå begynne å programmere Arduino'en
+til å blinke LED lysene. Du vil finne tilsvarende kodeeksempler i høyremenyen.
+
+Men siden vi nå er kommet godt i gang med loddingen, er like lurt å bare
+fortsette med å lodde på sensorene også.
+
 ## Gå videre
 
 &uarr; [Gå til **innholdsfortegnelsen**][home]  
@@ -77,3 +138,6 @@ rundt pinnen.
 [header-pins-arduino]: 20171019_113707.jpg
 [header-pins-shield]: 20171019_113916.jpg
 [soldering-begin]: 20171019_114336.jpg
+[soldering-complete]: 20171019_114915.jpg
+[resistors-placement]: 20171019_115039.jpg
+[led-placement]: 20171019_115344.jpg

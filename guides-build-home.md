@@ -13,7 +13,7 @@ Stegene for denne guiden:
     * Lodde microSD kortleseren
     * Lodde "*Sukkerbiten*"
     * Lodde Støvsensoren
-1. [Skru fast delene i casingen][skrew]
+1. [Skru fast delene i boksen][skrew]
 1. [Sette på lokket][lid]
 
 ### Steg 1
