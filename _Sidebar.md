@@ -17,7 +17,7 @@
 - [Generell info om Programmering][info-prog]
 
 [hjem]: Home
-[guides]: guides-home
+[guides]: airbit-Guider
 [building]: guides-build-home
 [programming]: guides-programming
 [komponenter]: components
