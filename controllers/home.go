@@ -152,15 +152,3 @@ func PostFileHandler(w http.ResponseWriter, r *http.Request) {
 		}
  	}
 }
-
-var alertTemplate = template.Must(template.ParseFiles("views/base.html",
-	"views/header.html", "views/navbar.html",
-	"views/alert.html", "views/footer.html"))
-
-
-func AlertHandler(w http.ResponseWriter, r *http.Request) {
-	err := alertTemplate.Execute(w, nil)
-	if err != nil {
-		fmt.Println(err)
-	}
-}
