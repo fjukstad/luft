@@ -3,6 +3,7 @@
 - [Hjem][hjem]
 - [Guider][guides]
   - [Bygging og Lodding][building]
+  - [Oppsett av programmvare][setup]
   - [Programmering][programming]
 - Kodeeksempler
   - [LED Blink][ex-led]
@@ -19,6 +20,7 @@
 [hjem]: Home
 [guides]: airbit-Guider
 [building]: guides-build-home
+[setup]: Guide-Oppsett-for-programmering
 [programming]: guides-programming
 [komponenter]: components
 [pinout]: airbit-pinout
