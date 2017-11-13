@@ -1,7 +1,3 @@
-<!-- --- title: Guide: Oppsett for programmering -->
-
-## Steg 1: <small>Laste ned Arduino programmvare</small>
-
 For å starte å programmere med Arduino, må man innstallere
 [Arduino IDE][Arduino-Software-Page] (Integrated Development Environment).
 Det er også mulig å registrere seg med en bruker og få tilgang til en editor i
@@ -33,34 +29,15 @@ avhenging av dine språkinnstillinger).
 
 ![Arduino driver installasjon][Arduino-Driver-Install-Windows-Security]
 
-## Steg 2: <small>Starte Arduino IDE for første gang</small>
+## Gå videre
 
-Etter installasjonen vil du kunne finne `Arduino` eller `Arduino IDE` (navnet
-kan variere) i start-menyen og også på Skrivebordet. Klikk på denne for å starte
-opp Arduino IDE programmet for første gang.
+&uarr; [Gå til **innholdsfortegnelsen**][setup-home]  
+&rarr; [Gå til neste steg: **Start Arduino IDE**][start-arduino-ide]
 
-Du vil få opp et vidu som viser følgende kode (eller noe veldig liknende)
-
-``` cpp
-void setup() {
-  // put your setup code here, to run once:
-
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-
-}
-```
-
-*I noen eldre versjoner av Arduino IDE, kan det hende at du starter med en helt
-tom fil uten noen tekst. Du kan da bare kopiere koden over og lime den inn i
-editoren din, slik at det er enklere å følge de neste stegene.*
-
-Nå må vi sette opp programmet til å snakke med mikrokontrolleren vår. Klikk
-[her](Arduino-IDE-Select-Port) for å fortsette med det:  
-**Gå til [Velg Arduino IDE Port](Arduino-IDE-Select-Port)**
+[setup-home]: Guide-Oppsett-for-programmering
+[start-arduino-ide]: Start-Arduino-IDE
 
 [Arduino-Software-Page]: https://www.arduino.cc/en/Main/Software
 
 [Arduino-Driver-Install-Windows-Security]: Arduino-Driver-Install-Windows-Security.PNG
+
