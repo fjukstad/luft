@@ -1,9 +1,3 @@
-<!-- --- title: Guide: Bygging -->
-
-### Innhold
-
-Stegene for denne guiden:
-
 1. [Unboxing / Identifisere delene][unboxing]
 1. [Sette sammen boksen][casing]
 1. [Lodde Shield til Arduino kontrolleren][shield]
@@ -20,9 +14,9 @@ Stegene for denne guiden:
 
 Klikk **[her][unboxing]** for å begynne med første steg. **[Steg 1][unboxing]**
 
-[unboxing]: guides-build-unboxing
-[casing]: guides-build-casing
-[shield]: guides-build-shield
-[sensors]: guides-build-sensors
-[skrew]: guides-build-skrew
-[lid]: guides-build-lid
+[unboxing]: Pakke-ut-airbit-delene
+[casing]: Sette-sammen-treboksen
+[shield]: Lodde-header-shield
+[sensors]: Lodde-sensorene
+[skrew]: Skru-fast-komponenter
+[lid]: Sette-på-lokket

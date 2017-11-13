@@ -1,5 +1,3 @@
-<!-- --- title: Guide: Lodde header shieldet -->
-
 I stedet for å få ett virvarr av ledninger, vil vi gjøre livet enklere ved å
 bruke et header shield mellom Arduino'en og de forskjellige komponentene.
 
@@ -130,9 +128,9 @@ fortsette med å lodde på sensorene også.
 &larr; [Gå tilbake til forrige steg: **Bygge treboksen**][casing]  
 &rarr; [Gå til neste steg: **Lodde sensorene**][sensors]  
 
-[home]: guides-build-home
-[casing]: guides-build-casing
-[sensors]: guides-build-sensors
+[home]: Guide-Bygging-og-Lodding
+[casing]: Sette-sammen-treboksen
+[sensors]: Lodde-sensorene
 
 [header-pins-cut-arduino]: 20171019_113609.jpg
 [header-pins-arduino]: 20171019_113707.jpg

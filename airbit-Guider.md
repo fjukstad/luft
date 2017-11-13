@@ -23,5 +23,5 @@ komme i gang.
 Klikk **[her][prog-setup]** for å starte med oppsett av din datamaskin for
 programmering av airbit.
 
-[build]: guides-build-home
+[build]: Guide-Bygging-og-Lodding
 [prog-setup]: Guide-Oppsett-for-programmering

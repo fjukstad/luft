@@ -1,5 +1,3 @@
-<!-- --- title: Guide: Bygge treboksen -->
-
 Nå skal vi bygge sammen treplatene til boksen der alle sensorene og Arduinoen
 skal plasseres i.
 
@@ -60,8 +58,8 @@ den store firkanten for *Arduino UNO*.
 &larr; [Gå tilbake til forrige steg: **Pakke ut / Identifisere deler**][unboxing]  
 &rarr; [Gå til neste steg: **Lodde på header shieldet**][shield]
 
-[home]: guides-build-home
-[unboxing]: guides-build-unboxing
-[shield]: guides-build-shield
+[home]: Guide-Bygging-og-Lodding
+[unboxing]: Pakke-ut-airbit-delene
+[shield]: Lodde-header-shield
 
 [casing-img]: airbit-casing-img.jpg

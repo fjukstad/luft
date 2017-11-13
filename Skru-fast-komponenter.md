@@ -1,5 +1,3 @@
-<!-- --- title: Guide: Skru fast delene -->
-
 Nå når alle delene har fått loddet på seg header pinner og plugger kan vi skru
 fast delene i treboksen.
 
@@ -116,9 +114,9 @@ lim det fast.
 &larr; [Gå tilbake til forrige steg: **Lodde sensorene**][sensors]  
 &rarr; [Gå til neste steg: **Sette på lokket**][lid]  
 
-[home]: guides-build-home
-[sensors]: guides-build-sensors
-[lid]: guides-build-lid
+[home]: Guide-Bygging-og-Lodding
+[sensors]: Lodde-sensorene
+[lid]: Sette-på-lokket
 
 [skrews-placement]: 20171019_111902.jpg
 [tape-on-gps]: 20171019_130944.jpg

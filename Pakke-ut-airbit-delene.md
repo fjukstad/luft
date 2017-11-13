@@ -1,5 +1,3 @@
-<!-- --- title: Guide: Pakke ut / Identifisere deler -->
-
 Første steg i å bygge sammen air:bit er å pakke ut alle delene og identifiesere
 dem. I tillegg er det alltids mulig at noe har gått galt i pakke-prosessen, så
 det kan være en god idé å forsikre seg at delene er der.
@@ -196,8 +194,8 @@ Dersom det mangler deler, vennligs ta kontakt med oss ved å sende en mail til
 [skolelaboratoriet@nt.uit.no](mailto:skolelaboratoriet@nt.uit.no) slik at vi
 kan ettersende manglende deler.
 
-[home]: guides-build-home
-[casing]: guides-build-casing
+[home]: Guide-Bygging-og-Lodding
+[casing]: Sette-sammen-treboksen
 [components]: komponenter
 
 [arduino-uno-picture]: https://www.arduino.cc/en/uploads/Guide/A000066_iso_both.jpg

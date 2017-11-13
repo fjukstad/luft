@@ -19,13 +19,13 @@
 
 [hjem]: Home
 [guides]: airbit-Guider
-[building]: guides-build-home
+[building]: Guide-Bygging-og-Lodding
 [setup]: Guide-Oppsett-for-programmering
 [programming]: guides-programming
 [komponenter]: components
 [pinout]: airbit-pinout
-[data-format]: data-format
-[info-prog]: info-programming
+[data-format]: Dataformat
+[info-prog]: Generell-informasjon-om-programmering
 
 [ex-led]: airbit-led-test
 [ex-dht]: airbit-dht-test

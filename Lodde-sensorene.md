@@ -1,5 +1,3 @@
-<!-- --- title: Guide: Lodde sensorene -->
-
 På selve header shieldet finner vi bare LED lysene og motstanderene de trenger
 for å ikke brenne opp. Desverre er veldig lite spennende vi kan gjøre med
 Arduino'en uten sensorer. Så nå må vi lodde fast pinner i de tilsvarende hullene
@@ -79,9 +77,9 @@ Plugge inn GPS modulen
 &larr; [Gå tilbake til forrige steg: **Lodde header shieldet**][shield]  
 &rarr; [Gå til neste steg: **Skru fast delene i boksen**][skrew]  
 
-[home]: guides-build-home
-[shield]: guides-build-shield
-[skrew]: guides-build-skrew
+[home]: Guide-Bygging-og-Lodding
+[shield]: Lodde-header-shield
+[skrew]: Skru-fast-komponenter
 
 [header-pins-pm]: 20171019_120102.jpg
 [header-pins-dht]: 20171019_121148.jpg

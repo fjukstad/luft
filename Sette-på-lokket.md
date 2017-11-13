@@ -1,10 +1,9 @@
-<!-- --- title: Guide: Sette på lokket -->
-
 **Nesten ferdig!**
 
-Legg på lokket. Logoen skal være på toppen, over shieldet. Pass på at alle ledninger er inni boksen. Du vil legge merke til
-at pluggene til Temperatursensoren er litt for høye. Ta en tang og bøy dem på
-skrå, slik at lokket passer.
+Legg på lokket. Logoen skal være på toppen, over shieldet. Pass på at alle
+ledninger er inni boksen. Du vil legge merke til at pluggene til
+Temperatursensoren er litt for høye. Ta en tang og bøy dem på skrå, slik at
+lokket passer.
 
 Bruk en hammer til å slå fast lokket.
 
@@ -18,8 +17,8 @@ Gratulerer! Du har bydg sammen en air:bit. Den er nå klar for å bli programmer
 &larr; [Gå tilbake til forrige steg: **Skru fast delene**][skrew]  
 &darr; [Gå til: **Guider**][guides]  
 
-[home]: guides-build-home
-[skrew]: guides-build-sensors
+[home]: Guide-Bygging-og-Lodding
+[skrew]: Skru-fast-komponenter
 [guides]: airbit-Guider
 
 [complete]: 20171019_134609.jpg
