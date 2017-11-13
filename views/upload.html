@@ -6,27 +6,28 @@
 	  <div class="col-6 col-sm-6" id="input-div">
 		 	<br/>
 		 	<h4>Last opp fil(er)</h4>
-	    <form action=" " method="post" id="upload-form">	
+	    <form action="/sendfile" method="post" enctype="multipart/form-data" id="upload-form">	
 		    <div class="input-group">
 		      <label class="input-group-btn">
 		          <span class="btn btn-primary">
-		              Utforsk&hellip; <input type="file" style="display: none;" multiple>
+		              Utforsk&hellip; <input type="file" accept="text/csv" name="uploadFile" id="uploadFile" style="display: none;" multiple>
 		          </span>
 		      </label>
-		      <input type="text" class="form-control" name="browsefile" readonly>
+		      <input type="text" class="form-control" name="browseFile" id="browseFile" readonly><span class="fa fa-times" id="remove-file" aria-hidden="true"></span>
 		    </div>
-		  	<div class="form-group">
-				  <button type="submit" class="btn btn-primary" >Last opp <span class="glyphicon glyphicon-send"></span></button>
-				</div>
+		    <div id="responseMessage" style="display: none;">
+		    	<p></p>
+		    </div>
+		  <!-- 	<div class="form-group"> -->
+				<!-- </div> -->
 			</form>
+			<button class="btn btn-primary" id="submitButton" >Last opp</button>
 		</div>	  
 	</div>
-<div class="alert alert-success" role="alert" id="success_message">
-	Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.
-</div>
+
 
 <script>
-	$(function() {
+	$(function() {	
 	  // We can attach the `fileselect` event to all file inputs on the page
 	  $(document).on('change', ':file', function() {
 	    var input = $(this),
@@ -51,45 +52,78 @@
 	      });
 	  });
 	  
+	}); 
+
+	 $(function () {
+    $(document).on('click', '#submitButton', function () {
+			var files = document.getElementById("uploadFile").files
+	    var responseMessage = document.getElementById('responseMessage'); 
+	    var body = document.getElementsByTagName("BODY")[0]
+			var re = /(\.csv)$/i;
+	    
+
+	    if (files.length == 0) {
+	    		responseMessage.classList.add('error-message');
+	        responseMessage.innerHTML = "Vennligst angi en fil før du trykker 'Last opp'";
+	        responseMessage.style.display = 'block';
+	        setTimeout(function() {
+	    			$('#responseMessage').fadeOut('slow');
+					}, 2000);
+	        return false;
+	    }
+	    else {
+		    for (i = 0; i < files.length; i++ ) {
+					if(!re.exec(files[i].name)) {
+	    			responseMessage.classList.add('error-message');
+			      responseMessage.innerHTML = "Alle angitte filer må være av typen '.csv'";
+			      responseMessage.style.display = 'block';
+			      setTimeout(function() {
+			  			$('#responseMessage').fadeOut('slow');
+						}, 2000);
+			      return false;
+					}
+		    }
+		  	
+	    	document.getElementById("submitButton").disabled = true;
+	      body.classList.add('wait');
+		  	
+		    var form = new FormData(document.getElementById('upload-form'));
+		    $.ajax({
+					url: 'sendfile',
+					type: 'post',
+					dataType: 'html',
+					data : form,
+					processData: false,
+					contentType: false,
+					success : function(data) {
+			      body.classList.remove('wait');
+		  			document.getElementById("uploadFile").value = "";
+						document.getElementById("browseFile").value = "";
+	    			responseMessage.classList.add('success-message');
+	    			responseMessage.innerHTML = data
+	    			responseMessage.style.display = 'block';
+	    			setTimeout(function() {
+			  			$('#responseMessage').fadeOut('slow');
+						}, 2000);
+    				document.getElementById("submitButton").disabled = false;
+					},
+					error : function() {
+			      body.classList.remove('wait');
+						alert("Somethin");
+			    	document.getElementById("submitButton").disabled = true;
+					}
+				});
+		  }
+		});
 	});
 
-
-
-  $(document).ready(function() {
-    $('#upload-form').bootstrapValidator({   
-      fields: {
-        browsefile: {
-          validators: {
-            notEmpty: {
-            	message: 'Vennligst angi en fil for opplastning.'
-            },
-        		file: {
-        			extension: 'csv',
-       				type: 'text/csv',
-       				message: 'Filen må være av typen csv'
-        		}
-          }
-        }
-      }
-    }).on('success.form.bv', function(e) {
-      $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-          $('#upload-form').data('bootstrapValidator').resetForm();
-
-      // Prevent form submission
-      e.preventDefault();
-
-      // Get the form instance
-      var $form = $(e.target);
-
-      // Get the BootstrapValidator instance
-      var bv = $form.data('bootstrapValidator');
-
-      // Use Ajax to submit form data
-      $.post($form.attr('action'), $form.serialize(), function(result) {
-          console.log(result);
-      }, 'json');
+	$(function () {
+    $(document).on('click', '.fa.fa-times', function () {
+			document.getElementById("uploadFile").value = "";
+			document.getElementById("browseFile").value = "";
+      return false;
     });
-  });
- 
+	}); 
+	
 </script>
 {{ end }}

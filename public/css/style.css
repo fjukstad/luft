@@ -57,6 +57,14 @@ body {
   color: #fff !important;    
 }
 
+.custom-toggler.navbar-toggler {
+    border-color: transparent;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
 .navbar a:hover{
   color: #fff !important;
   font-weight: bold;
@@ -109,7 +117,28 @@ body {
   box-shadow: -2px 1px 1px #888888;
 }
 
-#success_message{ 
-  display: none;
+#upload-form > .input-group > input[type="text"] {
+  background-color : #fff; 
+  z-index: -1;
 }
 
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 10px;
+}
+
+.fa.fa-times {
+  position: relative;
+  top: 2px;
+  left: -17px;
+  color: #a6a6a6;
+}
+
+body.wait, body.wait *{
+    cursor: wait !important;   
+}
