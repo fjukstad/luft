@@ -11,7 +11,8 @@ Første steg etter du har fått utlevert air:bit, er å bygge sammen komponenten
 Denne guiden vil ta deg steg for steg gjennom prosessen med å bygge sammen
 air:bit og lodde sammen sensorene med mikrokontrolleren.
 
-Klikk **[her][build]** for å starte med bygging av airbit.
+Klikk **[her][build]** for å starte med bygging av airbit.  
+**[Guide: Bygging av airbit][build]**
 
 ## Programmering: Oppsett
 
@@ -21,7 +22,8 @@ gjennom stegene for å laste ned, installere og sette opp alt du trenger for å
 komme i gang.
 
 Klikk **[her][prog-setup]** for å starte med oppsett av din datamaskin for
-programmering av airbit.
+programmering av airbit.  
+**[Guide: Oppsett av programmvare][prog-setup]**
 
 [build]: Guide-Bygging-og-Lodding
 [prog-setup]: Guide-Oppsett-for-programmering

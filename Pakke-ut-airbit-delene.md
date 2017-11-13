@@ -2,8 +2,8 @@ Første steg i å bygge sammen air:bit er å pakke ut alle delene og identifiese
 dem. I tillegg er det alltids mulig at noe har gått galt i pakke-prosessen, så
 det kan være en god idé å forsikre seg at delene er der.
 
-Klikk **[her](#sjekkliste)** får å hoppe rett til bunnen av siden, f.eks. dersom du
-allerede kjenner til delene i air:bit og bare skal forsikre deg om innholdet:
+Klikk **[her](#sjekkliste)** får å hoppe rett til bunnen av siden, f.eks. dersom
+du allerede kjenner til delene i air:bit og bare skal forsikre deg om innholdet:
 **[Sjekkliste](#sjekkliste)**
 
 ## Boksen
