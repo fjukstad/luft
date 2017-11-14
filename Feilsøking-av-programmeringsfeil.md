@@ -8,12 +8,14 @@ Slik er det bare.
 
 ## Innhold
 
-* [Feilmarkeringer i Arduino IDE](#Feilmarkeringer-i-Arduino-IDE)
-* [En feil om gangen](#En-feil-om-gangen)
-* [Vanlige feil](#Vanlige-feil)
-  * [Manglende Semikolon](#Manglende-Semikolon)
-  * [Manglende lukkende parentes](#Manglende-lukkende-parentes)
-  * [Feilstavelser i navn](#Feilstavelser-i-navn)
+* [Feilmarkeringer i Arduino IDE](#feilmarkeringer-i-arduino-ide)
+* [En feil om gangen](#en-feil-om-gangen)
+* [Vanlige feil](#vanlige-feil)
+  * [For hyppig klikk på Upload-knappen](#for-hyppig-klikk-på-upload-knappen)
+  * [Bruk av annen `COM`-port](#bruk-av-annen-com-port)
+  * [Manglende Semikolon](#manglende-semikolon)
+  * [Manglende lukkende parentes](#manglende-lukkende-parentes)
+  * [Feilstavelser i navn](#feilstavelser-i-navn)
 
 ## Feilmarkeringer i Arduino IDE
 
@@ -108,6 +110,26 @@ helt i begynnelsen, så blir gjerne alle følgende regnestykkene rett igjen.*
 Akkurat som små stavefeil i norsk, gjør vi også veldig vanlige feil som går
 igjen hele tiden når vi skriver kode. Her er noen av de mest vanlige feilene:
 
+### For hyppig klikk på Upload-knappen
+
+Arduinoen er litt sårbar akkurat mens du laster opp kode til den ved å trykke på
+`Upload`-knappen i Arduino IDE. Når du trykker på `Upload`-knappen burde du
+helst vente til Arduino IDE enten har fullført å laste opp koden din, eller at
+den gir deg en feilmelding.
+
+Om du trykker på `Upload`-knappen mens det allerede er en opplastning underveis,
+kan oppstå veldig rare feilmeldinger som kommer av at bare deler at et faktisk
+Arduino program havner på Arduinoen. Detter er ikke farlig, du må bare prøve
+igjen og neste gang vente til opplastningen er ferdig.
+
+### Bruk av annen `COM`-Port
+
+På siden [Konfigurasjon av Arduino IDE][config-ide] vises det hvordan du setter
+opp Arduino IDE til å bruke rett `COM`-port for å snakke med Arduinoen over
+USB-ledningen. Om du ved en senere anledning plugger inn Arduinoen i en annen
+USB-port på datamaskinen din, eller plugger inn en annen Arduino, må du huske
+å velge rett `COM`-port på nytt, slik det står beskrevet i guiden.
+
 ### Manglende Semikolon
 
 Instruksjoner i C++ må avsluttes med semikolon. Om du glemmer semikolon vil det
@@ -176,5 +198,6 @@ Feilmeldingen ser da slik ut:
 &uarr; [Gå til: **Guider**][guides]
 
 [guides]: airbit-Guider
+[config-ide]: Konfigurasjon-av-Arduino-IDE
 
 [missing-semicolon]: Arduino-IDE-Missing-Semicolon.png
