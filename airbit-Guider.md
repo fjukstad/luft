@@ -25,5 +25,10 @@ Klikk **[her][prog-setup]** for å starte med oppsett av din datamaskin for
 programmering av airbit.  
 **[Guide: Oppsett av programmvare][prog-setup]**
 
+## Introduksjon til Arduino-Programmering
+
+**[Guide: Introduksjon til Arduino-Programmering][intro-programming]**
+
 [build]: Guide-Bygging-og-Lodding
 [prog-setup]: Guide-Oppsett-for-programmering
+[intro-programming]: Introduksjon-til-Arduino-programmering
