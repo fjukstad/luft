@@ -20,10 +20,6 @@ li.nav {
 #om { 
 }
 
-#history-button { 
-  right: 0px;
-  position: absolute;
-} 
 
 .container {
   margin-top: 15px;
@@ -99,6 +95,7 @@ body {
   width: 100%;
 }
 
+/* Upload page */
 #upload-form > .input-group > .form-control {
   margin-bottom: 8px;
 }
@@ -141,4 +138,50 @@ body {
 
 body.wait, body.wait *{
     cursor: wait !important;   
+}
+
+
+/* History page*/
+
+#area-container, #time-container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+label {
+  padding-right: 5px;
+}
+
+#gps-input, #time-input {
+  display: none;
+}
+
+#area-checkbox {
+  margin-left: 10px;
+}
+
+.history-radio {
+  margin-right: 10px;
+}
+.history-row {
+  width: 100%; 
+  margin-right: auto; 
+  margin-left: auto;
+}
+
+.verticalLine {
+  border-left: thick solid #ff0000;
+}
+
+hr.my-4 {
+  width: 50%;
+}
+
+#gps-form-group, #gps-input {
+  width: 125% !important;
+}
+
+#student-data, #nilu-data {
+  display: none;
 }

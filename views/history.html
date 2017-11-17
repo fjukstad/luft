@@ -1,58 +1,97 @@
 {{ define "content" }}
-<!-- <div class="row">
+<div class="row">
   <div class="container" id="history-container">
-    <h4> Angi området og tidsrommet du vil se luftkvalitetsdata fra: </h4>
-    <div class="form-group">
-      <div class="col-4">
-        <label class="form-check-label"> Angi område: </label>
-        <select class="form-control" id="" onChange="updatePosition();">
-          <option value="Tromsø">Tromsø</option>
-          <option value="Bodø">Bodø</option>
-          <option value="Narvik">Narvik</option>
-        </select>
+    <h4 align="center"> Angi området og tidsrommet du vil se luftkvalitetsdata fra: </h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="container" id="area-container">
+    <form class="form-inline justify-content-center" id="area-form">
+      <div class="form-group" style="display: block;">
+        <label form="area-form"><b>Velg område</b></label>
+        <div class="form-group justify-content-center" id="gps-form-group">
+          <select class="form-control" name="area" id="area">
+            <option value="Tromsø">Tromsø</option>
+            <option value="Bodø">Bodø</option>
+            <option value="Narvik">Narvik</option>
+          </select>
+          <div class="col-4" align="center">
+            eller
+          </div>
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" onchange="toggleGPSInput(this)">Angi egne koordinater
+          </label>
+        </div>
+        <div class="form-inline justify-content-center" id="gps-input">
+          <label for="latitude">Breddegrad</label>
+          <input class="form-control" type="number" step=0.01 name="latitude" style="margin-right: 10px;" id="latitude" value="69.665294">
+          <label for="longitude">Lengdegrad</label>
+          <input class="form-control" type="number" step=0.01 name="longitude" id="longitude" value="18.8475394">
+        </div>
       </div>
-    </div>
-  </div>
-</div>  -->
-  <!-- <div class="row">
-  </div>
-  <div class="row">
-    <form id="history-form" class="form-inline" style="width:100%">
-        <div class="form-group">
-            <label for="from" class="col-2
-              col-form-label">Fra</label>
-            <div class="col-10">
-                <input class="form-control" type="datetime-local" value="2017-10-30T20:00:00" id="from">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="to" class="col-2
-              col-form-label">Til</label>
-            <div class="col-10">
-                <input class="form-control" type="datetime-local" value="2017-11-01T20:00:00" id="to">
-            </div>
-        </div>
-        
-    <div class="form-check">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox"> Inkludér data fra
-        luftkvalitet.info
-      </label>
-    </div>
-        <div class="float-right" id="history-button">
-            <button type="button" class="btn btn-primary float-right">Søk</button>
-        </div>
     </form>
   </div>
-  <hr class="my-4">
-</div> -->
-<!-- <div class="row">
+</div>
+<hr class="my-4">
+<div class="row">
+  <div class="container" id="time-container">
+    <form class="form-inline justify-content-center" id="time-form">
+      <div class="form-group" style="display: block;">
+        <label for="time-form"><b>Angi tidsintervall</b></label>
+        <div class="form-group">
+          <label for="hour">Siste timen</label>
+          <input class="history-radio" type="radio" name="time" id="hour" value="hour" checked="checked">
+          <label for="24hour">Siste 24 timer</label>
+          <input class="history-radio" type="radio" name="time" id="24hour" value="24hour">
+          <label for="week">Siste 7 dager</label>
+          <input class="history-radio" type="radio" name="time" id="week" value="week">
+          <label for="month">Siste måned</label>
+          <input class="history-radio" type="radio" name="time" id="month" value="month">
+          <label for="custom">Spesifiser eget intervall</label>
+          <input class="history-radio" type="radio" name="time" id="custom" value="custom">
+        </div>
+        <div class="form-inline justify-content-center" id="time-input">
+          <label for="from">Fra</label>
+          <input class="form-control" type="datetime-local" value="2017-10-30T20:00:00" id="from">
+          <label for="to">Til</label>
+          <input class="form-control" type="datetime-local" value="2017-11-01T20:00:00" id="to">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<hr class="my-4">
+<div class="row">
+  <div class="container" id="data-container">
+    <form class="form-inline justify-content-center" id="data-form">
+      <div class="form-group" style="display: block;">
+        <label for="data-form"><b>Inkluder data fra:</b></label>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" id="checkbox-nilu">NILU
+          </label>
+          <!-- <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" id="checkbox-met">MET
+          </label> -->
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<hr class="my-4">
+<div class="row">
+  <div class="span6" style="float: none; margin: 0 auto;">
+    <button type="button" class="btn btn-primary" align="center" id="history-button">Søk</button>
+  </div>
+</div> 
+</br>
+<div class="row">
   <div class="col-8">
       <div id="mapid"></div>
   </div>
   <div class="col-4">
-     
-    <div class="row">
+    <div class="row" id="student-data">
         <h3>Elever</h3>
         <div id="chart-dust" class="chart">
             <svg id="chart-dust" width="300" height="200"></svg>
@@ -65,8 +104,8 @@
         </div>
     </div>
     
-    <div class="row">
-         <h3>NILU</h3> 
+    <div class="row" id="nilu-data">
+        <h3>NILU</h3> 
         <div id="chart-PM10" class="chart">
             <svg id="chart-PM10" width="300" height="200"></svg>
         </div>
@@ -79,98 +118,174 @@
         <button type="button" class="btn btn-success">Last ned</button>
     </div>
   </div>
-</div>  -->
-<!-- 
+</div> 
+ 
+
 <script>
 
-  var map;
-  $('#history-button').click(function(e)
-  {
-    if (map != undefined)
-    {
-        map.remove();
+function toggleGPSInput(checkbox) {
+  if (checkbox.checked){
+    $('#gps-input').css('margin-top', '10px');
+    $('#gps-input').css('display', 'flex');
+    document.getElementById("area").disabled = true;
+  } else {
+    $('#gps-input').hide();
+    document.getElementById("area").disabled = false;
+  }
+}
+
+$(document).ready(function() {
+  $('input[type="radio"]').click(function() {
+    if($(this).attr('id') == 'custom') {
+      $('#time-input').css('margin-top', '10px');
+      $('#time-input').css('display', 'flex');
     }
-
-    map = newMap(mapid);
-    var from = $('#from').val()
-    from = new Date(from)
-
-    var to = $('#to').val()
-    to = new Date(to)
-
-    area = "Tromsø"
-    datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
-
-    component = "PM10"
-    var element = "svg#chart-" + component
-    container = "chart-" + component
-    $("#download").css("display", "none")
-    $(element).html("")
-
-    provider = "nilu" 
-
-    addToMap(map, area, provider, component, datestring)
-    barChart(area, component, datestring, container, element);
-
-    component = "NO2"
-    var element = "svg#chart-" + component
-    $(element).html("")
-
-    addToMap(map, area, provider, component, datestring)
-    barChart(area, component, datestring, container, element);
-
-
-    provider = "student" 
-    component = "dust"
-    var element = "svg#chart-" + component
-    barChart(area, component, datestring, container, element);
-
-
-    component = "humidity"
-    var element = "svg#chart-" + component
-    barChart(area, component, datestring, container, element);
-
-    component = "temperature"
-    var element = "svg#chart-" + component
-    barChart(area, component, datestring, container, element);
-
-    addToMap(map, area, provider, component, datestring)
-
-    $("#download").css("display", "block")
+    else {
+      $('#time-input').hide();   
+    }
   });
+});
 
-  $("#download").click(function()
+function clearCharts() {
+  $("svg#chart-PM10").empty()
+  $("svg#chart-NO2").empty()
+  $("svg#chart-dust").empty()
+  $("svg#chart-temperature").empty()
+  $("svg#chart-humidity").empty()
+}
+
+var areas = {
+    "Tromsø" : [69.680, 18.95],
+    "Bodø"   : [67.28, 14.405],
+    "Narvik" : [68.438,17.427] 
+
+};
+
+var map;
+var area;
+function drawMap() {
+  var areaObject = document.getElementById('area');
+  if (areaObject.disabled == true) {
+    var latitude = document.getElementById('latitude').value;
+    var longitude = document.getElementById('longitude').value;
+    area = [latitude, longitude]
+  } 
+  else {
+    area = areaObject.value
+  }
+  return newMap(mapid, areas[area]);
+}
+
+function createDatestring() {
+  var now = new Date()
+  var to = new Date();
+  var from = new Date();
+  var selectedTime = $('input[name=time]:checked').val()
+  switch(selectedTime) {
+    case "hour":
+      from.setHours(now.getHours()-1);
+      break;
+    case "24hour":
+      from.setDate(now.getDate()-1);
+      break;
+    case "week":
+      from.setDate(now.getDate()-7);
+      break;
+    case "month":
+      from.setMonth(now.getMonth()-1);
+      break;
+    case "custom":
+      from = new Date($('#from').val())
+      to = new Date($('#to').val())
+      break;
+  }
+
+  return "from=" + from.toJSON() + "&to=" + to.toJSON()
+}
+
+
+$('#history-button').click(function(e)
+{ 
+  clearCharts();
+
+  if (map != undefined)
   {
-    var from = $('#from').val()
-    from = new Date(from)
+    map.remove();
+  }
+  map = drawMap();
+  
 
-    var to = $('#to').val()
-    to = new Date(to)
+  datestring = createDatestring();
+  if ($('#checkbox-nilu').is(':checked')) {
+    $('#nilu-data').show();
+    component = "PM10"
+    element = "svg#chart-"+component
+    container = "chart-"+component
 
-    area = "Tromsø"
-    datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
+    var provider = "nilu" 
 
-    var component = "PM10"
-    var url = getHistoricalUrl(area, datestring, component)
-    window.open(url, '_blank');
+    addToMap(map, area, provider, component, datestring) 
+    barChart(area, component, datestring, container, element); 
 
-    component = "NO2"
-    url = getHistoricalUrl(area, datestring, component)
-    window.open(url, '_blank');
+    component = "NO2" 
+    element = "svg#chart-"+component
+    container = "chart-"+component
 
-    var component = "dust"
-    url = getStudentUrl(datestring, component);
-    window.open(url, '_blank'); 
+    addToMap(map, area, provider, component, datestring) 
+    barChart(area, component, datestring, container, element); 
+  }
 
-    var component = "temperature"
-    url = getStudentUrl(datestring, component);
-    window.open(url, '_blank'); 
+  $('#student-data').show();
+  provider = "student" 
+  component = "dust"
+  var element = "svg#chart-" + component
+  barChart(area, component, datestring, container, element);
 
-    var component = "humidity"
-    url = getStudentUrl(datestring, component);
-    window.open(url, '_blank'); 
-  })
-</script> -->
+  component = "humidity"
+  var element = "svg#chart-" + component
+  barChart(area, component, datestring, container, element);
+
+  component = "temperature"
+  var element = "svg#chart-" + component
+  barChart(area, component, datestring, container, element);
+
+  addToMap(map, area, provider, component, datestring)
+
+  // $("#download").css("display", "block")
+});
+
+  // $("#download").click(function()
+  // {
+  //   var from = $('#from').val()
+  //   from = new Date(from)
+
+  //   var to = $('#to').val()
+  //   to = new Date(to)
+
+  //   area = "Tromsø"
+  //   datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
+
+  //   var component = "PM10"
+  //   var url = getHistoricalUrl(area, datestring, component)
+  //   window.open(url, '_blank');
+
+  //   component = "NO2"
+  //   url = getHistoricalUrl(area, datestring, component)
+  //   window.open(url, '_blank');
+
+  //   var component = "dust"
+  //   url = getStudentUrl(datestring, component);
+  //   window.open(url, '_blank'); 
+
+  //   var component = "temperature"
+  //   url = getStudentUrl(datestring, component);
+  //   window.open(url, '_blank'); 
+
+  //   var component = "humidity"
+  //   url = getStudentUrl(datestring, component);
+  //   window.open(url, '_blank'); 
+  // })
+</script> 
 
 
 {{ end }}
