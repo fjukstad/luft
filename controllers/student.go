@@ -142,8 +142,8 @@ func getStudentData(filter luftkvalitet.Filter) ([]Measurement, error) {
 	fromDate := filter.FromTime.Format(studentTimeLayout)
 	toDate := filter.ToTime.Format(studentTimeLayout)
 
-	u := "http://localhost:8080/download?totime=" + toDate + "&fromtime=" + fromDate + "&within=[69.698048,18.849053,7]"
-	// u := "https://luft-184208.appspot.com/download?totime=" + toDate + "&fromtime=" + fromDate
+	// u := "http://localhost:8080/download?totime=" + toDate + "&fromtime=" + fromDate + "&within=[69.698048,18.849053,7]"
+	u := "https://luft-184208.appspot.com/download?totime=" + toDate + "&fromtime=" + fromDate
 
 	resp, err := http.Get(u)
 	if err != nil {
