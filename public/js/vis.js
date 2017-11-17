@@ -1,7 +1,7 @@
 // Create new map that we can add data points to. 
-function newMap(id){
+function newMap(id, coordinates){
     map = L.map(id, {editable:true})
-    map.setView([69.680, 18.951], 9.6);
+    map.setView(coordinates, 9.6);
 
     var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
 
@@ -100,6 +100,7 @@ function barChart(area, component, datestring, container, element) {
     var url; 
     if(component == "NO2" || component == "PM10"){ 
         url = getHistoricalUrl(area, datestring, component);
+        console.log(url);
     }  else if(component == "dust" || component == "humidity" || component == "temperature"){
         url = getStudentUrl(area, datestring, component) 
     }
