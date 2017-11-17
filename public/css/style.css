@@ -1,68 +1,187 @@
 .topnav{
-    display: inline !important;
+  display: inline !important;
 }
 
 li.nav {
-    display: inline;
-    color: #fab;
+  display: inline;
+  color: #fab;
 }
 
 #mapid { 
-    height: 100%;
-    width: 100%;
-    margin: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .chart {
-    width: 100%;
+  width: 100%;
 }
 
 #om { 
 }
 
-#history-button { 
-    right: 0px;
-    position: absolute;
-} 
+
+.container {
+  margin-top: 15px;
+}
+
 #message { 
-    margin-top: 0.5em;
+  margin-top: 0.5em;
 }
 
 
 body { 
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .bg-faded { 
-    background: #1c3249;
-    background-color: #1c3249;
+  background: #1c3249;
+  background-color: #1c3249;
 }
 
 
 .navbar{
-    background-color:#1c3249;
-    border-radius:0;
+  background-color:#1c3249;
+  border-radius:0;
 }
 
 .navbar .navbar-nav > li > a {
-    color:#fff;
+  color:#fff;
 }
 
 .nav-link {
-    color: #fff !important;
-    
+  color: #fff !important;    
+}
+
+.custom-toggler.navbar-toggler {
+    border-color: transparent;
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
 .navbar a:hover{
-     color: #fff !important;
-     font-weight: bold;
- }
+  color: #fff !important;
+  font-weight: bold;
+}
 
 .navbar .navbar-brand {
-    color: #fff;
-    font-family: 'Source Code Pro', monospace;
+  color: #fff;
+  font-family: 'Source Code Pro', monospace;
+}
+
+#nav-link {
+  color: black !important;
 }
 
 #mapdiv { 
-    padding-left: 0;
+  padding-left: 0;
+}
+
+#select-area > h3, #select-area > .form-group{
+  display: inline-block;
+}
+
+.form-check {
+  display: inline-block;
+}
+
+.form-check-label {
+  padding-right: 10px;
+}
+
+#forecast {
+  width: 100%;
+}
+
+/* Upload page */
+#upload-form > .input-group > .form-control {
+  margin-bottom: 8px;
+}
+
+#input-div, .form-group {
+  text-align: center;
+}
+
+#input-div > h4 {
+  padding-bottom: 20px;
+}
+
+.btn.btn-primary {
+  background-color: #1c3249;
+  border-color: #1c3249; 
+  box-shadow: -2px 1px 1px #888888;
+}
+
+#upload-form > .input-group > input[type="text"] {
+  background-color : #fff; 
+  z-index: -1;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 10px;
+}
+
+.fa.fa-times {
+  position: relative;
+  top: 2px;
+  left: -17px;
+  color: #a6a6a6;
+}
+
+body.wait, body.wait *{
+    cursor: wait !important;   
+}
+
+
+/* History page*/
+
+#area-container, #time-container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+label {
+  padding-right: 5px;
+}
+
+#gps-input, #time-input {
+  display: none;
+}
+
+#area-checkbox {
+  margin-left: 10px;
+}
+
+.history-radio {
+  margin-right: 10px;
+}
+.history-row {
+  width: 100%; 
+  margin-right: auto; 
+  margin-left: auto;
+}
+
+.verticalLine {
+  border-left: thick solid #ff0000;
+}
+
+hr.my-4 {
+  width: 50%;
+}
+
+#gps-form-group, #gps-input {
+  width: 125% !important;
+}
+
+#student-data, #nilu-data {
+  display: none;
 }

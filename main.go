@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-
-	"github.com/fjukstad/luft/controllers"
+	"github.com/luft-1/controllers"
 )
 
 func main() {
@@ -16,12 +15,14 @@ func main() {
 	mux.HandleFunc("/studentaqis", controllers.StudentAqisHandler)
 	mux.HandleFunc("/student", controllers.StudentHandler)
 	mux.HandleFunc("/precipitation", controllers.PrecipitationHandler)
+	mux.HandleFunc("/sendfile", controllers.PostFileHandler)
 
 	mux.Handle("/public/", http.FileServer(http.Dir(".")))
 
 	mux.HandleFunc("/", controllers.IndexHandler)
 	mux.HandleFunc("/live", controllers.LiveHandler)
 	mux.HandleFunc("/historikk", controllers.HistoryHandler)
+	mux.HandleFunc("/lastopp", controllers.UploadHandler)
 
 	port := os.Getenv("PORT")
 
