@@ -40,4 +40,3 @@ avhenging av dine språkinnstillinger).
 [Arduino-Software-Page]: https://www.arduino.cc/en/Main/Software
 
 [Arduino-Driver-Install-Windows-Security]: Arduino-Driver-Install-Windows-Security.PNG
-
