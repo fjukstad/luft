@@ -1,5 +1,3 @@
-<!-- --- title: Generell informasjon om Programmering -->
-
 Programmering er å skrive oppskrifter med stegvise instruksjoner til en
 datamaskin for å få den til å utføre spesifikke oppgaver. Alle datamaskiner
 bruker slike oppskrifter, vi som brukere av datamaskiner kjenner til en type

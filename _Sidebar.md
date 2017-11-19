@@ -4,7 +4,8 @@
 - [Guider][guides]
   - [Bygging og Lodding][building]
   - [Oppsett av programmvare][setup]
-  - [Programmering][programming]
+  - [Arduino programmering][intro-programming]
+  - [air:bit programmering][programming]
 - Kodeeksempler
   - [LED Blink][ex-led]
   - [Temperatur][ex-dht]
@@ -21,6 +22,7 @@
 [guides]: airbit-Guider
 [building]: Guide-Bygging-og-Lodding
 [setup]: Guide-Oppsett-for-programmering
+[intro-programming]: Introduksjon-til-Arduino-programmering
 [programming]: guides-programming
 [komponenter]: components
 [pinout]: airbit-pinout

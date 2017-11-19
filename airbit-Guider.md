@@ -27,6 +27,12 @@ programmering av airbit.
 
 ## Introduksjon til Arduino-Programmering
 
+Denne guiden vil gi deg en introduksjon til programmering av Arduinoen. Vil vil
+gå gjennom veldig enkle kodeeksempler som viser hvordan man programmerer en
+Arduino. Guiden er målrettet mot nybegynnere for programmering. Mens guiden
+dekker hovedprinsipper i Arduino-programmering, så går den ikke gjennom noen av
+sensorene til air:bit. Dette dekkes av den neste guiden.
+
 **[Guide: Introduksjon til Arduino-Programmering][intro-programming]**
 
 [build]: Guide-Bygging-og-Lodding
