@@ -27,7 +27,7 @@
 [airbit-programming]: airbit-Programmering
 [error-debugging]: Feilsoking-av-programmeringsfeil
 [komponenter]: components
-[pinout]: airbit-pinout
+[pinout]: airbit-Pinout
 [data-format]: Dataformat
 [info-prog]: Generell-informasjon-om-programmering
 
