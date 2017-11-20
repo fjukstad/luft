@@ -35,6 +35,24 @@ sensorene til air:bit. Dette dekkes av den neste guiden.
 
 **[Guide: Introduksjon til Arduino-Programmering][intro-programming]**
 
+## air:bit Programmering
+
+Etter den generelle guiden for Arduino-programmering er du nå klar for å pusle
+med sensorene til air:bit.
+
+**[Guide: air:bit Programmering][airbit-programming]**
+
+## Feilsøking
+
+Når man skriver kode vil man desverre alltids snuble over feil og lure på
+hvorfor ting ikke funker. Feilsøking er en viktig del av å skrive kode. Denne
+guiden vil gi noen tips i hvordan man kan finne ut hva som er feil og hvordan
+man fikser det mest vanlige problemer.
+
+**[Guide: Feilsøking under programmering][error-debugging]**
+
 [build]: Guide-Bygging-og-Lodding
 [prog-setup]: Guide-Oppsett-for-programmering
 [intro-programming]: Introduksjon-til-Arduino-programmering
+[airbit-programming]: airbit-Programmering
+[error-debugging]: Feilsoking-av-programmeringsfeil
