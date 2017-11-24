@@ -100,7 +100,6 @@ function barChart(area, component, datestring, container, element) {
     var url; 
     if(component == "NO2" || component == "PM10"){ 
         url = getHistoricalUrl(area, datestring, component);
-        console.log(url);
     }  else if(component == "dust" || component == "humidity" || component == "temperature"){
         url = getStudentUrl(area, datestring, component) 
     }
@@ -186,7 +185,7 @@ function getHistoricalUrl(area, datestring, component) {
     return "/historical?area="+area+"&"+datestring+"&component="+component
 }
 
-function getStudentUrl(datestring, component) {
+function getStudentUrl(area, datestring, component) {
     return "/student?area="+area+"&"+datestring+"&component="+component
 } 
 
