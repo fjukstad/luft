@@ -159,24 +159,23 @@ $('#history-button').click(function(e)
   map = drawMap(area);
 
   datestring = createDatestring();
-  console.log(datestring);
+
   if ($('#checkbox-nilu').is(':checked')) {
-    $('#nilu-data').show();
-    components = ["PM10"]
-    // element = "svg#chart-"+component
-    // container = "chart-"+component
+    component = "PM10"
+    element = "svg#chart-"+component
+    container = "chart-"+component
 
     var provider = "nilu" 
 
+    barChartNilu(area, component, datestring, container, element); 
     // addToMap(map, area, customGPS, provider, component, datestring) 
-    // barChart(area, customGPS, components, datestring); 
-
-    // component = "NO2" 
-    // element = "svg#chart-"+component
-    // container = "chart-"+component
-
+    component = "NO2" 
+    element = "svg#chart-"+component
+    container = "chart-"+component
     // addToMap(map, area, customGPS, provider, component, datestring) 
-    // barChart(area, customGPS, component, datestring, container, element); 
+    barChartNilu(area, component, datestring, container, element); 
+
+    $('#nilu-data').show();
   }
 
   if ($('#checkbox-student').is(':checked')) {
@@ -186,25 +185,12 @@ $('#history-button').click(function(e)
       area = within.join()
       customGPS = true;
     }
-  
     provider = "student" 
-    // component = "dust"
-    // container = "chart-"+component
-    // var element = "svg#chart-" + component
-    components = ["dust", "humidity", "temperature"]
-    barChart(area, customGPS, components, datestring);
-
-
-    // component = "temperature"
-    // container = "chart-"+component
-    // var element = "svg#chart-" + component
-    // barChart(area, component, datestring, container, element);
-
-    // component = "temperature"
-    // container = "chart-"+component
-    // var element = "svg#chart-" + component
-    // barChart(area, customGPS, component, datestring, container, element);
-
+    components = ["dust", "temperature", "humidity"]
+    ret = barChartStudent(area, customGPS, components, datestring);
+    if(ret == false) {
+      console.log("false")
+    }
     // addToMap(map, area, customGPS, provider, component, datestring)
     
     $('#student-data').show();

@@ -27,7 +27,8 @@ function clearCharts() {
   $("svg#chart-dust").empty()
   $("svg#chart-temperature").empty()
   $("svg#chart-humidity").empty()
-  $("#nilu-data").hide();
+  // $("#nilu-data").hide();
+  // $("#student-data").hide();
 }
 
 function getCoordinates() {
@@ -50,7 +51,7 @@ function drawMap() {
 
 function createDatestring() {
   var now = new Date()
-  var to = new Date();
+  var to = now  ;
   var from = new Date();
   var selectedTime = $('input[name=time]:checked').val()
   switch(selectedTime) {

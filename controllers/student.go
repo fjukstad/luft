@@ -521,7 +521,6 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 			date,
 		})
 	}
-	fmt.Println(len(data))
 	return data, nil
 
 }
