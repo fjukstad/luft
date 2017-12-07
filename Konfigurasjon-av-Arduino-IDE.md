@@ -52,10 +52,17 @@ siden de alle kommer med et linjenummer der feilen oppsto.
 I det samme vinduet kan du også endre skriftsørrelsen på teksten i editoren
 (`Editor font size`), skru på flere feil- og varselmeldinger fra programmet
 som tolker koden din (`Compiler warnings`) og du kan bytte språk på
-`Arduino IDE` (`Editor Language`). Du kan senere alltids gå tilbake til
-innstillingene senere og endre på dem om du ønsker. Ignorér innstillinger som du
-ikke skjønner hva dem gjør, i disse tilfellene er det best å la dem være på
-standard-innstillingene.
+`Arduino IDE` (`Editor Language`).
+
+Siden alle guidene, og bilder i disse guidene bruker Engelsk språk i Arduino IDE
+anbefales det at du velger Engelsk som språk. Dette vil gjøre det enklere å
+finne rette menypunkt. I tillegg vil feilmeldinger være enklere å 'google' når
+dem er på engelsk, siden det er så få som snakker norsk og enda ferre som
+programmerer Arduinoer.
+
+Du kan senere alltids gå tilbake til innstillingene senere og endre på dem om du
+ønsker. Ignorér innstillinger som du ikke skjønner hva dem gjør, i disse
+tilfellene er det best å la dem være på standard-innstillingene.
 
 ## Gå videre
 
