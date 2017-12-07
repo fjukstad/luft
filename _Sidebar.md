@@ -8,7 +8,6 @@
   - [air:bit programmering][airbit-programming]
   - [Feilsøking][error-debugging]
 - Kodeeksempler
-  - [Støv][ex-pm]
   - [GPS][ex-gps]
   - [Minnekort][ex-sd]
   - [Alle sensorer][ex-allsensors]
@@ -29,7 +28,6 @@
 [data-format]: Dataformat
 [info-prog]: Generell-informasjon-om-programmering
 
-[ex-pm]: airbit-pm-test
 [ex-gps]: airbit-gps-test
 [ex-sd]: airbit-memory-card-test
 [ex-allsensors]: airbit-all-sensors
