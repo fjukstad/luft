@@ -8,8 +8,6 @@
   - [air:bit programmering][airbit-programming]
   - [Feilsøking][error-debugging]
 - Kodeeksempler
-  - [LED Blink][ex-led]
-  - [Temperatur][ex-dht]
   - [Støv][ex-pm]
   - [GPS][ex-gps]
   - [Minnekort][ex-sd]
@@ -31,8 +29,6 @@
 [data-format]: Dataformat
 [info-prog]: Generell-informasjon-om-programmering
 
-[ex-led]: airbit-led-test
-[ex-dht]: airbit-dht-test
 [ex-pm]: airbit-pm-test
 [ex-gps]: airbit-gps-test
 [ex-sd]: airbit-memory-card-test
