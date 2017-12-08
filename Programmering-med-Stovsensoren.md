@@ -187,3 +187,5 @@ void loop() {
 [home]: airbit-Programmering
 [dht]: Programmering-med-Temperatursensoren
 [gps]: Programmering-med-GPS-antenna
+
+[pinout]: airbit-Pinout
