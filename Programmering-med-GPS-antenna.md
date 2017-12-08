@@ -427,3 +427,4 @@ void loop() {
 [sd]: Programmering-av-filer-pa-SD-kortet
 
 [datatypes]: Primitive-datatyper-i-C-programmering
+[pinout]: airbit-Pinout
