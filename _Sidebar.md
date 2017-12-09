@@ -7,13 +7,9 @@
   - [Arduino programmering][intro-programming]
   - [air:bit programmering][airbit-programming]
   - [Feilsøking][error-debugging]
-- Kodeeksempler
-  - [Minnekort][ex-sd]
-  - [Alle sensorer][ex-allsensors]
 - [Pinout][pinout]
-- [Komponenter][komponenter]
 - [Dataformat][data-format]
-- [Generell info om Programmering][info-prog]
+- [Teknisk][tech]
 
 [hjem]: Home
 [guides]: airbit-Guider
@@ -22,10 +18,9 @@
 [intro-programming]: Introduksjon-til-Arduino-programmering
 [airbit-programming]: airbit-Programmering
 [error-debugging]: Feilsoking-av-programmeringsfeil
-[komponenter]: components
+[tech]: Tekniske-detaljer
 [pinout]: airbit-Pinout
 [data-format]: Dataformat
-[info-prog]: Generell-informasjon-om-programmering
 
 [ex-sd]: airbit-memory-card-test
 [ex-allsensors]: airbit-all-sensors
