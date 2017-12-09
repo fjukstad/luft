@@ -9,7 +9,7 @@
   - [Feilsøking][error-debugging]
 - [Pinout][pinout]
 - [Dataformat][data-format]
-- [Teknisk][tech]
+- [Tekniske Spesifikasjoner][tech]
 
 [hjem]: Home
 [guides]: airbit-Guider
@@ -18,7 +18,7 @@
 [intro-programming]: Introduksjon-til-Arduino-programmering
 [airbit-programming]: airbit-Programmering
 [error-debugging]: Feilsoking-av-programmeringsfeil
-[tech]: Tekniske-detaljer
+[tech]: Tekniske-Spesifikasjoner
 [pinout]: airbit-Pinout
 [data-format]: Dataformat
 
