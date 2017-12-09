@@ -261,6 +261,147 @@ ett sekund med venting.
 1. Dobbel-klikk på filen for å åpne den og vise innholdet.  
    ![Filinnholdet av testfile.txt i Notepad][notepad]
 
+## Ikke overskriv filen
+
+Om du tester ut koden vi har skrevet så langt flere ganger, vil du legge merke
+til at air:bir skriver over filen hver gang du kobler den til strøm. Dvs. all
+data så lå i filen blir slettet hver gang du skrur på air:bit måleren. Dette
+virker ikke helt fornuftig. Det hadde kanskje vært bedre om vi bare la til ny
+data i en eksisterende fil dersom det allerede ligger noe der fra før.
+
+Om du ser nøyere på `setup`-blokken, ser du problemet. Vi bruker `O_CREAT`
+modusen for å lage en **ny** fil, der vi bruker `SD.open`-kommandoen. Og dette
+gjør vi hver gang air:bit kjører `setup`, dvs. hver gang du plugger i strømmen.
+Det vi trenger her er en betingelse som skjekker om filen allerede finnes. Vi
+vil ikke bruke `O_CREAT` når det allerede finnes en fil på SD-kortet som har
+samme navn som vi vil bruke.
+
+Vi kan bruke `SD.exists`-kommandoen for å spørre om en fil med et gitt navn
+eksisterer på SD.kortet.
+
+La oss altså lage en `if`-`else`-kombinasjon og flytte linja vi har nå inn i
+`else`-blokken:
+
+``` cpp
+  if (SD.exists(filename)) {
+    // Do something new here if file already exists...
+  } else {
+    // Create new file and open for writing
+    file = SD.open(filename, O_CREAT | O_WRITE);
+    file.println("Dette er den første linjen i filen.");
+  }
+```
+
+I koden over ser du at `if`-blokken forsatt er tom, så hva må gjøres dersom
+filen allerede eksisterer. Vi må fortsatt åpne filen og vi har allerede funnet
+ut at vi **ikke** vil bruke `O_CREAT`. Å bare bruke `O_WRITE` vil virkelig
+funke, men det er et lite problem med det også: Når en fil åpnes settes
+skrivemarkøren i filen på begynnelsen av filen. Dette er ikke noe problem i en
+ny fil, hvor ellers kunne markøren være, side det ikker er noe der fra før. Men
+å ha markøren i begynnelsen av en file som allerede inneholder data vil føre til
+at du overskriver data som er der. Det vi virkelig vil er å åpne filen, og
+plassere markøren helt i slutten, slik at vi bare legger til ny tekst uten å
+røre det som allerede står i filen. Heldigvis har vi `O_APPEND` modusen som gjør
+nettopp dette. *append* er engelsk for: legg til. Med dette ser hele `if`-
+`else`-blokken slik ut:
+
+``` cpp
+  if (SD.exists(filename)) {
+    // Open existing file for writing and append
+    file = SD.open(filename, O_WRITE | O_APPEND);
+    file.println("--------------------");
+    file.println("Filen ble åpnet på nytt.");
+  } else {
+    file = SD.open(filename, O_CREAT | O_WRITE);
+    file.println("Dette er den første linjen i filen.");
+  }
+```
+
+Merk at koden over skriver en linje med 20 bindestreker i begynnelsen når en
+eksisterende fil åpnes. Dette vil gjøre det enkelt å finne skillet mellom to
+seksjoner i filen.
+
+## Test 2
+
+Med de nye endringene vil du kunne slå av og på air:bit flere ganger. Filen på
+SD-kortet vil bare bli større og større etterhvert air:bit skriver mer og mer
+tekst til filen.
+
+Du kan slette filen fra SD-kortet når du har kortet plugget inn i datamaskinen.
+Da vil ikke lengre eksistere, og air:bit vil starte med en helt ny fil neste
+gang du setter SD-kortet inn i air:bit igjen.
+
+``` cpp
+#include <SD.h>
+
+#define SD_CS_PIN 10
+
+File file;
+int counter;
+
+void setup () {
+  // Activate CS-Pin control
+  pinMode(SD_CS_PIN, OUTPUT);
+
+  // Startup SD-card reader
+  SD.begin(SD_CS_PIN);
+
+  // Define filename
+  char filename[] = "testfile.txt";
+
+  if (SD.exists(filename)) {
+    // Open existing file for writing and append
+    file = SD.open(filename, O_WRITE | O_APPEND);
+    file.println("--------------------");
+    file.println("Filen ble åpnet på nytt.");
+  } else {
+    file = SD.open(filename, O_CREAT | O_WRITE);
+    file.println("Dette er den første linjen i filen.");
+  }
+  file.flush(); // Force saving data to SD-card
+
+  // Start counter at 0
+  counter = 0;
+}
+
+void loop() {
+  counter += 1;
+
+  file.print("Dette er linje nr.:");
+  file.print(" ");
+  file.print(counter);
+  file.println();
+
+  file.flush();
+
+  delay(1000); // Wait a second.
+}
+```
+
+**Merk:** SD-kortet må være plugget i air:bit når du skrur på strømmen. Du kan
+ikke sette i SD-kortet mens air:bit er på å kjører. Koden som starter opp
+SD-kortleseren og åpner filen ligger i `setup`. Dvs., den kjøres bare én gang
+når air:bit starter opp.
+
+## Veien videre
+
+Å bare skrive verdien til en teller-variabel er kanskje litt kjedelig og gir
+ikke så mye mening. Men du har kanskje lagt merke til at det ikke er noe særlig
+forskjell fra å skrive til en seriell-kobling eller å skrive til en fil på et
+SD-kort. Om du bare ser på koden i `loop`, og sammenlikner med 
+[teller-eksemplet som bruker seriell-kommunikasjon][counting-example], så ser
+du lite forskjell.
+
+Det er mye du kan prøve å ekperimentere med nå. Du kan ta koden du skrev her,
+og kopiere alle `print`- og `println`-kommandoene og legge til at den også
+skriver samme tekst til den serielle tilkoblingen til PC-en i tillegg til at den
+skriver til SD-kortet. Du trenger da egentlig bare å bytte ut `file` med
+`Serial` og du må huske å kjøre `Serial.begin` i `setup`.
+
+Så kan du ta koden du skrev her i `setup` for å åpne filen, og bruke den for å
+endre de tidligere eksemplene til å skrive til filen på SD-kortet i stedet for 
+eller i tillegg til å skrive til den serielle tilkoblingen med datamaskinen.
+
 ## Gå videre
 
 &uarr; [Gå til **innholdsfortegnelsen**][home]  
