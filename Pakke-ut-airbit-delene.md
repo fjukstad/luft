@@ -1,23 +1,19 @@
-Første steg i å bygge sammen air:bit er å pakke ut alle delene og identifiesere
-dem. I tillegg er det alltids mulig at noe har gått galt i pakke-prosessen, så
-det kan være en god idé å forsikre seg at delene er der.
+Det første du må gjøre er å pakke ut alle delene og identifisere dem. Bli kjent
+med alle delene og sjekk at alle delene du trenger er i boksen.
 
-Klikk **[her](#sjekkliste)** får å hoppe rett til bunnen av siden, f.eks. dersom
-du allerede kjenner til delene i air:bit og bare skal forsikre deg om innholdet:
+Dersom du allerede kjenner til delene kan du forsikre deg at innholdet stemmer:
 **[Sjekkliste](#sjekkliste)**
 
 ## Boksen
 
-Først og fremst vil du finne en del treplater og et lokk av gjennomsiktig akryl
-(pleksiglass) som du etterpå skal sette sammen til boksen, der mikrokontrolleren
-og alle sensorene skal få plass i.
+Boksen består av 5 treplater og et lokk av gjennomsiktig akryl (pleksiglass).
 
 Bunnplaten til boksen der den store rektangulære treplaten med avrundet topp.
 Du vill finne markeringer på platen hvor *Arduino UNO* kontrolleren og *nova PM 
 sensor* skal plasseres.
 
-Alle fire sideplater er av tre, men **alle fire skal være forskjellig**! Skjekk
-nøye at du har én av hver.  
+Alle fire sideplater er av tre. Skjekk nøye at du har én av hver, alle skal være
+forskjellige.  
 Du vil finne to lange og to korte sideplater.
 
 * En lang sideplate skal vise logoene til 
@@ -49,9 +45,8 @@ omtrent ut som vist på bildet under.
 
 Det følger også med en ledning for å koble Arduino'en til en datamaskin eller
 til batteriet. Den ene enden av ledningen vil du gjenkjenne som en helt vanlig
-USB-plugg, den andre enden vil være firkantet og passe i pluggen på Arduinoen.
-Det er mulig at du har sett en slik (*USB-B*) plugg før i ledninger du kobler
-til printeren hjemme.
+USB-plugg, den andre enden vil være firkantet og passe i pluggen på Arduinoen
+(*USB-B*).
 
 ### Header Shield
 
@@ -85,7 +80,7 @@ I tillegg til kortleseren vil du også finne et helt vanlig
 eller mobiltelefoner, osv. Adapteren gir deg muligheten til å plugge inn 
 SD-kortet i en kortleser på PCen din. Nyere bærbare PCer har vanligvis
 innebygde kortlesere. Når du plugger SD-kortet inn i PCen, vil den dukke opp
-som en vanlig USB minnepen og vise filene som ligger på den.
+som en vanlig USB minnepinne og vise filene som ligger på den.
 
 ### Støvsensoren
 
@@ -135,25 +130,23 @@ Posen inneholder to rader med tolv header-pinner hver.
 Den ene raden har male pinner som ser slik ut:  
 ![Male Pin Header][male-pin-header-img]
 
-Den andre raden har femaile pinner som ser slik ut:  
+Den andre raden har female pinner som ser slik ut:  
 ![Female Pin Header][female-pin-header-img]
 
 ### Krympestrømpe
 
-Så inneholder posen i tillegg en krympestrømpe. Den ser ut som et like gummirør.
-Den skal hjelpe å holde på plass ledningen til temperatur-sensoren, dersom den
-ikke skulle sitte godt nok fast.
+Krympestrømpe ser ut som et like gummirør. Den skal hjelpe å holde på plass
+ledningen til temperatur-sensoren, dersom den ikke skulle sitte godt nok fast.
 
 ### For mange deler
 
-Det kan hende at du vil finne flere deler her enn du etterpå trenger. Vi har
-lagt nok deler for at du skal ha noen reservedeler til overs dersom noe går galt
-under loddingen.
+Det kan hende at du vil finne flere deler enn det du trenger. Disse delene er
+reservedeler i tilfelle noe går galt under loddingen.
 
 ## Sjekkliste
 
-Her er en liten sjekkliste for deg, for å sikre at du har alle delene. Du vil
-også finne en slik liste inni eksen air:bit kommer med.
+Her er en liste over alle delene i boksen. Du vil også finne en slik liste inni
+esken air:bit kommer med.
 
 * 1 Arduino Uno (*Mikrokontrolleren*)
 * 1 air:bit header shield
