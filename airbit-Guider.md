@@ -1,5 +1,5 @@
-Dette er hjemmesiden for alle tutorials og guider som du finner i denne Wiki'en
-for å bygge sammen, lodde og programmere air:bit måleren.
+Her er alle guidene på hvordan sette sammen, lodde og programmere air:bit
+måleren.
 
 Guidene er delt opp i flere mindre steg og rettet mot nybegynnere både når det
 gjelder lodding og programmering av Arduino kontrollere. Om du synes ting går
@@ -7,9 +7,8 @@ litt for sakte for deg i ett steg kan du bare hoppe videre til neste steg.
 
 ## Bygge air:bit
 
-Første steg etter du har fått utlevert air:bit, er å bygge sammen komponentene.
-Denne guiden vil ta deg steg for steg gjennom prosessen med å bygge sammen
-air:bit og lodde sammen sensorene med mikrokontrolleren.
+Første steg er å sette sammen komponentene. Denne guiden tar deg gjennom bygge-
+og loddeprosessen steg for steg.
 
 Klikk **[her][build]** for å starte med bygging av airbit.  
 **[Guide: Bygging av airbit][build]**
