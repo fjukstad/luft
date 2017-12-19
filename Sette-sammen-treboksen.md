@@ -3,10 +3,8 @@ skal plasseres i.
 
 ## Dette trenger du
 
-Treplatene for boksen har tagger som passer inni hverandre. Taggene er skjært ut
-slik at dem passer veldig tett inni hverandre. Dette gjør det enklere å bygge
-dem sammen, siden du ikke trenger noe lim eller liknende, og fint kan bygge dem
-fra hverandre igjen senere.
+Treplatene for boksen har tagger som passer inni hverandre. Du trenger ikke lim
+eller liknende, og boksen kan demonteres dersom det skulle være nødvendig.
 
 Du trenger:
 
