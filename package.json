@@ -1,0 +1,32 @@
+{
+  "name": "skolelab-airbit.wiki",
+  "version": "2.1.0",
+  "description": "air:bit Wiki",
+  "main": "home.html",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skolelab/airbit.wiki.git"
+  },
+  "keywords": [
+    "airbit",
+    "Skolelab",
+    "UiT",
+    "NT",
+    "airpollution"
+  ],
+  "author": {
+    "name": "Skolelaboratoriet i realfag og teknologi",
+    "email": "skolelaboratoriet@nt.uit.no",
+    "url": "https://uit.no/skolelab"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/skolelab/airbit/issues"
+  },
+  "homepage": "https://github.com/skolelab/airbit.wiki/Home",
+  "dependencies": {
+    "markdown-to-html": "0.0.13",
+    "wiki-serve": "^1.2.0"
+  }
+}
