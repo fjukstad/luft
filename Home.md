@@ -1,12 +1,13 @@
-Denne wikien vil gi en oversikt over Skolelaben ved UiT sin air:bit. Her vil du
-finne informasjon om sensorene, hvordan å bygge og lodde sammen måleren og 
-hvordan å programmere de individuelle sensorene.
+Dette er en ebside med dokumentasjon til **air:bit &endash; Et
+forskningsproskekt om luftforurensing** av 
+[Skolelaboratoriet i realfag og teknologi ved UiT Norges arktiske universitet][skolelab]
 
-Eksemplene vil ikke gi en komplett fasit, men elevene må selv sette all koden
-sammen til et sammenhengende program for Arduinoen.
+Under **[Guider][guides]** finner du steg-for-steg beskrivelser på hvordan man
+bygger og lodder sammen måleboksen, informasjon om de ulike sensorene og
+hvordan man programmerer måleboksen og sensorene.
 
-Gå til [Guider][guides] for å få tilgang til detaljerte steg-for-steg
-gejnnomganger for å sette sammen, lodde og programmere air:bit.
-**[Guider][guides]**
+Elevene må selv sette sammen koden til et sammenhengende program for måleboksen.
+
+[skolelab]: https://uit.no/skolelab
 
 [guides]: airbit-Guider
