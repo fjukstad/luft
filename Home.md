@@ -1,4 +1,4 @@
-Dette er en ebside med dokumentasjon til **air:bit &endash; Et
+Dette er en webside med dokumentasjon til **air:bit &ndash; Et
 forskningsproskekt om luftforurensing** av 
 [Skolelaboratoriet i realfag og teknologi ved UiT Norges arktiske universitet][skolelab]
 

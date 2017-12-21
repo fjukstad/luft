@@ -16,7 +16,7 @@ fast delene i treboksen.
 
 ## Start
 
-Plugg fra alle deler og ledninger fra shieldet og plugg shieldet fra Arduinoen.
+Ta alle delene og ledninger fra hverandre og løsne shieldet fra Arduinoen.
 Dette vil gjøre det enklere for deg å komme til skrue-hullene og feste mutter
 senere.
 
@@ -25,7 +25,7 @@ senere.
 Ta frem treboksen din og finn plastskruene og mutterene i ZipLock-posen. Plugg
 skruer inn i alle sju hullene på bunnplaten og én i det runde hullet ved siden
 av hullet for temperatursensoren i den høyre sideplaten. Skruene skal stikk inn
-i boksen. Du trenger ikke å skru på mutter ennå, vi skal først plassere
+i boksen. Du trenger ikke å skru på muttrene ennå, vi skal først plassere
 Arduinoen og Støvmåleren
 
 ![Skruer i treboksen][skrews-placement]

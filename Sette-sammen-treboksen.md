@@ -3,8 +3,8 @@ skal plasseres i.
 
 ## Dette trenger du
 
-Treplatene for boksen har tagger som passer inni hverandre. Du trenger ikke lim
-eller liknende, og boksen kan demonteres dersom det skulle være nødvendig.
+Treplatene for boksen har tagger som passer inni hverandre. Du trenger ikke og
+boksen kan demonteres dersom det skulle være nødvendig.
 
 Du trenger:
 
@@ -23,8 +23,8 @@ Legg ut sideplatene foran deg slik:
   med hull for *Temperatur og Luftfuktighet*, *microSD* og *Luft ut*
 * På **venstre side**: Lang sideplate med logoene til Vitensenteret og air:bit,
   med hull for *Luft inn Støvmåler*
-* På **toppsiden**: Kort sideplate med hull for *USB* og strøm (*7-12V*)
-* På **nedsiden**: Kort sideplate som er blank
+* En Kort sideplate med hull for *USB* og strøm (*7-12V*)
+* En Kort sideplate som er blank
 
 Bruk en hammer å slå forsiktig sammen sideplatene. Trikset er å banke forsiktig
 men bestemt på platene for å få dem ordentlig tett inni hverandre. Pass på å
@@ -33,10 +33,11 @@ ikke banke for hardt for å unngå å brekke treplatene.
 ## Bunnplaten
 
 Nå kan vi sette rammen inn i bunnplaten. Legg bunnplaten frem foran deg med
-skriften opp. Den avrundete siden skal peke oppover, den rette siden skal peke
-nedover.
+skriften opp. Den korte sideplaten som er blank skal settes på den siden av
+bunnplaten som er rett, og den korte sideplaten med hull skal plasseres på
+bunnplaten ved siden med avrundet topp.
 
-Så tar du rammen som su satt sammen i forrige steg og banker den fast på
+Så tar du rammen som du satt sammen i forrige steg og banker den fast på
 bunnplaten.
 
 ## Ferdig

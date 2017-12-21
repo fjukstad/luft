@@ -8,13 +8,13 @@ Dersom du allerede kjenner til delene kan du forsikre deg at innholdet stemmer:
 
 Boksen består av 5 treplater og et lokk av gjennomsiktig akryl (pleksiglass).
 
-Bunnplaten til boksen der den store rektangulære treplaten med avrundet topp.
-Du vill finne markeringer på platen hvor *Arduino UNO* kontrolleren og *nova PM 
+Bunnplaten til boksen er den store rektangulære treplaten med avrundet topp.
+Markeringer på platen viser hvor *Arduino UNO* kontrolleren og *nova PM 
 sensor* skal plasseres.
 
 Alle fire sideplater er av tre. Skjekk nøye at du har én av hver, alle skal være
 forskjellige.  
-Du vil finne to lange og to korte sideplater.
+Det er to lange og to korte sideplater.
 
 * En lang sideplate skal vise logoene til 
   [UiT][uit-logo] og [Skolelaboratoriet i realfag og teknologi][skolelab-logo],
@@ -24,11 +24,11 @@ Du vil finne to lange og to korte sideplater.
   [Nordnorsk Vitensenter Tromsø][vitensenteret-logo] og ha **et hull** for 
   *luftinntaket for støvsensoren*.
 * En kort sideplate skal ha **to hull** for *USB* og *Strømtilkobling* (*7-12V*).
-* En kort sideplate skal være **helt blank**.
+* Den andre korte sideplates skal være **helt blank**.
 
 Lokket til boksen er av gjennomsiktig akryl (pleksiglass). Den vil også ha
 logoen til [air:bit][airbit-logo] på toppen. *Noen tidligere versjoner av 
-air:bit kan ha lokk uten lokk, men vil ellers være helt lik.*
+air:bit kan ha lokk uten logo, men vil ellers være helt lik.*
 
 ## Store deler
 
@@ -48,11 +48,11 @@ til batteriet. Den ene enden av ledningen vil du gjenkjenne som en helt vanlig
 USB-plugg, den andre enden vil være firkantet og passe i pluggen på Arduinoen
 (*USB-B*).
 
-### Header Shield
+### Kretskort / Header Shield
 
-air:bit kommer med et *header shield* som er designet spesifikt for air:bit og
-sensorene som følger med. Det er en blå (*eller grønn*) plate med masse hull og
-tekst på. Den vil se ut som vist i bildet under.
+air:bit kommer med et kretskort, vil kaller der *header shield*, som er designet
+spesifikt for air:bit og sensorene som følger med. Det er en blå (*eller grønn*)
+plate med masse hull og tekst på. Den vil se ut som vist i bildet under.
 
 ![air:bit shield][shield-picture]
 
@@ -73,7 +73,7 @@ I bildet over, ser du GPS modulen både inni den originale posen og pakket ut.
 
 I en forseglet plastpose finner du en lang avlang rektangulær blå chip. På
 baksiden står det `microSD Card Adapter`. Dette er kortleseren for 
-microSD-kortet det vi senere vil lagre måledata.
+microSD-kortet hvor vi senere vil lagre måledata.
 
 I tillegg til kortleseren vil du også finne et helt vanlig 
 *Kingston 16GB microSD kort* slik som du også ville brukt i digitalkameraer
@@ -135,7 +135,7 @@ Den andre raden har female pinner som ser slik ut:
 
 ### Krympestrømpe
 
-Krympestrømpe ser ut som et like gummirør. Den skal hjelpe å holde på plass
+Krympestrømpe ser ut som et lite gummirør. Den skal hjelpe å holde på plass
 ledningen til temperatur-sensoren, dersom den ikke skulle sitte godt nok fast.
 
 ### For mange deler
@@ -146,7 +146,7 @@ reservedeler i tilfelle noe går galt under loddingen.
 ## Sjekkliste
 
 Her er en liste over alle delene i boksen. Du vil også finne en slik liste inni
-esken air:bit kommer med.
+esken til air:bit.
 
 * 1 Arduino Uno (*Mikrokontrolleren*)
 * 1 air:bit header shield
@@ -172,6 +172,11 @@ esken air:bit kommer med.
   * 1 stripe bred dobbeltsidig teip (hvit)
   * 1 stripe smal dobbeltsidig teip (rød)
 
+Kontroller at esken inneholder alle delene som er listet opp her, dersom det
+mangler deler, vennligs ta kontakt med oss ved å sende en mail til
+[skolelaboratoriet@nt.uit.no](mailto:skolelaboratoriet@nt.uit.no) slik at vi
+kan ettersende manglende deler.
+
 ## Gå videre
 
 &uarr; [Gå til **innholdsfortegnelsen**][home]  
@@ -182,10 +187,6 @@ esken air:bit kommer med.
 Du vil finne er mere detaljert beskrivelse samt linker til offisiell
 dokumentasjon for alle komponentente under menypunktet 
 **[Komponenter][components]**.
-
-Dersom det mangler deler, vennligs ta kontakt med oss ved å sende en mail til
-[skolelaboratoriet@nt.uit.no](mailto:skolelaboratoriet@nt.uit.no) slik at vi
-kan ettersende manglende deler.
 
 [home]: Guide-Bygging-og-Lodding
 [casing]: Sette-sammen-treboksen
