@@ -165,13 +165,13 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
             })
         });
         assetFiles.forEach(function (assetFile) {
-            fs.readFile(assetFile, "binary", function (assetReadError, assetData) {
+            fs.readFile(assetFile, { encoding: null }, function (assetReadError, assetData) {
                 if (typeof assetReadError !== "undefined" && assetReadError) {
                     console.error(assetReadError);
                     return;
                 }
                 var targetPath = path.join(targetdir, assetFile);
-                fs.writeFile(targetPath, assetData, "binary", function (assetWriteError) {
+                fs.writeFile(targetPath, assetData, { encoding: null }, function (assetWriteError) {
                     if (typeof assetWriteError !== "undefined" && assetWriteError) {
                         console.error(assetWriteError);
                         return;
