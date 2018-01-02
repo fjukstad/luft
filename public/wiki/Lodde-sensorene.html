@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Lodde sensorene &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Lodde sensorene</h1>
+                        <hr> <p>På selve header shieldet finner vi bare LED lysene og motstanderene de trenger<br/>for å ikke brenne opp. Desverre er veldig lite spennende vi kan gjøre med<br/>Arduino&#39;en uten sensorer. Så nå må vi lodde fast pinner i de tilsvarende hullene<br/>på shieldet.</p>
+<h2 id="dette-trenger-du">Dette trenger du</h2>
+<ul>
+<li>Header shield</li>
+<li>Hvit/Blå ledning med fire ledere til støvmåleren</li>
+<li>Temperatursensoren (&quot;<em>Sukkerbiten</em>&quot;)</li>
+<li>GPS modulen</li>
+<li>SD-kortleseren</li>
+<li>ZipLock-posen med smådeler</li>
+</ul>
+<h2 id="lodde-pinner-p-shieldet">Lodde pinner på shieldet</h2>
+<p>Ta frem radene med male header pinner som du allerede bruket når du loddet fast<br/>pinnene som plugges i Arduinoen. Klipp av rett antall pinner og plassér dem i<br/>shieldet på merkeringene for <code>Støvmåler</code>, <code>Temp/Fukt</code>, <code>GPS</code> og <code>SD-kortleser</code>.<br/>I alle tilfeller skal den korte delen av pinnen stikkes ned i shieldet og den<br/>lange delen av pinnen skal stikke opp.</p>
+<p>Du lodder fast pinnene ved å snu shieldet oppned, og lodder fast de korte<br/>endestykkene som stikker ut på undersiden av shieldet. Gjenta denne prosessen<br/>for alle fire delene.</p>
+<p><img src="20171019_120102.jpg" alt=""/><br/>Header pinner for støvmåleren.</p>
+<p><img src="20171019_121148.jpg" alt=""/><br/>Header pinner for temperatursensoren</p>
+<p><img src="20171019_122615.jpg" alt=""/><br/>Header pinner for GPS</p>
+<p><img src="20171019_125617.jpg" alt=""/><br/>Header pinner for microSD kortleseren</p>
+<h2 id="lodde-plugger-i-sensorene">Lodde plugger i sensorene</h2>
+<p>Støvmåleren og Temperatursensoren kommer allerede med sine egne ledninger, og<br/>er derfor nå allerede klar til bruk. Men om du ser på GPS modulen og microSD<br/>kortleseren, så ser du at det bare er masse hull på chipene der dem skal kobles<br/>til shieldet. Vi må altså lodde fast plugger på disse, slik at vi kan plugge dem<br/>i shieldet.</p>
+<p>Ta frem raden med female header plugger (<em>se bildet nedenfor</em>). Klipp til rett<br/>antall plugger for GPS&#39;en og en gang til kortleseren. Stikk så pluggene inn<br/>gjennom hullene på chipen slik at pluggene stikker ut på undersiden. Du vil da<br/>kunne lodde fast endestykkene på oversiden av chipene.</p>
+<p><img src="20171019_130534.jpg" alt="Plassering av pluggene på undersiden av chipen"/></p>
+<p><img src="20171019_130550.jpg" alt=""/><br/>Plugger på undersiden av microSD kortleseren</p>
+<p><img src="20171019_122732.jpg" alt=""/><br/>Plugger på undersiden av GPS modulen</p>
+<h2 id="ferdig">Ferdig</h2>
+<p>Når alle pinner og plugger er plassert og loddet fast kan du plugge i de<br/>forskjellige delene i shieldet.</p>
+<p><img src="20171019_120201.jpg" alt=""/><br/>Ledningen til Støvmåleren</p>
+<p><img src="20171019_121343.jpg" alt=""/><br/>Plugge inn temperatursensoren</p>
+<p><img src="20171019_125500.jpg" alt=""/><br/>Plugge inn GPS modulen</p>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="Guide-Bygging-og-Lodding.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Lodde-header-shield.html">Gå tilbake til forrige steg: <strong>Lodde header shieldet</strong></a><br/>&rarr; <a href="Skru-fast-komponenter.html">Gå til neste steg: <strong>Skru fast delene i boksen</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsøking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a></li>
+<li><a href="Tekniske-Spesifikasjoner">Tekniske Spesifikasjoner</a></li>
+</ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+
+</html>

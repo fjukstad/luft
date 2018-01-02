@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Programmering med Temperatursensoren &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Programmering med Temperatursensoren</h1>
+                        <hr> <p>Av alle sensorene til air:bit er temperatursensoren den enkleste.<br/>Temperatursensoren vi bruker i air:bit, DHT, er en veldig vanlig type sensor.<br/>Heldigvis betyr dette for oss, at noen andre allerede har gjort jobben med å<br/>finne ut hvordan man leser av data fra sensoren. Dette gjør det veldig mye<br/>enklere å lese av temperatur data.</p>
+<p>Vi kommer til å skrive en veldig enkel Arduino Sketch, der vi skriver ut<br/>temperatur og fuktighetsmålinger over en seriell forbindelse.</p>
+<h2 id="komme-i-gang">Komme i gang</h2>
+<p>Igjen vil vi starte med en helt fersk tom Sketch. Du kan klikke på<br/><code>File</code>&rarr;<code>New</code> menyen for å starte en ny Sketch.</p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+
+}
+</code></pre>
+<h3 id="installere-simpledht-biblioteket">Installere <code>SimpleDHT</code> biblioteket</h3>
+<p>Før vi begynner må vi laste ned og installere et Arduino bibliotek. Tidligere<br/>har vi brukt kommandoer som <code>delay</code>, <code>pinMode</code> og <code>digitalWrite</code> som alle er<br/>del av standard-biblioteket for Arduino. Vi trenger nye kommandoer for å lese<br/>av temperatur fra DHT-sensoren. Disse vil vi finne i et bibliotek som heter<br/><code>SimpleDHT</code>.</p>
+<p><code>Arduino IDE</code> har en innebygd meny for å laste ned Arduino bibliotek. Klikk på<br/><code>Sketch</code>&rarr;<code>Include library</code>&rarr;<code>Manage libraries...</code> for å åpne<br/><code>Library Manager</code>.</p>
+<p><img src="Arduino-IDE-Manage-Library.png" alt="Arduino IDE Manage libraries"/></p>
+<p>I <code>Library Manager</code> som åpner seg, må du nå søke for <code>SimpleDHT</code> som er<br/>biblioteket for sensoren i air:bit. Skriv inn <code>SimpleDHT</code> i søkefeltet. Klikk<br/>på resultatet som kommer opp, velg den nyeste versjonen i Drop-Down-menyen og<br/>klikk på <code>Install</code>.</p>
+<p><img src="Arduino-IDE-Library-Manager-SimpleDHT.png" alt="Arduino IDE Library Manager SimpleDHT"/></p>
+<h2 id="globale-definisjoner">Globale definisjoner</h2>
+<p>Først må <code>SimpleDHT</code>-biblioteket inkluderes i Arduino-Sketchen. I <code>C++</code> bruker<br/>vi <code>#include</code> direktivet for dette:</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SimpleDHT.h&gt;</span></span>
+</code></pre>
+<p>Så ta en titt på <a href="airbit-Pinout.html">Pinout Skjemaet</a>. Definér en konstant for pinnen for<br/>Temperatursensoren:</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DHTPIN 9</span>
+</code></pre>
+<p>Tidligere i <a href="Variabler-og-telling-i-Arduino.html">eksempelet for telling</a>, deklarte du en variabel med<br/>datatype <code>int</code>. Nå må du deklarere en variabel for å kontrollere forbindelsen<br/>med DHT sensoren. Datatypen for dette kommer fra det inkluderte <code>SimpleDHT</code><br/>biblioteket og heter <code>SimpleDHT22</code>.</p>
+<pre><code class="lang-cpp">SimpleDHT22 dhtSensor;
+</code></pre>
+<p><em>I koden over kalles variablen <code>dhtSensor</code>, men du kan bruke hvilket som helst<br/>navn som du har lyst å bruke. Det anbefales å bruke et deskriptivt navn som<br/>virker intuitivt å bruke. Merk også at vi bruker datatypen <code>SimpleDHT22</code>. Fra<br/>beskrivelsen som vistes når du installerte DHT-biblioteket kan du se at det<br/>finnes flere varianter av DHT-sensorer. air:bit sin sensor er av den nyere<br/><code>DHT22</code> varianten.</em></p>
+<h2 id="-setup-"><code>setup</code></h2>
+<p>For dette eksemplet for programmering med DHT sensoren skal vi bruke en<br/>seriell forbindelse med PC&#39;en, så vi må initialisere den serielle forbindelsen,<br/>slik vi har gjort tidligere.</p>
+<pre><code class="lang-cpp">  Serial.begin(<span class="hljs-number">9600</span>);
+</code></pre>
+<h2 id="-loop-"><code>loop</code></h2>
+<p>For hver gjennomgang gjennom <code>loop</code>-funksjonen skal vi lese ut måleverdiene fra<br/>sensoren, så skrive dem ut over seriell-forbindelsen. Til slutt skal vi vente<br/>en stund til vi tar neste måling.</p>
+<p>For å starte med trenger vi to lokale variabler for å lagre måleverdiene (en<br/>for temperatur og en for fuktighet). Lokale variabler deklareres akkurat som<br/>globale variabler (som f.eks. <code>dhtSensor</code>), men de varer bare for én<br/>gjennomgang gjennom <code>loop</code>-funksjonen, dvs. variablen lages på nytt for hver<br/>gjennomgang. Variabler for å lagre en måling fra sensorer lages best som<br/>lokale variabler i stedet for globale variabler.</p>
+<p>Temperatur og Fuktighet er verdier som representeres som kommatall. F.eks. et<br/>vanlig digitalt termometer vil vise temperatur som f.eks. <code>20.7°C</code>. Fuktighet<br/>måles som relativ fuktighet i %, f.eks. <code>41.2% RH</code>. Variabler for å lagre<br/>kommatall må bruke datatypen <code>float</code>. <em><code>float</code> er en forkortelse for<br/><code>floating-point decimal number</code> og det er slik en datamaskin vanligvis håndterer<br/>kommatall.</em></p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">float</span> temperature = <span class="hljs-number">0.0</span>;
+  <span class="hljs-keyword">float</span> humidity = <span class="hljs-number">0.0</span>;
+</code></pre>
+<p>I koden over ser du at variabler også kan initialiseres samtidig med<br/>deklarasjonen. Merk at kommatall bruker <code>.</code> (punktum) som komma-tegn. <em>Igjen,<br/>merk at variablene kan navngis hvordan som helst.</em></p>
+<p>Nå kan vi bruke <code>read2</code> kommandoen som hører til <code>dhtSensor</code> variablen vår.<br/><code>read2</code> vil hente ut begge målingene i en kommando (derfor <code>2</code> i navnet).<br/>Kommandoen forventer pinnen for dataen fra sensoren (som deklarert tidligere)<br/>som første argument. Så tar kommandoen imot først plasseringen for<br/>temperatur- og så for fuktighetsmålingen. Sist følger et til argument for å<br/>motta tillegsdata fra sensoren, som vi ikke kommer til å bry oss om her.</p>
+<p>Siden det kan være litt kryptisk å sende in plasseringer i kode, la oss set på<br/>følgende kodelinje:</p>
+<pre><code class="lang-cpp">  dhtSensor.read2(DHTPIN, &amp;temperature, &amp;humidity, <span class="hljs-literal">NULL</span>);
+</code></pre>
+<p>For å skrive en plassering brukes <code>&amp;</code> symbolet for navnet til variablen verdien<br/>skal plasseres i. <code>NULL</code> er en spesiell verdi, som i dette tilfellet forteller<br/><code>read2</code> kommandoen å ignorere det siste argumentet.</p>
+<p>Etter denne kommandoen vil den aktuelle verdien for temperatur og fuktighet være<br/>lagret i variablene, så vi kan skrive dem ut.</p>
+<pre><code class="lang-cpp">  Serial.print(temperature);
+  Serial.print(<span class="hljs-string">"C"</span>);
+  Serial.print(<span class="hljs-string">"\t"</span>);
+  Serial.print(humidity);
+  Serial.print(<span class="hljs-string">"%"</span>);
+  Serial.println();
+</code></pre>
+<p>I den tredje linjen over ser du at <code>\t</code> skrives ut. I <code>C++</code> brukes<br/><code>\</code> (backslash) for spesielle tegn. <code>\t</code> er et spesiellt tegn kalt tabulator.<br/>Det brukes for å skille kolonner i en tabell fra hverandre. I et vanlig<br/>tekst-programm, som f.eks. Word, vil du skrive et tabulator-symbol ved å trykke<br/>Tab-tasten til venstre for <code>Q</code> på det norske tastaturet.</p>
+<p>Helt til slutt vil vi vente en liten stund til det leses av en ny måling. Bruk<br/><code>delay</code>-kommandoen for dette.</p>
+<pre><code class="lang-cpp">  delay(<span class="hljs-number">1500</span>);
+</code></pre>
+<h2 id="ferdig">Ferdig</h2>
+<p>Siden variabler kan navgis som du ønsker kan koden din se litt anderledes ut,<br/>men hovedsakelig burde ting se u som vist under.</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SimpleDHT.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DHTPIN 9</span>
+SimpleDHT22 dht22;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  Serial.begin(<span class="hljs-number">9600</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-comment">// Declare variables for sensor readings</span>
+  <span class="hljs-keyword">float</span> temperature = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">float</span> humidity = <span class="hljs-number">0</span>;
+  <span class="hljs-comment">// Take readings from sensor</span>
+  dht22.read2(DHTPIN, &amp;temperature, &amp;humidity, <span class="hljs-literal">NULL</span>);
+
+  <span class="hljs-comment">// Print out readings</span>
+  Serial.print(temperature);
+  Serial.print(<span class="hljs-string">"C"</span>);
+  Serial.print(<span class="hljs-string">"\t"</span>);
+  Serial.print(humidity);
+  Serial.print(<span class="hljs-string">"%"</span>);
+  Serial.println();
+
+  <span class="hljs-comment">// Wait 2.5 seconds until next reading.</span>
+  delay(<span class="hljs-number">2500</span>);
+}
+</code></pre>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="airbit-Programmering.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="airbit-LED-Blinking.html">Gå tilbake forrige neste steg: <strong>LED</strong></a><br/>&rarr; <a href="Programmering-med-Stovsensoren.html">Gå til neste steg: <strong>Støvsensoren</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsøking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a></li>
+<li><a href="Tekniske-Spesifikasjoner">Tekniske Spesifikasjoner</a></li>
+</ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+
+</html>

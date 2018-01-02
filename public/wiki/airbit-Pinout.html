@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>airbit pinout &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>airbit pinout</h1>
+                        <hr> <p>For å vite hvilke sensorer er koblet til hvilke pinner som du må bruke i<br/>programmet ditt brukes i vanlig elektronikk et koblingsskjema eller det vi<br/>kaller en <code>pinout</code>.</p>
+<p>I bildet under vil du se pinout-skjemaet til air:bit.</p>
+<p><img src="Vaerlogger_v2.1_skjema.png" alt="air:bit Pinout-Skjema"/><br/><em>Klikk <a href="Vaerlogger_v2.1_skjema.png">her</a> for å vise bildet i en egen fane:<br/><strong><a href="Vaerlogger_v2.1_skjema.png">air:bit Pinout-Skjema</a></strong></em></p>
+<h2 id="som-tabell">Som tabell</h2>
+<p>Om du heller vi se komponentene listet opp med sin tilsvarende pinne.</p>
+<table>
+<thead>
+<tr>
+<th>Komponent</th>
+<th>Funskjon</th>
+<th>Pinne</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LED 1 (Rød)</td>
+<td>Strøm</td>
+<td><code>A1</code> eller <code>15</code> (begge funker)</td>
+</tr>
+<tr>
+<td>LED 2 (Blå eller Grønn)</td>
+<td>Strøm</td>
+<td><code>A0</code> eller <code>14</code> (begge funker)</td>
+</tr>
+<tr>
+<td>Temperatorsensoren</td>
+<td>Data</td>
+<td><code>9</code></td>
+</tr>
+<tr>
+<td>Støvmåleren</td>
+<td>Data <code>TX</code></td>
+<td><code>2</code></td>
+</tr>
+<tr>
+<td>Støvmåleren</td>
+<td>Data <code>RX</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td>GPS-antenna</td>
+<td>Data <code>TX</code></td>
+<td><code>7</code></td>
+</tr>
+<tr>
+<td>GPS-antenna</td>
+<td>Data <code>RX</code></td>
+<td><code>6</code></td>
+</tr>
+<tr>
+<td>SD-kortleser</td>
+<td><code>CS</code></td>
+<td><code>10</code></td>
+</tr>
+<tr>
+<td>SD-kortleser</td>
+<td><code>SCK</code></td>
+<td><code>13</code></td>
+</tr>
+<tr>
+<td>SD-kortleser</td>
+<td><code>MOSI</code></td>
+<td><code>11</code></td>
+</tr>
+<tr>
+<td>SD-kortleser</td>
+<td><code>MISO</code></td>
+<td><code>12</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="bruk">Bruk</h2>
+<p>Guidene for for de forskjellige sensorene vil fortelle deg hvordan disse<br/>verdiene for pinnene skal brukes. I utgangspunketet kan man plugge inn sensorer<br/>på hvilken som helst pinne i Arduinoen, men da må man forklare til Arduinoen<br/>fra hvilken pinne han skal lese data for hvilken sensor. Det er dette pinout<br/>skjemaet brukes til.</p>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="airbit-Programmering.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&rarr; <a href="airbit-LED-Blinking.html">Gå til neste steg: <strong>LED-Blinking</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsøking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a></li>
+<li><a href="Tekniske-Spesifikasjoner">Tekniske Spesifikasjoner</a></li>
+</ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Lodde header shield &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Lodde header shield</h1>
+                        <hr> <p>I stedet for å få ett virvarr av ledninger, vil vi gjøre livet enklere ved å<br/>bruke et header shield mellom Arduino&#39;en og de forskjellige komponentene.</p>
+<p>Vi skal lodde header shieldet oppå Arduino&#39;en. Så kan vi lodde sensorene til<br/>de forskjellige områdene på shieldet. Inni plastplaten som utgjør shieldet<br/>finnes det en rekke koblinger som vil koble sensorene til de rette pinnene på<br/>Arduino&#39;en.</p>
+<h2 id="dette-trenger-du">Dette trenger du</h2>
+<p>Du trenger:</p>
+<ul>
+<li>Arduino Uno</li>
+<li>Header shieldet</li>
+<li>ZipLock-posen med smådeler</li>
+<li>Avbitertang</li>
+</ul>
+<h2 id="sette-pinner-i-arduinoen">Sette pinner i Arduinoen</h2>
+<p>Med Arduino&#39;em følger det en (eller to) lang rad med <em>male</em> header pinner. Det<br/>lange endestykke til pinnene skal inn pluggene til Arduinoen. Bruk en<br/>avbitertang for å klippe av passende lengde med pinner for hver seksjon med<br/>plugger på Arduinoen, slik som vist i bildet under.</p>
+<p><img src="20171019_113609.jpg" alt="Avbitertang kutter header-pinner som plugges i Arduinoen"/></p>
+<p>Plugg i header-pinner for alle fire seksjonene på Arduinoen. Pass på at du<br/>fyller alle pluggene. Du trenger ikke å tenke på de seks pinnene som stikker<br/>opp fra Arduino&#39;en på midten av høyrekanten.</p>
+<p>Til slutt vil Arduino&#39;en din se ut som på bildet under.</p>
+<p><img src="20171019_113707.jpg" alt="Header-pinner plassert i alle pluggene på Arduinoen"/></p>
+<h2 id="plass-r-shieldet">Plassér shieldet</h2>
+<p>Legg shieldet oppå Arduinoen med skriften opp og plassér det slikt at de korte<br/>endestykkene av header pinnene stikker gjennom de ytre hullene på shieldet på<br/>begge sider. Shieldet passer bare én vei, så snu det det rundt dersom det ikke<br/>passer.</p>
+<p><img src="20171019_113916.jpg" alt="Header pinnene stikker opp gjennom shieldet"/></p>
+<h2 id="lodde-fast-pinnene">Lodde fast pinnene</h2>
+<p>Varm opp din loddebolt til omtrent 370&deg;C. Avhengig av hvilken type loddebolt<br/>og loddetinn du bruker kan den anbefalte temperaturen variere. Gjerne<br/>dobbeltskjekk hvilken temperatur du burde bruke.</p>
+<p>Lodding kan føre til dannelse av gasser som kan være heleskadelige i store<br/>mengder! Bruk alltids en avtrekksvifte der du lodder, slik at du ikke puster<br/>inn utslippet av loddingen. Før du begynner bør du også forsikre deg at<br/>avtrekket er skrudd på.</p>
+<p>Ta opp den varme loddebolten og før den fra siden mot pinnen som stikker opp av<br/>hullet. Tuppen av bolten skal varme opp pinnen og metallet på shieldet rundt<br/>hulle som pinnen stikker ut på.<br/>Før så till loddetinn fra den andre siden. Når tinnet kommer i kontakt med den<br/>varme bolten, pinnen og metallringen på shieldet, vil det smelte og legge seg<br/>rundt pinnen.</p>
+<p><img src="20171019_114336.jpg" alt="Loddetinn føres til fra venstre mot loddebolten fra høyre"/></p>
+<p>Vri tinnet og bolten rundt pinnen, slik at tinnet legger seg jevnt runt pinnen<br/>fra alle sider og dekker hullet den stikker opp fra. Etterpå vil du ende med en<br/>liten haug der hullet var før med resten av pinnen stikkende ut på toppen.</p>
+<p><img src="20171019_114915.jpg" alt="Ferdig loddet header-pinne"/></p>
+<p>Når alle pinnene er loddet fast, slik som vist i bildet over, burde du kunne<br/>løfte av header shieldet fra Arduinoen igjen med alle header pinnene hengende<br/>fast i shieldet. Gratulerer! Du har nå et header shield som du enkelt kan plugge<br/>på hvilken som helst Arduino Uno.</p>
+<h2 id="lodde-fast-mostandene">Lodde fast mostandene</h2>
+<p>I midten av shieldet finner du to små firkanter under hverandre som er merket<br/><code>R1 220</code> og <code>R2 220</code>. Her skal vi plassere de to elektriske motstanderene som<br/>du finner i ZipLock-posen med smådeler.</p>
+<p>Dra av papirstripen som motstandene henger fast i, og bøy til de lange<br/>endestykkene til motstandene slik at de passer inn i hullene på shieldet på<br/>høyre- og venstresiden av firkantene.</p>
+<p><img src="20171019_115039.jpg" alt="Plassering av motstandene på shieldet"/></p>
+<p>Lodd fast endestykkene til begge motstandene på shieldet, akkurat som du gjorde<br/>tidligere med header-pinnene til Arduino&#39;en. Når du har loddet fast motstandene<br/>klipper du av de lange endestykkene som stikker ut på undersiden av shieldet<br/>med en avbitertang.</p>
+<h2 id="lodde-fast-led-lysene">Lodde fast LED lysene</h2>
+<p>Øverst i høyre hjørnet av shieldet, ved siden av firkanten der det står GPS,<br/>skal LED&#39;ene plasseres. </p>
+<p><code>D</code> i LED står for <em>Diode</em>. Dette vil si at strømretningen er veldig viktig å<br/>passe på, strømmen kan bare flyte én vei gjennom en diode, så du må passe på<br/>å montere den rett vei på shieldet.</p>
+<p><img src="20171019_115344.jpg" alt="Plassering av LED"/></p>
+<p>Se nøye på bildet over. Legg merke til at diodene har en flat kant mot den ene<br/>siden. I bildet vises det best på den grønne dioden som har sin flate kant<br/>pekende mot venstresiden av bildet. Den flate kanten av dioden skal peke mot<br/>den flate siden av tegningen på shieldet (der det står <code>LED1</code> og <code>LED2</code>).</p>
+<p>Monter det blanke LED-lyset der det er merket <code>LED1 Rød</code> og det grønne LED-lyset<br/>der det er merket <code>LED2 Blå</code> på kretskortet. <em>Det blanke LED-lyset lyser rødt,<br/>og tidligere brukte air:bit en blå LED i stedet for grønn.</em></p>
+<p>Lodd fast diodene slik du gjorde med motstandene. Klipp så av endestykkene med<br/>avbitertang.</p>
+<h2 id="ferdig">Ferdig</h2>
+<p>Du skal nå har et helt funksjonellt shield klart for bruk. Nå er vi kommet godt<br/>i gang med loddingen, så neste steg er å lodde på sensorene.</p>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="Guide-Bygging-og-Lodding.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Sette-sammen-treboksen.html">Gå tilbake til forrige steg: <strong>Bygge treboksen</strong></a><br/>&rarr; <a href="Lodde-sensorene.html">Gå til neste steg: <strong>Lodde sensorene</strong></a>  </p>
+<p><em>Dersom du vil hoppe over montering av sensorer kan du i teorien nå begynne å<br/>programmere Arduino&#39;en til å blinke LED lysene. Du vil finne tilsvarende<br/>kodeeksempler i høyremenyen.</em></p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsøking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a></li>
+<li><a href="Tekniske-Spesifikasjoner">Tekniske Spesifikasjoner</a></li>
+</ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Sette sammen treboksen &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Sette sammen treboksen</h1>
+                        <hr> <p>Nå skal vi bygge sammen treplatene til boksen der alle sensorene og Arduinoen<br/>skal plasseres i.</p>
+<h2 id="dette-trenger-du">Dette trenger du</h2>
+<p>Treplatene for boksen har tagger som passer inni hverandre. Du trenger ikke og<br/>boksen kan demonteres dersom det skulle være nødvendig.</p>
+<p>Du trenger:</p>
+<ul>
+<li>Bunnplaten</li>
+<li>Fire sideplater</li>
+<li>Hammer</li>
+</ul>
+<h2 id="rammen">Rammen</h2>
+<p>Det er best å starte med å sette sammen sideplatene til en ramme. Skriften på<br/>alle sidene skal vende utover.</p>
+<p>Legg ut sideplatene foran deg slik:</p>
+<ul>
+<li>På <strong>høyre side</strong>: Lang sideplate med logoene til UiT og Skolelaboratoriet,<br/>med hull for <em>Temperatur og Luftfuktighet</em>, <em>microSD</em> og <em>Luft ut</em></li>
+<li>På <strong>venstre side</strong>: Lang sideplate med logoene til Vitensenteret og air:bit,<br/>med hull for <em>Luft inn Støvmåler</em></li>
+<li>En Kort sideplate med hull for <em>USB</em> og strøm (<em>7-12V</em>)</li>
+<li>En Kort sideplate som er blank</li>
+</ul>
+<p>Bruk en hammer å slå forsiktig sammen sideplatene. Trikset er å banke forsiktig<br/>men bestemt på platene for å få dem ordentlig tett inni hverandre. Pass på å<br/>ikke banke for hardt for å unngå å brekke treplatene.</p>
+<h2 id="bunnplaten">Bunnplaten</h2>
+<p>Nå kan vi sette rammen inn i bunnplaten. Legg bunnplaten frem foran deg med<br/>skriften opp. Den korte sideplaten som er blank skal settes på den siden av<br/>bunnplaten som er rett, og den korte sideplaten med hull skal plasseres på<br/>bunnplaten ved siden med avrundet topp.</p>
+<p>Så tar du rammen som du satt sammen i forrige steg og banker den fast på<br/>bunnplaten.</p>
+<h2 id="ferdig">Ferdig</h2>
+<p>Når rammen er satt rett inn i bunnplaten, burde den se ut slik som vist i bildet<br/>under. Om du har gjort en feil, er det bare å ta sidene ifra hverandre igjen<br/>(f.eks. med en tang) og begynne på nytt.</p>
+<p><img src="airbit-casing-img.jpg" alt="Ferdig treboks"/></p>
+<p>Du kan se at hullet for <em>USB</em> matcher plasseringen til den lille firkanten inni<br/>den store firkanten for <em>Arduino UNO</em>.</p>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="Guide-Bygging-og-Lodding.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Pakke-ut-airbit-delene.html">Gå tilbake til forrige steg: <strong>Pakke ut / Identifisere deler</strong></a><br/>&rarr; <a href="Lodde-header-shield.html">Gå til neste steg: <strong>Lodde på header shieldet</strong></a></p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsøking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a></li>
+<li><a href="Tekniske-Spesifikasjoner">Tekniske Spesifikasjoner</a></li>
+</ul>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+
+</html>
