@@ -81,6 +81,10 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                         if (isMarkdownLink) {
                             var htmlPath = filepath + ".html";
                             return markedLinkRenderer.call(renderer, htmlPath, title, text);
+                        } else if (!filepath.startsWith("#")) {
+                            console.warn("[" + page.filepath + "]",
+                                "Link points to unresolved path:",
+                                filepath);
                         }
                     } else if (!path.isAbsolute(filepath)) {
                         assetFiles.push(filepath);
