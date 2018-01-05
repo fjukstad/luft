@@ -203,7 +203,7 @@ void loop() {
 
 [home]: airbit-Programmering
 [led]: airbit-LED-Blinking
-[pm]: Programmering-med-Stovsensoren
+[pm]: Programmering-med-Støvsensoren
 
 [manage-libraries-menu]: Arduino-IDE-Manage-Library.png
 [library-manager-simple-dht]: Arduino-IDE-Library-Manager-SimpleDHT.png

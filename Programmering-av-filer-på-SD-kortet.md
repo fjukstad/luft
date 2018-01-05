@@ -410,7 +410,7 @@ eller i tillegg til å skrive til den serielle tilkoblingen med datamaskinen.
 
 [home]: airbit-Programmering
 [gps]: Programmering-med-GPS-antenna
-[guides]: airbit-Guides
+[guides]: airbit-Guider
 
 [counting-example]: Variabler-og-telling-i-Arduino
 [pinout]: airbit-Pinout

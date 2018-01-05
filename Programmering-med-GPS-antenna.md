@@ -323,8 +323,7 @@ datatypen dem bruker i parantes på slutten av hver linje. `i32`, `i16` og `i8`
 er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme
 gjelder for typene med `u` i stedet for `i`, men disse er `unsigned`, dvs. de
 har ikke fortegn og kan derfor kun gi positive verdier eller `0`. `double` er
-en nyere kommatall-type enn `float`. *Klikk på følgende link, for en liste over
-datatyper i C++: [Datatyper i C++][datatypes]*
+en nyere kommatall-type enn `float`.
 
 ## Ferdig
 
@@ -423,8 +422,7 @@ void loop() {
 [tiny-ggp-dl-img]: TinyGPSPlusPlus-library-download.png
 
 [home]: airbit-Programmering
-[pm]: Programmering-med-Stovsensoren
-[sd]: Programmering-av-filer-pa-SD-kortet
+[pm]: Programmering-med-Støvsensoren
+[sd]: Programmering-av-filer-på-SD-kortet
 
-[datatypes]: Primitive-datatyper-i-C-programmering
 [pinout]: airbit-Pinout

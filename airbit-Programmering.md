@@ -31,6 +31,6 @@ hvordan airbit er koblet sammen. Klikk [her][pinout] for å til første steg:
 [pinout]: airbit-Pinout
 [led]: airbit-LED-Blinking
 [dht]: Programmering-med-Temperatursensoren
-[pm]: Programmering-med-Stovsensoren
+[pm]: Programmering-med-Støvsensoren
 [gps]: Programmering-med-GPS-antenna
-[sd]: Programmering-av-filer-pa-SD-kortet
+[sd]: Programmering-av-filer-på-SD-kortet

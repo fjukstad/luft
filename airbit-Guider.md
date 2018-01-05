@@ -54,4 +54,4 @@ man fikser det mest vanlige problemer.
 [prog-setup]: Guide-Oppsett-for-programmering
 [intro-programming]: Introduksjon-til-Arduino-programmering
 [airbit-programming]: airbit-Programmering
-[error-debugging]: Feilsoking-av-programmeringsfeil
+[error-debugging]: Feilsøking-av-programmeringsfeil

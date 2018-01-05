@@ -190,7 +190,7 @@ dokumentasjon for alle komponentente under menypunktet
 
 [home]: Guide-Bygging-og-Lodding
 [casing]: Sette-sammen-treboksen
-[components]: komponenter
+[components]: Komponenter
 
 [arduino-uno-picture]: https://www.arduino.cc/en/uploads/Guide/A000066_iso_both.jpg
 [shield-picture]: airbit-shield.png
