@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
-
     <meta http-equiv="content-type" charset="utf-8" />
     <title>Programmering med GPS antenna &ndash; air:bit Wiki</title>
 
@@ -41,9 +39,7 @@
         ga('send', 'pageview');</script>
     <link rel="stylesheet" href="/public/css/style.css" />
     <script src="/public/js/vis.js"></script>
-
 </head>
-
 <body>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
         <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
@@ -69,12 +65,12 @@
     </nav>
     <div class="main">
         <div class="container container-fluid">
-
             <div class="row">
                 <div class="col-xs-12 col-sm-9 col-sm-pull-3">
                     <div class="markdown">
                         <h1>Programmering med GPS antenna</h1>
-                        <hr> <p>Neste komponent vi kan se nærmere på er GPS-antenna til air:bit. Igjen kommer<br/>vi til å skjekke for GPS posisjonen og skrive ut dataen fra GPS&#39;en til seriell<br/>kommunikasjon. Men for å gjøre ting litt mere interessant kommer vi også til å<br/>lyse opp LED-lysene for å vise at du har kontakt med nok GPS-satellitter for å<br/>bestemme posisjon.</p>
+                        <hr/>
+                        <p>Neste komponent vi kan se nærmere på er GPS-antenna til air:bit. Igjen kommer<br/>vi til å skjekke for GPS posisjonen og skrive ut dataen fra GPS&#39;en til seriell<br/>kommunikasjon. Men for å gjøre ting litt mere interessant kommer vi også til å<br/>lyse opp LED-lysene for å vise at du har kontakt med nok GPS-satellitter for å<br/>bestemme posisjon.</p>
 <p>Å bruke LED-lysene får å vise GPS signal kan være en god idé, siden det fort<br/>kan skje at man mister kontakt med GPS avhengig av forhold, fjell eller<br/>tunneller på veien. Det vil også være mye vanskeligere å få GPS-kontakt nå du<br/>er inne i hus, spesiellt om huset har tykke betongvegger. Når du går rundt ute<br/>og tar målinger forventes det ikke at du har en svær datamaskin koblet til<br/>air:bit hele tiden for å kunne lese ut tekst du sender ut via seriell-koblingen.</p>
 <h2 id="ny-sketch">Ny Sketch</h2>
 <p>Igjen starter vi med en helt fersk ny Sketch. <code>File</code>&rarr;<code>New</code> i menyen.</p>
@@ -224,7 +220,11 @@ Serial.println(gps.altitude.feet()); <span class="hljs-comment">// Altitude in f
 Serial.println(gps.satellites.value()); <span class="hljs-comment">// Number of satellites in use (u32)</span>
 Serial.println(gps.hdop.value()); <span class="hljs-comment">// Horizontal Dim. of Precision (100ths-i32)</span>
 </code></pre>
-<p>I koden over ser du at forfatteren av <code>TinyGPS++</code>-biblioteket har skrevet<br/>datatypen dem bruker i parantes på slutten av hver linje. <code>i32</code>, <code>i16</code> og <code>i8</code><br/>er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme<br/>gjelder for typene med <code>u</code> i stedet for <code>i</code>, men disse er <code>unsigned</code>, dvs. de<br/>har ikke fortegn og kan derfor kun gi positive verdier eller <code>0</code>. <code>double</code> er<br/>en nyere kommatall-type enn <code>float</code>. <em>Klikk på følgende link, for en liste over<br/>datatyper i C++: <a href="Primitive-datatyper-i-C-programmering">Datatyper i C++</a></em></p>
+<p>I koden over ser du at forfatteren av <code>TinyGPS++</code>-biblioteket har skrevet<br/>datatypen dem bruker i parantes på slutten av hver linje. <code>i32</code>, <code>i16</code> og <code>i8</code><br/>er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme<br/>gjelder for typene med <code>u</code> i stedet for <code>i</code>, men disse er <code>unsigned</code>, dvs. de<br/>har ikke fortegn og kan derfor kun gi positive verdier eller <code>0</code>. <code>double</code> er<br/>en nyere kommatall-type enn <code>float</code>. </p>
+<!--
+*Klikk på følgende link, for en liste over
+datatyper i C++: [Datatyper i C++][datatypes]*
+-->
 <h2 id="ferdig">Ferdig</h2>
 <p>Avhengig av hvlike verdier du printer ut, hvordan du navngir dine variabler,<br/>osv. kan koden dir se litt anderlesed ut enn her. Men i essense burde ting<br/>stemme rimelig overens med dette:</p>
 <pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SoftwareSerial.h&gt;</span></span>
@@ -320,20 +320,18 @@ TinyGPSPlus gps;
 <li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
 <li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
 <li><a href="airbit-Programmering.html">air:bit programmering</a></li>
-<li><a href="Feilsøking-av-programmeringsfeil.html">Feilsøking</a></li>
+<li><a href="Feilsoking-av-programmeringsfeil.html">Feilsøking</a></li>
 </ul>
 </li>
 <li><a href="airbit-Pinout.html">Pinout</a></li>
-<li><a href="Dataformat.html">Dataformat</a></li>
-<li><a href="Tekniske-Spesifikasjoner">Tekniske Spesifikasjoner</a></li>
+<li><a href="Dataformat.html">Dataformat</a><!--- [Tekniske Spesifikasjoner][tech]-->
+</li>
 </ul>
 
                 </div>
             </div>
-
         </div>
     </div>
     <footer id="footer" class="footer"></footer>
 </body>
-
 </html>
