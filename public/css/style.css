@@ -185,3 +185,8 @@ hr.my-4 {
 #student-data, #nilu-data {
   display: none;
 }
+
+div.markdown img {
+  display: inline-block;
+  max-width: 100%;
+}

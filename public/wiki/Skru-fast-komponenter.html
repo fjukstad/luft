@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Skru fast komponenter &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Skru fast komponenter</h1>
+                        <hr/>
+                        <p>Nå når alle delene har fått loddet på seg header pinner og plugger kan vi skru<br/>fast delene i treboksen.</p>
+<h2 id="dette-trenger-du">Dette trenger du</h2>
+<ul>
+<li>Treboksen</li>
+<li>Arduino Uno</li>
+<li>Header shield</li>
+<li>Støvmåleren og ledningen</li>
+<li>Temperatursensoren (&quot;<em>Sukkerbiten</em>&quot;)<br/>og ledningen</li>
+<li>GPS modulen og antenna</li>
+<li>microSD kortleseren</li>
+<li>ZipLock-posen med smådeler</li>
+<li>Tang</li>
+</ul>
+<h2 id="start">Start</h2>
+<p>Ta alle delene og ledninger fra hverandre og løsne shieldet fra Arduinoen.<br/>Dette vil gjøre det enklere for deg å komme til skrue-hullene og feste mutter<br/>senere.</p>
+<h2 id="skruene">Skruene</h2>
+<p>Ta frem treboksen din og finn plastskruene og mutterene i ZipLock-posen. Plugg<br/>skruer inn i alle sju hullene på bunnplaten og én i det runde hullet ved siden<br/>av hullet for temperatursensoren i den høyre sideplaten. Skruene skal stikk inn<br/>i boksen. Du trenger ikke å skru på muttrene ennå, vi skal først plassere<br/>Arduinoen og Støvmåleren</p>
+<p><img src="20171019_111902.jpg" alt="Skruer i treboksen"/></p>
+<p>Plassér Arduinoen på sin rette plass i treboksen. Skruene vil passe gjennom<br/>hullene i Arduinoen og USB og strømporten på Arduinoen vil passe gjennom hullene<br/>på toppen. Skru fast en mutter i hver skrue om stram til med tang slik at<br/>Arduinoen sitter godt fast.</p>
+<p>Før du skrur fast støvmåleren, bør du koble til den hvite og blåe ledningen inn<br/>i støvmåleren. Ledningen passer bare én vei, så du kan ikke gjøre noe galt der.<br/>Plassér så Støvmåleren ved siden av Arduinoen. Skruene vil passe i skruehullene<br/>til støvmåleren og luftutslippet til måleren vil stikke ut gjennom hullet i<br/>sideplaten. (<em>Den ene skruen kan være litt vanskelig å få tak i, det er ikke<br/>farlig om du ikke fester den. Måleren burde sitte like godt fast uten. Fjern i<br/>såfall skruven ved å dra den ut fra bunnplaten igjen.</em>)</p>
+<p>Ta temperatur sensoren og plugg i ledningen i sensoren. Plassér sensoren i<br/>siden på treboksen. Den hvite klossen (&quot;<em>Sukkerbiten</em>&quot;) passer gjennom det<br/>store firkantete hullet og skruen går da gjennom et tilsvarende hull i sensoren.<br/><em>Sukkerbiten</em> går ikke hele veien gjennom hullet, den skal såvidt stikke ut fra<br/>sideplaten. Fest en mutter på skruen slik at den sitter godt fast.</p>
+<h2 id="plugge-sammen-komponenter">Plugge sammen komponenter</h2>
+<p>Klipp til to korte strimler av den røde dobbeltsidige teipen du finner i<br/>ZipLock-posen. Disse skal du lime fast på den gule/hvite siden av GPS antenna.</p>
+<p><img src="20171019_130944.jpg" alt="Dobbeltsidig teip på GPS antenna"/></p>
+<p>Ta nå shieldet og plugg det inn i Arduinoen. Så kan du ta GPS modulen og plugge<br/>den i oppå shieldet. Fjern beskyttelsen på teipen på GPS antenna og lim den fast<br/>i det øverste høyre hjørnet av treboksen. Plugg i og knepp til ledningen til<br/>GPS chipen.</p>
+<p><img src="20171019_132825.jpg" alt="Plassering av GPS module og antenne"/></p>
+<p>Så kan du plugge i SD-kortleseren. Den vil stikke ut gjennom den smale åpningen<br/>sideplaten.</p>
+<p><img src="20171019_132839.jpg" alt="Plassering av kortleseren"/></p>
+<h3 id="ledningen-til-temperatursensoren">Ledningen til Temperatursensoren</h3>
+<p>Se nøye på temperatursensoren du har skrudd fast. Den har tre plugger. Hvis du<br/>ser nøye på chipen der ledningen er plugget i, vil du se at hver av pluggene er<br/>merket med <code>+</code>, <code>out</code> og <code>-</code>. Det er viktig at du plugge i rett ledning i rett<br/>plugg i shieldet. Siden ledningen har tre ledere med forskjellige farger (i<br/>våre bilder er det blå, lila og grå), må du huske hvilken farge er plugget i<br/>hvilken plugg på sensoren. </p>
+<p>Se nå på pinnene for temperatursensoren på shieldet. Der er det fire pinner med<br/>markeringene <code>VCC</code>, <code>Data</code> og to ganger <code>GND</code>.</p>
+<ul>
+<li>Pinnen for <code>VCC</code> skal kobles til <code>+</code> på sensoren</li>
+<li>Pinnen for <code>Data</code> skal kobles til <code>out</code> på sensoren</li>
+<li>En av pinnene for <code>GND</code> (spiller ingen rolle hvilken) skal kobles til <code>-</code> på<br/>sensoren.</li>
+</ul>
+<h3 id="ledningen-til-st-vm-leren">Ledningen til Støvmåleren</h3>
+<p>Se nå nøye på Støvmåleren der ledningen er koblet til. Her er det enklest å se<br/>at markeringen lengst til venstre viser <code>TxD</code>. Følg den siden av ledningen og<br/>plugg inn ledningen med den siden i <code>TX</code>-pinnen for støvmåleren på shieldet.<br/>Siden det bare er fire pinner på shieldet vil pluggen stikke ut med ett hull på<br/>venstresiden. Om du ser på pluggen, vil du legge merke til at det ikke er noen<br/>ledning som går i det hullet.</p>
+<p><img src="20171019_120201_cable.jpg" alt="Tilkobling av ledningen til Støvsensoren"/></p>
+<h3 id="alt-p-plass">Alt på plass</h3>
+<p>Nå burde boksen se ut som vist på bildet under</p>
+<p><img src="20171019_134129.jpg" alt="Nesten ferdig"/></p>
+<h2 id="batteriet">Batteriet</h2>
+<p>Lim til slutt fast to brede strimler av dobbeltsidig teip på bunnplaten og<br/>sideplaten på nedsiden av treboksen, der det står <code>Batteri</code>. Ta batteriet og<br/>lim det fast.</p>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="Guide-Bygging-og-Lodding.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Lodde-sensorene.html">Gå tilbake til forrige steg: <strong>Lodde sensorene</strong></a><br/>&rarr; <a href="Sette-på-lokket.html">Gå til neste steg: <strong>Sette på lokket</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsoking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a><!--- [Tekniske Spesifikasjoner][tech]-->
+</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+</html>

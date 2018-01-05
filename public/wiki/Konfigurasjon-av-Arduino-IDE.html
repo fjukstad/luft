@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Konfigurasjon av Arduino IDE &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Konfigurasjon av Arduino IDE</h1>
+                        <hr/>
+                        <p>Nå må vi sette opp <code>Arduino IDE</code> til å snakke med mikrokontrolleren vår. Vi vil<br/>også sette noen innstillinger som vil gjøre det enkere å programmere og<br/>finne mulige feil i koden senere.</p>
+<h2 id="valg-av-port-for-din-arduino">Valg av Port for din Arduino</h2>
+<p>Nå er det på tide å bruke USB-ledningen til Arduino&#39;en og plugge den inn i PCen<br/>på en helt vanlig USB-port. Om du har skrudd på lyden på maskinen din, vil du<br/>høre den vanlige lyden PCer gir fra seg når du plugger inn nye enheter.</p>
+<p>Når du plugger inn en Arduino vil Operativsystemet sette opp noe som kalles en<br/>seriell port, også kallt <code>COM</code>. På Windows er disse portene nummerert med et<br/>tall og tallet blir større for hver ny COM-enhet du kobler til maskinen din.</p>
+<p><strong>Nå du nettopp har plugget inn Arduino kontrolleren din, vil den høyeste<br/>tilgjengelige porten være porten som er tildelt til din Arduino!</strong></p>
+<p>I <code>Arduino IDE</code> i menylinjen øvert velg <code>Tools</code> (eller <code>Verktøy</code>) så velg<br/><code>Port</code> og velg den COM-porten med det høyeste tallet.</p>
+<p><img src="Arduino-IDE-Select-Port-Screen.png" alt="Velg Arduino COM Port i Arduino IDE"/></p>
+<p><em>Merk at tallet du ser i listen kan være forskjellig fra det du ser i bildet<br/>over</em></p>
+<p>I den den samme menyen, i punket over Porten, står det også hvilken type Arduino<br/>systemet er valg å programmere imot (det finner mange forskjellige Arduinoer).<br/>Vanligvis vil <code>Arduino/Genuino Uno</code> være valgt som er den rette. Skjekk at den<br/>rette enhetstypen er valgt. Du vil også se enhetstypen stående nederst i høyre<br/>hjørnet av vinduet.</p>
+<p>På Windows maskiner vil operativsystemet huske din Arduino. Sålenge du bruker<br/>samme Arduino på din PC, vil COM-porten ikke endre seg om du plugger inn<br/>Arduinoen på nytt. Merk at port vil forsvinne som valgmulighet fra menyen dersom<br/>du kobler fra Arduinoen fra datamaskinen.</p>
+<h2 id="innstillinger">Innstillinger</h2>
+<p>Vi kommer til å bruke mye tid med leke oss med Arduino-kode i <code>Arduino IDE</code>.<br/>For å være mest produktiv, er det lurt å sette opp noen innstillinger for<br/>programmet nå, slik at ting blir litt mere oversiktlig og enklere å håndtere.</p>
+<p>I menylinjen øverst, klikk på <code>File</code> (eller <code>Fil</code>) og velg så <code>Preferences</code><br/>(<code>Preferanser</code>).<br/><img src="Arduino-IDE-Menu-File-Preferences.png" alt="Menypunkt File -&gt; Preferences"/></p>
+<p>Når du holder på med programmering anbefales det på det sterkeste å skru på<br/>linjenummering i editoren. Det vil gjøre det enklere å lese feilmeldinger senere<br/>siden de alle kommer med et linjenummer der feilen oppsto.<br/><img src="Arduino-IDE-Preferences-DisplayLineNumbers.png" alt="Innstillingen for linjenummerering"/></p>
+<p>I det samme vinduet kan du også endre skriftsørrelsen på teksten i editoren<br/>(<code>Editor font size</code>), skru på flere feil- og varselmeldinger fra programmet<br/>som tolker koden din (<code>Compiler warnings</code>) og du kan bytte språk på<br/><code>Arduino IDE</code> (<code>Editor Language</code>).</p>
+<p>Siden alle guidene, og bilder i disse guidene bruker Engelsk språk i Arduino IDE<br/>anbefales det at du velger Engelsk som språk. Dette vil gjøre det enklere å<br/>finne rette menypunkt. I tillegg vil feilmeldinger være enklere å &#39;google&#39; når<br/>dem er på engelsk, siden det er så få som snakker norsk og enda ferre som<br/>programmerer Arduinoer.</p>
+<p>Du kan senere alltids gå tilbake til innstillingene senere og endre på dem om du<br/>ønsker. Ignorér innstillinger som du ikke skjønner hva dem gjør, i disse<br/>tilfellene er det best å la dem være på standard-innstillingene.</p>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="Guide-Oppsett-for-programmering.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Start-Arduino-IDE.html">Gå tilbake til forrige steg: <strong>Start Arduino IDE</strong></a><br/>&rarr; <a href="Laste-opp-tom-sketch-til-Arduinoen.html">Gå til neste steg: <strong>Laste opp tom sketch</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsoking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a><!--- [Tekniske Spesifikasjoner][tech]-->
+</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+</html>
