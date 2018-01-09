@@ -1,6 +1,7 @@
-from golang
 
-RUN apt-get update && apt-get install -y unzip git \
+FROM golang
+
+RUN apt-get update && apt-get install -y unzip \
     && rm -rf /var/lib/apt/lists/*
 
 RUN go get github.com/fjukstad/luftkvalitet
