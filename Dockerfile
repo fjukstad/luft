@@ -22,4 +22,5 @@ RUN rm -rf wiki
 COPY --from=wiki-gen /wiki/_site/ $GOPATH/src/github.com/fjukstad/luft/public/wiki/
 RUN go install 
 
+EXPOSE 80
 CMD PORT=80 luft 
