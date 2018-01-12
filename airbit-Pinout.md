@@ -1,6 +1,4 @@
-For å vite hvilke sensorer er koblet til hvilke pinner som du må bruke i
-programmet ditt brukes i vanlig elektronikk et koblingsskjema eller det vi
-kaller en `pinout`.
+For å vite hvilke sensorer er koblet til hvilke pinner som du må bruke i programmet ditt brukes i vanlig elektronikk et koblingsskjema eller det vi kaller en `pinout`.
 
 I bildet under vil du se pinout-skjemaet til air:bit.
 
@@ -28,11 +26,7 @@ Om du heller vi se komponentene listet opp med sin tilsvarende pinne.
 
 ## Bruk
 
-Guidene for for de forskjellige sensorene vil fortelle deg hvordan disse 
-verdiene for pinnene skal brukes. I utgangspunketet kan man plugge inn sensorer
-på hvilken som helst pinne i Arduinoen, men da må man forklare til Arduinoen
-fra hvilken pinne han skal lese data for hvilken sensor. Det er dette pinout
-skjemaet brukes til.
+Guidene for for de forskjellige sensorene vil fortelle deg hvordan disse verdiene for pinnene skal brukes. I utgangspunketet kan man plugge inn sensorer på hvilken som helst pinne i Arduinoen, men da må man forklare til Arduinoen fra hvilken pinne han skal lese data for hvilken sensor. Det er dette pinout skjemaet brukes til.
 
 ## Gå videre
 

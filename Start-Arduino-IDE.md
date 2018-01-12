@@ -1,6 +1,4 @@
-Etter installasjonen vil du kunne finne `Arduino` eller `Arduino IDE` (navnet
-kan variere) i start-menyen og også på Skrivebordet. Klikk på denne for å starte
-opp Arduino IDE programmet for første gang.
+Etter installasjonen vil du kunne finne `Arduino` eller `Arduino IDE` (navnet kan variere) i start-menyen og også på Skrivebordet. Klikk på denne for å starte opp Arduino IDE programmet for første gang.
 
 Du vil få opp et vidu som viser følgende kode (eller noe veldig liknende)
 
@@ -16,9 +14,7 @@ void loop() {
 }
 ```
 
-*I noen eldre versjoner av Arduino IDE, kan det hende at du starter med en helt
-tom fil uten noen tekst. Du kan da bare kopiere koden over og lime den inn i
-editoren din, slik at det er enklere å følge de neste stegene.*
+*I noen eldre versjoner av Arduino IDE, kan det hende at du starter med en helt tom fil uten noen tekst. Du kan da bare kopiere koden over og lime den inn i editoren din, slik at det er enklere å følge de neste stegene.*
 
 ## Gå videre
 

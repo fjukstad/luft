@@ -1,9 +1,6 @@
 **Nesten ferdig!**
 
-Legg på lokket. Logoen skal være på toppen, over shieldet. Pass på at alle
-ledninger er inni boksen. Du vil legge merke til at pluggene til
-Temperatursensoren er litt for høye. Ta en tang og bøy dem på skrå, slik at
-lokket passer.
+Legg på lokket. Logoen skal være på toppen, over shieldet. Pass på at alle ledninger er inni boksen. Du vil legge merke til at pluggene til Temperatursensoren er litt for høye. Ta en tang og bøy dem på skrå, slik at lokket passer.
 
 Bruk en hammer til å slå fast lokket.
 
