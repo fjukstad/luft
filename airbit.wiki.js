@@ -8,6 +8,7 @@ var validurl = require('valid-url');
 let markdownExtensions = [".md", ".markdown"];
 
 const NAME_TOKEN = "d792aafa37404406b4ea8f526b479e01";
+const LINK_TOKEN = "d5210c06f33b4edeb6f777113049127a";
 const SIDEBAR_TOKEN = "ca68a7c31184428f8a99ec8b9bc15dba";
 const CONTENT_TOKEN = "c81addc8f61b4d8da7418500fb88b242";
 const FOOTER_TOKEN = "ed3c8e5ccb9c488e90fb78b1cbd3c99d";
@@ -114,6 +115,25 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                     }
                 }
                 return markedImgRenderer.call(renderer, href, title, text);
+            };
+            var markedHeadingRenderer = renderer.heading;
+            renderer.heading = function (text, level, raw) {
+                const HELPLINK_TOKEN = "HELPLINK";
+                if (raw.toUpperCase().endsWith(HELPLINK_TOKEN)) {
+                    var removeHelplinkToken = function (text) {
+                        return text
+                            .substr(0, text.length - HELPLINK_TOKEN.length)
+                            .trimRight()
+                            ;
+                    }
+                    raw = removeHelplinkToken(raw);
+                    text = removeHelplinkToken(text);                    
+                    text +=
+                        `<a class="wiki-helplink" href="mailto:skolelaboratoriet@nt.uit.no?subject=%5Bairbit%5D%20-%20Hjelp%21%20%7C%20${encodeURIComponent(page.name)}%20-%20${encodeURIComponent(raw)}&body=Hjelp%20jeg%20sitter%20fast%21%0D%0AJeg%20leser%20f%C3%B8lgende%20side%3A%20http%3A%2F%2Fairbit.uit.no%2Fpublic%2Fwiki%2F${encodeURIComponent(page.wikilink)}.html${encodeURIComponent('#')}${encodeURIComponent(raw.toLowerCase().replace(/[^\w]+/g, '-'))}">
+    Hjelp meg! skolelaboratoriet@nt.uit.no
+</a>`;
+                }
+                return markedHeadingRenderer.call(renderer, text, level, raw);
             };
             markedOptions.highlight = function (code, lang) {
                 var highlightjs = require('highlight.js');
