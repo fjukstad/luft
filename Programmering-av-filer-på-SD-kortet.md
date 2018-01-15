@@ -12,7 +12,7 @@ I dette eksemplet kommer du til å først lage en ny fil på SD-kortet. Så komm
 
 Dette vil derfor likne veldig på [kodeeksemplet om variabler og telling i Arduino][counting-example]. Du vil i prinsippet gjøre nøyaktig det samme i dette eksemplet, borsett fra at du skriver til en fil på SD-kortet, i stedet for seriell-tilkoblingen til datamaskinen.
 
-## Ny Sketch
+## Ny Sketch helplink
 
 Start med en helt ny Sketch. Menypunkt: `File`&rarr;`New`.
 
@@ -26,11 +26,11 @@ void loop() {
 }
 ```
 
-## Laste ned og installere bibliotek
+## Laste ned og installere bibliotek helplink
 
 `SD`-biblioteket er allerede forhåndsinstallert sammen med `Arduino IDE`. Det vil ikke være nødvendig å laste ned noe for dette eksemplet.
 
-## Globale definisjoner
+## Globale definisjoner helplink
 
 Først må inkludere `SD`-biblioteket. Bruk navnet `<SD.h>` for `#include` direktivet.
 
@@ -50,7 +50,7 @@ File file;
 
 Til slutt må vi lage en global teller variabel. Dette vil være et heltall, så bruk datatypen `int`.
 
-## `setup`
+## `setup` helplink
 
 Frøst må du aktivere kontroll over `CS`-pinnen. Dette funker akkurat som du gjør får å aktivere pinnene til LED-lysene. Bruk `pinMode` med pinnen som første og `OUTPUT` som andre argument.
 
@@ -135,7 +135,7 @@ void loop() {
 }
 ```
 
-## `loop`
+## `loop` helplink
 
 For hver gjennomgang gjennom `loop` vil vi skrive en ny linje med tekst. Teksten vi skriver skal også inneholde verdien til telleren vår. Vi må også øke telleren for hver gang.
 
@@ -160,7 +160,7 @@ void loop() {
 
 Det kan også være en god idé å legge til en `delay`-kommando etter `flush`-kommandoen på slutten, slik at du kun skrive en ny linje etter f.eks. ett sekund med venting.
 
-## Test 1
+## Test 1 helplink
 
 1. Last opp koden du har skrevet så langt til air:bit.
 1. Trekk så ut ledningen fra datamaskinen.
@@ -178,7 +178,7 @@ Det kan også være en god idé å legge til en `delay`-kommando etter `flush`-k
 1. Dobbel-klikk på filen for å åpne den og vise innholdet.  
    ![Filinnholdet av testfile.txt i Notepad][notepad]
 
-## Ikke overskriv filen
+## Ikke overskriv filen helplink
 
 Om du tester ut koden vi har skrevet så langt flere ganger, vil du legge merke til at air:bir skriver over filen hver gang du kobler den til strøm. Dvs. all data så lå i filen blir slettet hver gang du skrur på air:bit måleren. Dette virker ikke helt fornuftig. Det hadde kanskje vært bedre om vi bare la til ny data i en eksisterende fil dersom det allerede ligger noe der fra før.
 
@@ -214,7 +214,7 @@ I koden over ser du at `if`-blokken forsatt er tom, så hva må gjøres dersom f
 
 Merk at koden over skriver en linje med 20 bindestreker i begynnelsen når en eksisterende fil åpnes. Dette vil gjøre det enkelt å finne skillet mellom to seksjoner i filen.
 
-## Test 2
+## Test 2 helplink
 
 Med de nye endringene vil du kunne slå av og på air:bit flere ganger. Filen på SD-kortet vil bare bli større og større etterhvert air:bit skriver mer og mer tekst til filen.
 

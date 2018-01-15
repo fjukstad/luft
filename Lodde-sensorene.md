@@ -9,7 +9,7 @@ På selve header shieldet finner vi bare LED lysene og motstanderene de trenger 
 * SD-kortleseren
 * ZipLock-posen med smådeler
 
-## Lodde pinner på shieldet
+## Lodde pinner på shieldet helplink
 
 Ta frem radene med male header pinner som du allerede bruket når du loddet fast pinnene som plugges i Arduinoen. Klipp av rett antall pinner og plassér dem i shieldet på merkeringene for `Støvmåler`, `Temp/Fukt`, `GPS` og `SD-kortleser`. I alle tilfeller skal den korte delen av pinnen stikkes ned i shieldet og den lange delen av pinnen skal stikke opp.
 
@@ -27,7 +27,7 @@ Header pinner for GPS
 ![][header-pins-sd]  
 Header pinner for microSD kortleseren
 
-## Lodde plugger i sensorene
+## Lodde plugger i sensorene helplink
 
 Støvmåleren og Temperatursensoren kommer allerede med sine egne ledninger, og er derfor nå allerede klar til bruk. Men om du ser på GPS modulen og microSD kortleseren, så ser du at det bare er masse hull på chipene der dem skal kobles til shieldet. Vi må altså lodde fast plugger på disse, slik at vi kan plugge dem i shieldet.
 

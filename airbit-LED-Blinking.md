@@ -1,6 +1,6 @@
 De enkleste komponentene på air:bit er LED lyspærene. Så for å starte med skal vi prøve å få dem til å blinke. Du kan senere bruke LED til å vise status på f.eks. GPS signalet eller blinke mens du tar målinger, osv. Det kan være en enkel måte å skjekke om alt er ok mens du går rundt og tar målinger. Husk at air:bit ikke har noen skjerm, og du vil neppe alltids ha med datamaskinen din for å kunne snakke direkte med Arduinoen.
 
-## Komme i gang
+## Komme i gang helplink
 
 Vi starter med en helt fersk ny Sketch. Først er det greit å bare begynne med å legge til de *tomme* funksjonene for `setup` og `loop` som vi allerede har sett på tidligere.
 
@@ -25,7 +25,7 @@ Fra skjemaet kan vi se at vi skal bruke pinne nummer `A1` for den blanke, rødt-
 
 Denne syntaksen som du ser i koden over har vi ikke brukt før. I motsetningen til å lage en variabel, deklarerer vi her to konstanter. Merk at vi gjerne bruker bare store bokstaver for konstanter. *Det kan også være fristende å bruke navn med norske tegn (f.eks. `LED_RØD`) her, men det er desverre ikke tillatt. Navn kan kun være små og store engelske bokstaver og siffrer.*
 
-## `setup`
+## `setup` helplink
 
 I setup koden vår, må vi nå fortelle Arduinoen at vi har lyst å bruke pinnene for LED-pærene. Kommandoen for dette er `pinMode`. Arduinoen har muligheten for å enten sende ut signaler, dvs. strøm, på en pinne, eller motta. Ved å bruke argumentet `OUTPUT` sier vi at vi ikke forventer å motta noe data på pinnen og bare skal sende strøm ut.
 
@@ -36,7 +36,7 @@ I setup koden vår, må vi nå fortelle Arduinoen at vi har lyst å bruke pinnen
 
 Merk at dette ikke faktisk skrur på eller av strømmen til LED enda. Det bare setter opp Arduinoen slik at den vil kunne skru av og på strømmen med en senere kommando i `loop`. Vi ser også at vi har to instruksjoner her, én for hver pinne. Om bare skal bruke en LED ved en senere anledning, kunne du bare fjernet en av de to linjene. Vi kommer til å bruke begge LED i dette eksemplet, så vi må derfor sette opp begge pinnene.
 
-## `loop`
+## `loop` helplink
 
 Ideen er at vi skal blinke avvekslende med den røde og grønne LED på air:bit. Før vi skriver noe kode, må vi først tenke over hvordan dette faktisk skjer steg for steg.
 

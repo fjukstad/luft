@@ -10,7 +10,7 @@ Du trenger:
 * Fire sideplater
 * Hammer
 
-## Rammen
+## Rammen helplink
 
 Det er best å starte med å sette sammen sideplatene til en ramme. Skriften på alle sidene skal vende utover.
 
@@ -23,7 +23,7 @@ Legg ut sideplatene foran deg slik:
 
 Bruk en hammer å slå forsiktig sammen sideplatene. Trikset er å banke forsiktig men bestemt på platene for å få dem ordentlig tett inni hverandre. Pass på å ikke banke for hardt for å unngå å brekke treplatene.
 
-## Bunnplaten
+## Bunnplaten helplink
 
 Nå kan vi sette rammen inn i bunnplaten. Legg bunnplaten frem foran deg med skriften opp. Den korte sideplaten som er blank skal settes på den siden av bunnplaten som er rett, og den korte sideplaten med hull skal plasseres på bunnplaten ved siden med avrundet topp.
 

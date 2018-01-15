@@ -16,6 +16,8 @@ void loop() {
 
 Ikke vær redd om du ikke skjønner hva som foregår her og hva `void` og alle parantesene betyr. Vi kommer til å forklare det i neste Guide. Nå skal vi bare se om vi klarer å laste koden opp til Arduinoen uten feilmeldinger.
 
+## Laste opp helplink
+
 Vær sikker at Arduinoen er plugget inn. Kill så på `Upload` knappen (se bildet under) for å laste opp.  
 ![Upload knappen, for å laste opp kode til Arduinoen][upload-empty]
 

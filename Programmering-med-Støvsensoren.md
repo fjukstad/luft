@@ -16,14 +16,14 @@ void loop() {
 }
 ```
 
-## Laste ned bibliotek
+## Laste ned bibliotek helplink
 
 Akkurat som DHT-biblioteket vi brukte for temperatursensoren, finnes det et bibliotek for støvsensoren. Desverre oppstår det komplikasjoner med de andre sensorene i air:bit når vi bruker denne. Derfor har air:bit teamet laget sin egen versjon for dette biblioteket. Last ned den nyeste, dvs. den øverste, versjonen i listen du finner når du klikker på denne linken: (klikk det står `zip`) **[SDS011 biblioteket](https://github.com/skolelab/SDS011/releases)**  
 Det er viktig at du lagrer (**ikke åpner**) filen. Husk hvor du lagrer filen, vi må finne frem den filen i neste steg.
 
 Etter du har lastet ned biblioteket og lagret filen må vi installere biblioteket i `Arduino IDE`. Klikk i menyen på `Sketch`&rarr;`Include library`&rarr;`Add ZIP library` (punktet under `Manage libraries`). Velg filen du nettopp lastet ned. Om nettleseren din ikke ba deg om å velge hvor filen skulle lagres, vil du mest sannsynligvis finne den under `Downloads` (`Nedlastninger`).
 
-## Globale definisjoner
+## Globale definisjoner helplink
 
 Arduino IDE kommer med del små hjelper-bibliotek som allerede er installert på forhånd. Ett av disse er `SoftwareSerial`-biblioteket. Støvsensoren sender faktisk målingene over ledningen til Arduinoen på liknende måte som Arduinoen 'snakker' med PCen over USB-ledningen. `SoftwareSerial` tillater å lage en seriell forbindelse over pinner på Arduinoen i stedet for USB-ledningen. Så derfor bruker vi følgende `#include` direktiv:
 
@@ -50,7 +50,7 @@ Så må lage en global variabel for tilkoblingen til Støvsensoren. Denne gang b
 SDS011 sds;
 ```
 
-## `setup`
+## `setup` helplink
 
 Akkurat som kommunikasjonen med PC'en din, må vi også initialisere kommunikasjonen med støvsensoren. Vi bruker `begin`-kommandoen som hører til `sds` variablen. Den tar imot TX-pinnen og så RX-pinnen som sensoren er koblet til med som argument.
 
@@ -64,7 +64,7 @@ Vi skal også skrive ut målingene over seriell tilkoblingen til datamaskinen.
   Serial.begin(9600);
 ```
 
-## `loop`
+## `loop` helplink
 
 Som med temperatursensoren, skal vi lese ut målingene fra støvsensoren og så printe dem ut. Støvsensoren tar målinger for to forskjellige partikelstørrelser: 2.5µm og 10µm. Begge tall gir konsentrasjoner som desimaltall.
 

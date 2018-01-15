@@ -11,7 +11,7 @@ Du trenger:
 * ZipLock-posen med smådeler
 * Avbitertang
 
-## Sette pinner i Arduinoen
+## Sette pinner i Arduinoen helplink
 
 Med Arduino'en følger det en (eller to) lang rad med *male* header pinner. Det lange endestykke til pinnene skal inn pluggene til Arduinoen. Bruk en avbitertang for å klippe av passende lengde med pinner for hver seksjon med plugger på Arduinoen, slik som vist i bildet under.
 
@@ -23,13 +23,13 @@ Til slutt vil Arduino'en din se ut som på bildet under.
 
 ![Header-pinner plassert i alle pluggene på Arduinoen][header-pins-arduino]
 
-## Plassér shieldet
+## Plassér shieldet helplink
 
 Legg shieldet oppå Arduinoen med skriften opp og plassér det slikt at de korte endestykkene av header pinnene stikker gjennom de ytre hullene på shieldet på begge sider. Shieldet passer bare én vei, så snu det det rundt dersom det ikke passer.
 
 ![Header pinnene stikker opp gjennom shieldet][header-pins-shield]
 
-## Lodde fast pinnene
+## Lodde fast pinnene helplink
 
 Varm opp din loddebolt til omtrent 370&deg;C. Avhengig av hvilken type loddebolt og loddetinn du bruker kan den anbefalte temperaturen variere. Gjerne dobbeltskjekk hvilken temperatur du burde bruke.
 
@@ -46,7 +46,7 @@ Vri tinnet og bolten rundt pinnen, slik at tinnet legger seg jevnt runt pinnen f
 
 Når alle pinnene er loddet fast, slik som vist i bildet over, burde du kunne løfte av header shieldet fra Arduinoen igjen med alle header pinnene hengende fast i shieldet. Gratulerer! Du har nå et header shield som du enkelt kan plugge på hvilken som helst Arduino Uno.
 
-## Lodde fast mostandene
+## Lodde fast mostandene helplink
 
 I midten av shieldet finner du to små firkanter under hverandre som er merket `R1 220` og `R2 220`. Her skal vi plassere de to elektriske motstanderene som du finner i ZipLock-posen med smådeler.
 
@@ -56,7 +56,7 @@ Dra av papirstripen som motstandene henger fast i, og bøy til de lange endestyk
 
 Lodd fast endestykkene til begge motstandene på shieldet, akkurat som du gjorde tidligere med header-pinnene til Arduino'en. Når du har loddet fast motstandene klipper du av de lange endestykkene som stikker ut på undersiden av shieldet med en avbitertang.
 
-## Lodde fast LED lysene
+## Lodde fast LED lysene helplink
 
 Øverst i høyre hjørnet av shieldet, ved siden av firkanten der det står GPS, skal LED'ene plasseres. 
 

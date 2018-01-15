@@ -2,7 +2,7 @@ I forrige steg skrev vi ut teksten `Hello World!`. Vi så at Arduinoen kjørte g
 
 For dette må vi lage en variabel i programmet vårt. En variabel er en verdi med et navn som kan endre verdi.
 
-### Deklarere en ny variabel
+### Deklarere en ny variabel helplink
 
 ``` cpp
 int counter;
@@ -14,7 +14,7 @@ Koden lager en ny variabel som heter `counter`. Linjen sier bare at `counter` ek
 
 Foran navnet finner vi kodeordet `int`. Kort for `integer`, som er det engelske ordet for heltall. Dette beskriver hva slags verdier `counter` kan ha. Siden koden sier `int` (i stedet for noen annen type) kan `counter` bare lagre heltallige verdier, både negative og positive.
 
-### Initialisering
+### Initialisering helplink
 
 Med deklerasjonen av `counter` variablen, må vi nå sette verdien til variablen til en nyttig verdi. Dette må vi gjøre én gang når Arduinoen starter opp. Derfor legger vi følgende til `setup`-funksjonen: (*dvs. før den lukkende krøllparantesen*)
 
@@ -26,7 +26,7 @@ Et enkel likhetstegn er i Arduinokode operatoren for å lagre en verdi i en vari
 
 Kode som denne, som setter start-verdier i variabler kaller vi *initialisering*.
 
-### Printe ut variabler
+### Printe ut variabler helplink
 
 I forrige steg brukte vi `Serial.println` for å skrive ut `Hello World!`. La oss først endre teksten til `Hello World! Counter:`. Vi vil også forsette å skrive tekst i en ny kommando på samme linje. Derfor vil vi heller bruke `print` i stedet for `println`.
 
@@ -50,7 +50,7 @@ Nå er vi ferdig med å skrive linjen, så nå er rette tiden for å skrive vide
 
 *Merk at det ikke står noe mellom parantesene. Men parantesene må fortsatt være der.*
 
-### Øke verdien til variablen
+### Øke verdien til variablen helplink
 
 Etter vi ha skrevet ut verdien til `counter` som vi gjorde over, burde vi nå øke verdien `counter` variablen slik at vi får en ny verdi for hver gang koden kjøres. Å øke en verdi kan gjøres ved å legge til `1` til `counter`. Siden den økte verdien må lagres i `counter` igjen, trenger vi forsatt et likhetstegn.  
 Operatoren for å øke er `+=`. Verdien på venstresiden vil bil økt med verdien på høyresiden.
@@ -61,7 +61,7 @@ Vi legger til følgende kode etter kommandoene der vi skriver ut tekst.
   counter += 1; // Increase counter by 1.
 ```
 
-### Ferdig
+### Ferdig helplink
 
 ``` cpp
 int counter; // Counting-variable, int -> integer value, whole number

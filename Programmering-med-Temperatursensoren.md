@@ -16,7 +16,7 @@ void loop() {
 }
 ```
 
-### Installere `SimpleDHT` biblioteket
+### Installere `SimpleDHT` biblioteket helplink
 
 Før vi begynner må vi laste ned og installere et Arduino bibliotek. Tidligere har vi brukt kommandoer som `delay`, `pinMode` og `digitalWrite` som alle er del av standard-biblioteket for Arduino. Vi trenger nye kommandoer for å lese av temperatur fra DHT-sensoren. Disse vil vi finne i et bibliotek som heter `SimpleDHT`.
 
@@ -28,7 +28,7 @@ I `Library Manager` som åpner seg, må du nå søke for `SimpleDHT` som er bibl
 
 ![Arduino IDE Library Manager SimpleDHT][library-manager-simple-dht]
 
-## Globale definisjoner
+## Globale definisjoner helplink
 
 Først må `SimpleDHT`-biblioteket inkluderes i Arduino-Sketchen. I `C++` bruker vi `#include` direktivet for dette:
 
@@ -50,7 +50,7 @@ SimpleDHT22 dhtSensor;
 
 *I koden over kalles variablen `dhtSensor`, men du kan bruke hvilket som helst navn som du har lyst å bruke. Det anbefales å bruke et deskriptivt navn som virker intuitivt å bruke. Merk også at vi bruker datatypen `SimpleDHT22`. Fra beskrivelsen som vistes når du installerte DHT-biblioteket kan du se at det finnes flere varianter av DHT-sensorer. air:bit sin sensor er av den nyere `DHT22` varianten.*
 
-## `setup`
+## `setup` helplink
 
 For dette eksemplet for programmering med DHT sensoren skal vi bruke en seriell forbindelse med PC'en, så vi må initialisere den serielle forbindelsen, slik vi har gjort tidligere.
 
@@ -58,7 +58,7 @@ For dette eksemplet for programmering med DHT sensoren skal vi bruke en seriell 
   Serial.begin(9600);
 ```
 
-## `loop`
+## `loop` helplink
 
 For hver gjennomgang gjennom `loop`-funksjonen skal vi lese ut måleverdiene fra sensoren, så skrive dem ut over seriell-forbindelsen. Til slutt skal vi vente en stund til vi tar neste måling.
 

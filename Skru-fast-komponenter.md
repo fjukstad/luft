@@ -17,7 +17,7 @@ Nå når alle delene har fått loddet på seg header pinner og plugger kan vi sk
 
 Ta alle delene og ledninger fra hverandre og løsne shieldet fra Arduinoen. Dette vil gjøre det enklere for deg å komme til skrue-hullene og feste mutter senere.
 
-## Skruene
+## Skruene helplink
 
 Ta frem treboksen din og finn plastskruene og mutterene i ZipLock-posen. Plugg skruer inn i alle sju hullene på bunnplaten og én i det runde hullet ved siden av hullet for temperatursensoren i den høyre sideplaten. Skruene skal stikk inn i boksen. Du trenger ikke å skru på muttrene ennå, vi skal først plassere Arduinoen og Støvmåleren
 
@@ -29,7 +29,7 @@ Før du skrur fast støvmåleren, bør du koble til den hvite og blåe ledningen
 
 Ta temperatur sensoren og plugg i ledningen i sensoren. Plassér sensoren i siden på treboksen. Den hvite klossen ("*Sukkerbiten*") passer gjennom det store firkantete hullet og skruen går da gjennom et tilsvarende hull i sensoren. *Sukkerbiten* går ikke hele veien gjennom hullet, den skal såvidt stikke ut fra sideplaten. Fest en mutter på skruen slik at den sitter godt fast.
 
-## Plugge sammen komponenter
+## Plugge sammen komponenter helplink
 
 Klipp til to korte strimler av den røde dobbeltsidige teipen du finner i ZipLock-posen. Disse skal du lime fast på den gule/hvite siden av GPS antenna.
 
@@ -43,7 +43,7 @@ Så kan du plugge i SD-kortleseren. Den vil stikke ut gjennom den smale åpninge
 
 ![Plassering av kortleseren][sd-placement]
 
-### Ledningen til Temperatursensoren
+### Ledningen til Temperatursensoren helplink
 
 Se nøye på temperatursensoren du har skrudd fast. Den har tre plugger. Hvis du ser nøye på chipen der ledningen er plugget i, vil du se at hver av pluggene er merket med `+`, `out` og `-`. Det er viktig at du plugge i rett ledning i rett plugg i shieldet. Siden ledningen har tre ledere med forskjellige farger (i våre bilder er det blå, lila og grå), må du huske hvilken farge er plugget i hvilken plugg på sensoren. 
 
@@ -53,19 +53,19 @@ Se nå på pinnene for temperatursensoren på shieldet. Der er det fire pinner m
 * Pinnen for `Data` skal kobles til `out` på sensoren
 * En av pinnene for `GND` (spiller ingen rolle hvilken) skal kobles til `-` på sensoren.
 
-### Ledningen til Støvmåleren
+### Ledningen til Støvmåleren helplink
 
 Se nå nøye på Støvmåleren der ledningen er koblet til. Her er det enklest å se at markeringen lengst til venstre viser `TxD`. Følg den siden av ledningen og plugg inn ledningen med den siden i `TX`-pinnen for støvmåleren på shieldet. Siden det bare er fire pinner på shieldet vil pluggen stikke ut med ett hull på venstresiden. Om du ser på pluggen, vil du legge merke til at det ikke er noen ledning som går i det hullet.
 
 ![Tilkobling av ledningen til Støvsensoren][pm-cable]
 
-### Alt på plass
+### Alt på plass helplink
 
 Nå burde boksen se ut som vist på bildet under
 
 ![Nesten ferdig][all-placement]
 
-## Batteriet
+## Batteriet helplink
 
 Lim til slutt fast to brede strimler av dobbeltsidig teip på bunnplaten og sideplaten på nedsiden av treboksen, der det står `Batteri`. Ta batteriet og lim det fast.
 
