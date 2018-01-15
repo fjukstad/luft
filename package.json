@@ -32,6 +32,7 @@
     "highlight.js": "^9.12.0"
   },
   "devDependencies": {
-    "@types/highlight.js": "^9.12.2"
+    "@types/highlight.js": "^9.12.2",
+    "@types/node": "^9.3.0"
   }
 }
