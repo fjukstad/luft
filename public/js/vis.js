@@ -369,3 +369,23 @@ function clearVis(element, map) {
         map.remove(); 
     }
 }
+
+$(document).ready(function () {
+    // Apply bootstrap style classes to markdown tags
+    var markdownTags = $("div.markdown");
+
+    // Tables need to have the table class in bootstrap
+    $("table", markdownTags)
+        .addClass("table")
+        .addClass("table-responsive")
+        .addClass("table-sm")
+        .addClass("table-striped")
+        .addClass("table-bordered")
+        ;
+
+    // Blockquote tags need to have the blockquote class in bootstrap
+    $("blockquote", markdownTags)
+        .addClass("blockquote")
+        ;
+});
+

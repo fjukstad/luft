@@ -182,3 +182,8 @@ hr.my-4 {
 #gps-form-group, #gps-input {
   width: 100% !important;
 }
+
+div.markdown img {
+  display: inline-block;
+  max-width: 100%;
+}

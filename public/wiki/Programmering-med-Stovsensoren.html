@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Programmering med Stovsensoren &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Programmering med Stovsensoren</h1>
+                        <hr/>
+                        <p>Støvsensoren til air:bit er litt mere komplisert enn temperatursensoren, men<br/>igjen finnes det et Arduino bibliotekt for å lese av målinger fra sensoren.</p>
+<p>Som i temperatursensor-eksemplet kommer vi til å demonstrere hvordan vi tar<br/>målinger fra støvsensoren, og skrive dem ut til seriell-forbindelsen til PC&#39;en.</p>
+<h2 id="ny-sketch">Ny Sketch</h2>
+<p>Igjen starter vi med en helt fersk ny Sketch. <code>File</code>&rarr;<code>New</code> i menyen.</p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span> <span class="hljs-params">()</span> </span>{
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+
+}
+</code></pre>
+<h2 id="laste-ned-bibliotek">Laste ned bibliotek</h2>
+<p>Akkurat som DHT-biblioteket vi brukte for temperatursensoren, finnes det et<br/>bibliotek for støvsensoren. Desverre oppstår det komplikasjoner med de andre<br/>sensorene i air:bit når vi bruker denne. Derfor har air:bit teamet laget sin<br/>egen versjon for dette biblioteket. Last ned den nyeste, dvs. den øverste,<br/>versjonen i listen du finner når du klikker på denne linken:<br/>(klikk det står <code>zip</code>)<br/><strong><a href="https://github.com/skolelab/SDS011/releases">SDS011 biblioteket</a></strong><br/>Det er viktig at du lagrer (<strong>ikke åpner</strong>) filen. Husk hvor du lagrer filen,<br/>vi må finne den frem filen i neste steg.</p>
+<p>Etter du har lastet ned biblioteket og lagret filen må vi installere<br/>biblioteket i <code>Arduino IDE</code>. Klikk i menyen på<br/><code>Sketch</code>&rarr;<code>Include library</code>&rarr;<code>Add ZIP library</code><br/>(punktet under <code>Manage libraries</code>). Velg filen du nettopp lastet ned. Om<br/>nettleseren din ikke ba deg om å velge hvor filen skulle lagres, vil du mest<br/>sannsynligvis finne den under <code>Downloads</code> (<code>Nedlastninger</code>).</p>
+<h2 id="globale-definisjoner">Globale definisjoner</h2>
+<p>Arduino IDE kommer med del små hjelper-bibliotek som allerede er installert på<br/>forhånd. Ett av disse er <code>SoftwareSerial</code>-biblioteket. Støvsensoren sender<br/>faktisk målingene over ledningen til Arduinoen på liknende måte som Arduinoen<br/>&#39;snakker&#39; med PCen over USB-ledningen. <code>SoftwareSerial</code> tillater å lage en<br/>seriell forbindelse over pinner på Arduinoen i stedet for USB-ledningen. Så<br/>derfor bruker vi følgende <code>#include</code> direktiv:</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SoftwareSerial.h&gt;</span></span>
+</code></pre>
+<p>Først må vi inkludere <code>SDS011</code>-biblioteket. Bruk det følgende <code>#include</code><br/>direktivet:</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SDS011.h&gt;</span></span>
+</code></pre>
+<p>Så er det tid å konsultere <a href="airbit-Pinout.html">pinout skjemaet</a>. Som vanlig definerer vi<br/>kontanter for pinnene som brukes for kommunikasjon med Arduinoen.</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PM_TX 2</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PM_RX 3</span>
+</code></pre>
+<p>Så må lage en global variabel for tilkoblingen til Støvsensoren. Denne gang<br/>bruker vi <code>SDS011</code> datatypen. <em>Igjen kan variabler navngis som du synes best.</em></p>
+<pre><code class="lang-cpp">SDS011 sds;
+</code></pre>
+<h2 id="-setup-"><code>setup</code></h2>
+<p>Akkurat som kommunikasjonen med PC&#39;en din, må vi også initialisere<br/>kommunikasjonen med støvsensoren. Vi bruker <code>begin</code>-kommandoen som hører til<br/><code>sds</code> variablen. Den tar imot TX-pinnen og så RX-pinnen som sensoren er koblet<br/>til med som argument.</p>
+<pre><code class="lang-cpp">  sds.begin(PM_TX, PM_RX);
+</code></pre>
+<p>Vi skal også skrive ut målingene over seriell tilkoblingen til datamaskinen.</p>
+<pre><code class="lang-cpp">  Serial.begin(<span class="hljs-number">9600</span>);
+</code></pre>
+<h2 id="-loop-"><code>loop</code></h2>
+<p>Som med temperatursensoren, skal vi lese ut målingene fra støvsensoren og så<br/>printe dem ut. Støvsensoren tar målinger for to forskjellige partikelstørrelser:<br/>2.5µm og 10µm. Begge tall gir konsentrasjoner som desimaltall.</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">float</span> pm25, pm10;
+</code></pre>
+<p><em>Merk at du kan deklarere flere variabler av samme type ved å skrive komma<br/>mellom variablene.</em></p>
+<p><code>read</code>-kommandoen til <code>sds</code>-variablen brukes for å lese ut data fra sensoren.<br/>Kommandoen kan feile, så kommandoen returnerer en feilverdi som vi lagrer i en<br/>variabel. Kommadoen tar plassering først for 2.5µm og så for 10µm<br/>konsentrasjonen som argument.</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">int</span> error = sds.read(&amp;pm25, &amp;pm10);
+</code></pre>
+<p>I koden over ser du at feilverdier som regel lagres av datamaskinen som heltall<br/>(derfor har <code>error</code> variablen datatypen <code>int</code>).</p>
+<p>Dersom <code>read</code>-kommandoen feilet vil <code>error</code> ha en verdi ulik <code>0</code>. Så vi bruker<br/>en <code>if</code>-block for å skjekke mot dette. Etter <code>if</code>-blokker følger som regel en<br/><code>else</code>-blokk. Koden i <code>if</code>-blokken kjøres dersom en betingelse evalueres til<br/><code>true</code> (sant), <code>else</code>-blokken kjøres når betingelsen er <code>false</code> (usann). Koden<br/>ser slik ut:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">if</span> (error == <span class="hljs-number">0</span>) { <span class="hljs-comment">// Check agains 0.</span>
+    <span class="hljs-comment">// 0 means no error.</span>
+  } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// Error is not equal to 0.</span>
+    <span class="hljs-comment">// Not equal to 0 means there is an error.</span>
+  }
+</code></pre>
+<p>Nå må vi fylle blokkene med nyttig kode. Først, dersom <code>read</code>-kommandoen gikk<br/>bra, må vi skrive ut målingene som vi har gjort tidligere. Koden for dette hører<br/>til i <code>if</code>-blokken.</p>
+<p>I <code>else</code>-blokken kan vi skrive kode for å skrive en feilmelding. Det er ofte<br/>lurt å skrive ut verdien til <code>error</code>-variablen, slik at feilverdien kan skjekkes<br/>i dokumentasjonen.</p>
+<p>Den vanligste feilen for avlesning med støvsensoren er når du prøver å lese av<br/>før det er noe data tilgjengelig. Støvsensoren kan kun avleses én gang per<br/>sekund. Derfor er det lurt å bruke <code>delay</code>-kommandoen til slutt. Få Arduinoen<br/>til å vente for minst ett sekund.</p>
+<h2 id="ferdig">Ferdig</h2>
+<p>Under ser du et eksempel for koden når alt er på plass.</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SoftwareSerial.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SDS011.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PM_TX 2</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PM_RX 3</span>
+
+SDS011 sds;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  sds.begin(PM_TX, PM_RX);
+  Serial.begin(<span class="hljs-number">9600</span>);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">float</span> pm25, pm10;
+  <span class="hljs-keyword">int</span> error = sds.read(&amp;pm25, &amp;pm10);
+
+  <span class="hljs-keyword">if</span> (error == <span class="hljs-number">0</span>) {
+    Serial.print(pm25);
+    Serial.print(<span class="hljs-string">"\t"</span>);
+    Serial.print(pm10);
+    Serial.println();
+  } <span class="hljs-keyword">else</span> {
+    Serial.print(<span class="hljs-string">"Could not read air data. Error code: "</span>);
+    Serial.print(error);
+    Serial.println();
+  }
+
+  delay(<span class="hljs-number">1000</span>);
+}
+</code></pre>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="airbit-Programmering.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Programmering-med-Temperatursensoren.html">Gå tilbake forrige neste steg: <strong>Temperatursensoren</strong></a><br/>&rarr; <a href="Programmering-med-GPS-antenna.html">Gå til neste steg: <strong>GPS-antenna</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsoking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a><!--- [Tekniske Spesifikasjoner][tech]-->
+</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+</html>
