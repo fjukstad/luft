@@ -2,5 +2,6 @@
     "first-line-h1": false,
     "first-header-h1": false,
     "no-trailing-spaces": false,
-    "no-inline-html": false
+    "no-inline-html": false,
+    "line-length": false
 }

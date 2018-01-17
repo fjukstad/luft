@@ -61,7 +61,7 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
         });
         pageList.forEach(function (page) {
             var markedOptions = {
-                breaks: true,
+                breaks: false,
                 gfm: true,
                 sanitize: false,
                 tables: true,
