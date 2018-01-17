@@ -10,6 +10,7 @@ Den mest vanlige opplevelsen mens man skriver kode er desverre at ting ikke funk
   * [Manglende Semikolon](#manglende-semikolon)
   * [Manglende lukkende parentes](#manglende-lukkende-parentes)
   * [Feilstavelser i navn](#feilstavelser-i-navn)
+  * [Bruk av variabler utenfor scope](#bruk-av-variabler-utenfor-scope)
 
 ## Feilmarkeringer i Arduino IDE
 
@@ -138,6 +139,35 @@ void setup() {
 Feilmeldingen ser da slik ut:
 
 > sketch.ino:3: error: 'integer' was not declared in this scope
+
+### Bruk av variabler utenfor scope
+
+Når du skriver et sett med krøllparenteser (`{`, `}`) så introduserer du det vi kaller et *scope* i koden din. Dette skjer altså for hver funksjon, if-setning, eller løkke du skriver. Det som er viktig å huske på med et scope er at variabler du deklarerer inni dette scopen kun *lever* til koden møter den matchende lukkende krøllparentesen. La oss se på dette:
+
+``` cpp
+void loop() {
+  do {
+    int error = sensor.read();
+  } while (error < 0);
+}
+```
+
+I eksemplet over ser du en `do`-`while`-løkke. Inni denne deklarer vi variablen `error` og setter dens verdi lik resultatet av en avlesning av sensor. **Men**: vi skjekker verdien til denne variablen i betingelsen til `do`-`while`-løkken (i `(error < 0)`). Med den lukkende krøllparentesen foran `while`-kodeordet har variablen `error` sluttet å eksistere, så `Arduino IDE` kommer til å klage med følgende feilmelding:
+
+> sketch.ino:4: error: 'error' was not declared in this scope
+
+For å løse dette problemet, må du deklarere variablen i scopet utenfor løkken, som vist under. Merk at vi forsatt setter variablens verdi *inni* løkken.
+
+``` cpp
+void loop() {
+  int error;
+  do {
+    error = sensor.read();
+  } while (error < 0);
+}
+```
+
+Merk også at indre scopes har kjennskap til alle overordnete scopes. Dvs. `error` kjennes til både i scopet til `loop` funksjonen og inni scopet til `do`-`while`-løkken, siden den ligger inni scopet til `loop` funksjonen. Derimot så kan yttre scopes ikke ha kjennskap til ting som ligger i et indre scope, dvs. variabler inni `do`-`while`-løkken kommer ikke til å eksistere utenfor denne løkken.
 
 -----
 
