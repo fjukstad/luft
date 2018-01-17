@@ -60,55 +60,52 @@ Og så må vi også starte opp kommunikasjonen med GPS-antenna. Dette er også e
 
 ## `loop` helplink
 
-GPS'en forteller oss om den har en gyldig posisjon. I tilegg til å printe ut teksten over USB-ledningen til datamaskinen vil vi bruke LED-lysene for å blinke grønt når vi har kontakt med GPS-satellitten. Og så kan vi blinke rødt når vi ikke får kontakt med satellitten. Dette betyr at vi må gjøre litt `if`-sjekking.
+GPS'en forteller oss om den har en gyldig posisjon. I tilegg til å printe ut teksten over USB-ledningen til datamaskinen vil vi bruke LED-lysene for å blinke grønt når vi har kontakt med GPS-satellitten. Og så kan vi blinke rødt når vi ikke får kontakt med satellitten. Dette betyr at vi må gjøre litt sjekking etter feilkoder.
 
-Generell tommelfingerregel i programmering er at man burde gjøre håndtering av feil øverst i kodeblokkene sine. Dvs. skjekk først for alle feil. Dette er fordi det som regel er enklere å teste mot spesifikke feilbetingelser. Vi kan også skrive instruksjoner som får Arduinoen til å forlate `loop` blokken med en gang, slik at den hopper videre til neste gjennomgang av `loop`-funksjonen.
+Men aller først må vi instruere Arduinoen til å *høre* på innkommende data fra GPSen. Vi bruker `listen`-kommandoen til `gpsCom`-variablen for dette.
+
+``` cpp
+  gpsCom.listen();
+```
+
+Generell tommelfingerregel i programmering er at man burde gjøre håndtering av feil øverst i kodeblokkene sine. Dvs. skjekk først for alle feil. Dette er fordi det som regel er enklere å teste mot spesifikke feilbetingelser. Når det gjelder avlesning av sensorer (eller GPSen) er det vanlig å prøve å lese av verdier i en løkke slik at man er sikker å ha målinger for resten av programmet.
 
 Første tingen vi kan skjekke er om GPS'en har sent noe data. Vi kan bruke `available`-kommandoen til `gpsCom`-variablen vår for å se om det har kommet in ny GPS data, som ikke enda har blitt evaluert. Som vi sa nettopp, skal vi skjekke mot feil eller ugyldig status først. Dvs. vi vil skjekke om vi **ikke** har ny data tilgjengelig. Vi kan bruke `!` operatoren i C++ for å negere en påstand:
 
 ``` cpp
-  if (!gpsCom.available()) {
+  while (!gpsCom.available()) {
     // No new data available.
   }
 ```
 
-Merk at det ofte er lurt å skrive ut hele `if`-blokken med en gang. Vi kan fylle ut kode mellom krøllparantesene (`{`, `}`) etterpå. På denne måten glemmer du ikke å skrive inn parantesene eller krøllparantesene som må være her. `if`-blokker ser **altid** nøyaktig ut som vist over, så det er bare noe man lærer å skrive i søvne etterhvert.
+I kode biten over bruker vi en `while`-løkke. Denne likner veldig på `do`-`while`-løkken som du brukte med støvsensoren. Eneste forskjell er at den skjekker betingelsen *først* for å bestemme om kommandoen inni krøllparentesene skal repeteres en gang til. Dersom betingelsen ikke er sann, vil den hoppe over koden mellom krøllparentesene og forsette med koden som følger etter løkken.
+
+Merk at det ofte er lurt å skrive ut hele `if`-, `while`, eller `do`-blokken med en gang. Vi kan fylle ut kode mellom krøllparantesene (`{`, `}`) etterpå. På denne måten glemmer du ikke å skrive inn parantesene eller krøllparantesene som må være her. `if` og `while`-blokker ser **altid** nøyaktig ut som vist over, så det er bare noe man lærer å skrive i søvne etterhvert.
 
 Okei i betingelsen over ser du at vi bruker `gpsCom.available()` for å skjekke om data er tilgjengelig. Denne kommandoen vil svare med verdien `true` dersom det er data tilgjengelig. `!` vil så negere denne verdien. Derfor skjekker denne betingelsen om det **ikke** er data tilgjengelig.
 
-Når vi ikke har ny data å lese, er det liten vits å fortsette. Det betyr egentlig bare at GPS'en ikke har hatt tid nok til å sende ny dataen til Arduinoen. I likhet med støvsensoren har GPS'en en viss oppdateringshastighet. Du kan ikke spørre den om data oftere/fortere enn den klarer å håndtere.
+Når vi ikke har ny data å lese, er det liten vits å fortsette. Det betyr egentlig bare at GPS'en ikke har hatt tid nok til å sende ny data til Arduinoen. Så vi må bare vente helt til det har kommet nok data, dvs. til `gpsCom.available()` gir oss resultatet `true`. Så, om vi ikke har noe data tilgjengelig, trenger vi egentlig ikke å gjøre noe mellom krøllparentesene til `while`-løkken. Om du vil kan du godt skrive en `Serial.println`-kommando.
 
-Så, om vi ikke har noe data tilgjengelig, vil vi egentlig bare avslutte den aktuelle gjennomgangen gjennom `loop` med en gang. Uten data er det rett og slett ikke noe annet vi kan gjøre. Vi bruker `return` instruksjonen for dette:
-
-``` cpp
-  if (!gpsCom.available()) {
-    // No new data available.
-    // return immediately
-    return;
-  }
-```
-
-Da har vi forsikret oss at vi har data tilgjengelig, siden `gpsCom.available()` da vil evaluere til `true`, negasjonen av dette blir `false`, og `if`-blokken vil ikke utføres dersom betingelsen evalueres til `false`, som vil få Arduinoen til å 'hoppe over' koden med `return` instruksjonen. Nå må vi altså lese inn den nye dataen GPSen har sendt. Vi bruker nå to kommandoen inni hverandre. Innerst bruker vi `gpsCom.read()` for å lese data, og rundt dette bruker vi `gps.encode()` for å tolke dataen vi har mottat:
+Da har vi forsikret oss at vi har data tilgjengelig. Nå må vi altså lese inn den nye dataen GPSen har sendt. Vi kommer nå til å bruke to kommandoer inni hverandre. Innerst bruker vi `gpsCom.read()` for å lese data, og rundt dette bruker vi `gps.encode()` for å tolke dataen vi har mottat:
 
 ``` cpp
-  bool complete = gps.encode(gpsCom.read());
+  gps.encode(gpsCom.read());
 ```
 
-Merk også at `encode`-kommandoen gir oss en status-verdi. Denne vil være `true` dersom GPS-dataen ble avlest rett. Vi lagrer denne verdien i en variabel av type `bool`. `bool` er datatypen som brukes for å lagre sannheter eller det vi kaller påstander. Den kan ha verdiene `true` eller `false`.
+Merk også at `encode`-kommandoen gir oss en status-verdi. Denne vil være `true` dersom GPS-dataen ble avlest rett.
 
 Av og til vil vi ende opp i en situasjon at vi har fått litt data fra GPS'en, men at den ikke enda har blitt ferdig med sende alt enda. Se for deg en nedlastning av en stor fil fra internettet. Du må vente til hele filen, dvs. all dataen i den filen er lastet ned før du kan bruke den.
 
 Så igjen har vi fin feiltest her: Dersom ikke `encode`-kommandoen ble fullført, kan vi igjen avbryte gjennomgangen gjennom `loop` med en gang. Dvs. vi venter til vi er sikre på at all data har blitt lest, og det var noe nyttig informasjon der. Vi har `complete`-variablen for teste dette. Igjen vil teste mot feil-betingelsen, så vi må igjen negere påstanden:
 
 ``` cpp
-  if (!complete) {
+  while (!gps.encode(gpsCom.read())) {
     // Data is incomplete, 
     // nothing to do yet, either.
-    return;
   }
 ```
 
-Når vi har klart å komme gjennom begge betingelsene uten å finne en feil (dvs. enten ingen data, eller ikke enda nok data) kan vi være sikre på at vi har fått informasjon fra GPSen og den har klart å tolke data som har kommet inn. La oss nå skjekke om vi har en gyldig posisjon. Vi bruker `location.isValid()`-kommandoen til `gps`-variablen for dette. Igjen er `location.isValid()` en sannhetsverdi, så la oss sjekke mot usann, dvs. om tilfellet der vi ikke har en gyldig posisjon:
+Etter dette skriver vi koden som kjører når vi har klart å komme gjennom begge betingelsene uten å finne en feil (dvs. enten ingen data, eller ikke enda nok data). Nå kan vi være sikre på at vi har fått informasjon fra GPSen og den har klart å tolke data som har kommet inn. La oss nå skjekke om vi har en gyldig posisjon. Vi bruker `location.isValid()`-kommandoen til `gps`-variablen for dette. Igjen er `location.isValid()` en sannhetsverdi, så la oss sjekke mot usann, dvs. om tilfellet der vi ikke har en gyldig posisjon. Nå når vi har data bruker vi `if`-setninger for å skjekke betingelser:
 
 ``` cpp
   if (!gps.location.isValid()) {
@@ -138,6 +135,8 @@ Følgende kode vil være lik den over, men kan være litt enklere å lese:
   }
 ```
 
+Vi lagrer sannhetsverdier (eller påstander) i variabler av type `bool`. I motsetning til `int` (som lagrer heltall) kan `bool`-variabler kun ha verdiene `true` eller `false`.
+
 *Merk at vi kaller `!` for **NOT**-operatoren. Dvs. betingelsen leses som: NOT isUseful*
 
 I tilfeller der vi ikke har en gyldig posisjon, har vi ikke kontakt med satellitten. Da ville vi blinke rødt. Husk hvordan vi gjorde det: 
@@ -160,6 +159,8 @@ I tilfeller der vi ikke har en gyldig posisjon, har vi ikke kontakt med satellit
     return;
   }
 ```
+
+Vi bruker `return`-instruksjonen for å stoppe utførningen av kode inni `loop`-funksjonen. Dette vil få Arduinoen til å hoppe rett til neste gjennomgang av `loop`-funksjonen og starte GPS avlesningen helt på nytt igjen. I tilfeller der vi ikke har noe brukbar GPS informasjon, må vi bare vente til vi får et godt signal, så å starte på nytt virker som en god idé.
 
 *Merk at koden over også har med en instruksjon for å printe ut over seriell-koblingen med datamaskinen at vi ikke fikk kontakt.*
 
@@ -249,17 +250,12 @@ void setup() {
 }
 
 void loop() {
-  if (!gpsCom.available()) {
+  while (!gpsCom.available()) {
     // No new data available.
-    // return immediately
-    return;
   }
-
-  bool complete = gps.encode(gpsCom.read());
-  if (!complete) {
+  while (!gps.encode(gpsCom.read())) {
     // Data is incomplete, 
     // nothing to do yet, either.
-    return;
   }
 
   bool gpsValid = gps.location.isValid();

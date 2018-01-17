@@ -74,6 +74,10 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                 if (!validurl.isUri(href)) {
                     // HREF is not a URL, asume path
                     var filepath = href;
+                    var poundIdx = filepath.indexOf("#");
+                    if (poundIdx >= 0) {
+                        filepath = filepath.substr(0, poundIdx); // Strip URL-fragment from filepath
+                    }
                     if (!fs.existsSync(filepath)) {
                         var isMarkdownLink = markdownExtensions.some(function (ext) {
                             var markdownPath = filepath + ext;
@@ -88,7 +92,7 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                                 filepath);
                         }
                     } else if (!path.isAbsolute(filepath)) {
-                        assetFiles.push(filepath);
+                        assetFiles[filepath] = filepath;
                     }
                 }
                 return markedLinkRenderer.call(renderer, href, title, text);
@@ -111,7 +115,7 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                                 filepath);
                         }
                     } else if (!path.isAbsolute(filepath)) {
-                        assetFiles.push(filepath);
+                        assetFiles[filepath] = filepath;
                     }
                 }
                 return markedImgRenderer.call(renderer, href, title, text);

@@ -82,21 +82,30 @@ Som med temperatursensoren, skal vi lese ut målingene fra støvsensoren og så 
 
 I koden over ser du at feilverdier som regel lagres av datamaskinen som heltall (derfor har `error` variablen datatypen `int`).
 
-Dersom `read`-kommandoen feilet vil `error` ha en verdi ulik `0`. Så vi bruker en `if`-block for å skjekke mot dette. Etter `if`-blokker følger som regel en `else`-blokk. Koden i `if`-blokken kjøres dersom en betingelse evalueres til `true` (sant), `else`-blokken kjøres når betingelsen er `false` (usann). Koden ser slik ut:
+I den tekniske spesifikasjonen til Støvsensoren står det at den kun kan leses av én gang hvert sekund. `read` kommandoen vil derfor feile om vi spør etter målinger oftere enn det. Dersom `read`-kommandoen feilet vil `error` ha en verdi ulik `0`. Den beste måten å håndtere denne situasjonen på er å prøve på nytt helt til vi har fått inn ny data fra støvsensoren.
+
+Får å forsikre at vi faktisk har en glydig måleverdi fra sensoren, må vi altså prøve å kjøre `read`-kommandoen om igjen og om igjen helt til feilverdien er lik `0` (dvs. ingen feil). Når vi vil be Arduinoen om å kjøre den samme koden flere ganger bruker vi i programmering en løkke (*loop* på engelsk).
+
+I `C++`, kodespråket til Arduino, finnes det tre typer løkker. I dette tilfellet skal vi benytte oss av *do-while*-løkken. Denne løkken kjører en kommando (eller flere) og repeterer dersom en betinglse er sann. Dette ser slikt ut:
 
 ``` cpp
-  if (error == 0) { // Check agains 0.
-    // 0 means no error.
-  } else { // Error is not equal to 0.
-    // Not equal to 0 means there is an error.
-  }
+  do {
+    // Code to repeat
+  } while (error != 0); // Stop repetition once error is 0.
 ```
 
-Nå må vi fylle blokkene med nyttig kode. Først, dersom `read`-kommandoen gikk bra, må vi skrive ut målingene som vi har gjort tidligere. Koden for dette hører til i `if`-blokken.
+I kodebiten over ser du at vi skjekker om `error` er ulik 0. Med en gang `error` er `0`, er vi sikre på at vi har fått gyldige målinger fra Støvsensoren og kan fortsette med å skrive dem ut. Så la oss fylle inn `read`-kommandoen mellom krøllparentesene til `do`-`while`-løkken vår.
 
-I `else`-blokken kan vi skrive kode for å skrive en feilmelding. Det er ofte lurt å skrive ut verdien til `error`-variablen, slik at feilverdien kan skjekkes i dokumentasjonen.
+``` cpp
+  int error;
+  do {
+    int error = sds.read(&pm25, &pm10);
+  } while (error != 0);
+```
 
-Den vanligste feilen for avlesning med støvsensoren er når du prøver å lese av før det er noe data tilgjengelig. Støvsensoren kan kun avleses én gang per sekund. Derfor er det lurt å bruke `delay`-kommandoen til slutt. Få Arduinoen til å vente for minst ett sekund.
+**Merk** at vi deklarer utenfor løkken! [Bruk av variabler utenfor scope][debugging-scopes] er en vanlig feil som lett er gjort når du skriver kode. Gå til [Feilsøking av programmeringsfeil][debugging-scopes] får å vite mer om hvorfor vi flyttet deklarasjonen av `error` utenfor løkken.
+
+Siden Støvsensoren kun kan avleses én gang per sekund er det lurt å bruke `delay`-kommandoen til slutt. Få Arduinoen til å vente for minst ett sekund.
 
 ## Ferdig
 
@@ -118,18 +127,15 @@ void setup() {
 
 void loop() {
   float pm25, pm10;
-  int error = sds.read(&pm25, &pm10);
+  int error;
+  do {
+    error = sds.read(&pm25, &pm10);
+  } while (error != 0);
 
-  if (error == 0) {
-    Serial.print(pm25);
-    Serial.print("\t");
-    Serial.print(pm10);
-    Serial.println();
-  } else {
-    Serial.print("Could not read air data. Error code: ");
-    Serial.print(error);
-    Serial.println();
-  }
+  Serial.print(pm25);
+  Serial.print("\t");
+  Serial.print(pm10);
+  Serial.println();
 
   delay(1000);
 }
@@ -146,3 +152,5 @@ void loop() {
 [gps]: Programmering-med-GPS-antenna
 
 [pinout]: airbit-Pinout
+
+[debugging-scopes]: Feilsøking-av-programmeringsfeil#bruk-av-variabler-utenfor-scope
