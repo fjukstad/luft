@@ -63,6 +63,7 @@
 	    
 
 	    if (files.length == 0) {
+	    		responseMessage.classList.remove('success-message')
 	    		responseMessage.classList.add('error-message');
 	        responseMessage.innerHTML = "Vennligst angi en fil før du trykker 'Last opp'";
 	        responseMessage.style.display = 'block';
@@ -74,6 +75,7 @@
 	    else {
 		    for (i = 0; i < files.length; i++ ) {
 					if(!re.exec(files[i].name)) {
+	    			responseMessage.classList.remove('success-message')
 	    			responseMessage.classList.add('error-message');
 			      responseMessage.innerHTML = "Alle angitte filer må være av typen '.csv'";
 			      responseMessage.style.display = 'block';
@@ -99,6 +101,7 @@
 			      body.classList.remove('wait');
 		  			document.getElementById("uploadFile").value = "";
 						document.getElementById("browseFile").value = "";
+	    			responseMessage.classList.remove('error-message')
 	    			responseMessage.classList.add('success-message');
 	    			responseMessage.innerHTML = data
 	    			responseMessage.style.display = 'block';

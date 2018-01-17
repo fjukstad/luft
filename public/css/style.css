@@ -162,7 +162,8 @@ label {
 }
 
 .history-radio {
-  margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 2px;
 }
 .history-row {
   width: 100%; 
@@ -179,11 +180,7 @@ hr.my-4 {
 }
 
 #gps-form-group, #gps-input {
-  width: 125% !important;
-}
-
-#student-data, #nilu-data {
-  display: none;
+  width: 100% !important;
 }
 
 div.markdown img {

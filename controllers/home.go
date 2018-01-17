@@ -83,7 +83,7 @@ func sendFile(fh *multipart.FileHeader, c chan PostResponse, wg *sync.WaitGroup)
 	}
 
 	// url := "http://localhost:8080/api/upload"
-	url := "http://luft-184208.appspot.com/api/upload"
+	url := "https://luft-184208.appspot.com/api/upload"
 	
 	fi := FileInfo {
 		Filename: fh.Filename,

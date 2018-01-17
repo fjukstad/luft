@@ -130,28 +130,17 @@ function setPosition() {
   var provider = "nilu" 
 
   addToMap(map, area, provider, component, datestring) 
-  barChart(area, component, datestring, container, element); 
+  barChartNilu(area, component, datestring, container, element); 
 
   component = "NO2" 
   element = "svg#chart-"+component
   container = "chart-"+component
 
   addToMap(map, area, provider, component, datestring) 
-  barChart(area, component, datestring, container, element); 
+  barChartNilu(area, component, datestring, container, element); 
 
-  // provider = "student" 
-  // component = "dust"
-  // var element = "svg#chart-" + component
-  // barChart(area, component, datestring, container, element);
-
-
-  // component = "humidity"
-  // var element = "svg#chart-" + component
-  // barChart(area, component, datestring, container, element);
-
-  // component = "temperature"
-  // var element = "svg#chart-" + component
-  // barChart(area, component, datestring, container, element);
+  components = ["dust", "humidity", "temperature"]
+  barChartStudent(area, false, components, datestring);
 }
 
 function updatePosition() {
