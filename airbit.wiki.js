@@ -39,7 +39,7 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
 
         var wikiPages = {};
         var wikiLinks = {};
-        var assetFiles = [];
+        var assetFiles = {};
 
         var pageList = files.filter(function (filepath) {
             return markdownExtensions.some(function (ext) {
@@ -188,7 +188,7 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                 }
             })
         });
-        assetFiles.forEach(function (assetFile) {
+        Object.keys(assetFiles).forEach(function (assetFile) {
             fs.readFile(assetFile, { encoding: null }, function (assetReadError, assetData) {
                 if (typeof assetReadError !== "undefined" && assetReadError) {
                     console.error(assetReadError);
