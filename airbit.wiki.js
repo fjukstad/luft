@@ -77,6 +77,9 @@ fs.readFile(TEMPLATE_FILE, "utf8", function (templateError, HTML_TEMPLATE) {
                     var poundIdx = filepath.indexOf("#");
                     if (poundIdx >= 0) {
                         filepath = filepath.substr(0, poundIdx); // Strip URL-fragment from filepath
+                        if (filepath.trim().length < 1) {
+                            return markedLinkRenderer.call(renderer, href, title, text);
+                        }
                     }
                     if (!fs.existsSync(filepath)) {
                         var isMarkdownLink = markdownExtensions.some(function (ext) {
