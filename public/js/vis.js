@@ -215,4 +215,10 @@ $(document).ready(function () {
     $("blockquote", markdownTags)
         .addClass("blockquote")
         ;
+
+    $(".wiki-helplink")
+        .addClass("pull-right")
+        .addClass("btn")
+        .addClass("btn-link")
+        ;
 });
