@@ -17,10 +17,6 @@ li.nav {
   width: 100%;
 }
 
-#om { 
-}
-
-
 .container {
   margin-top: 15px;
 }
@@ -71,7 +67,7 @@ body {
   font-family: 'Source Code Pro', monospace;
 }
 
-#nav-link {
+#index-nav a {
   color: black !important;
 }
 
@@ -186,4 +182,30 @@ hr.my-4 {
 div.markdown img {
   display: inline-block;
   max-width: 100%;
+}
+
+#index-nav {
+  float: right;
+  /* background-color: #1c3249; */
+  /* position: relative; */
+  /* right: 0; */
+}
+
+#om {
+  padding-top: 2rem;
+}
+
+#om-intro {
+  vertical-align: bottom;
+  padding-bottom: 1rem;
+}
+
+#om-intro span {
+  display: inline-block;
+}
+
+#logo {
+  vertical-align: bottom;
+  height: 8rem;
+  margin-left: 20px;
 }
