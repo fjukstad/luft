@@ -195,17 +195,10 @@ div.markdown img {
   padding-top: 2rem;
 }
 
-#om-intro {
-  vertical-align: bottom;
-  padding-bottom: 1rem;
-}
-
-#om-intro span {
-  display: inline-block;
+#splash {
+  text-align: center;
 }
 
 #logo {
-  vertical-align: bottom;
-  height: 8rem;
-  margin-left: 20px;
+  height: 16rem;
 }
