@@ -86,10 +86,13 @@
 </div>
 <hr class="my-4">
 <div class="row">
-  <div class="span6" style="float: none; margin: 0 auto;">
-    <button type="button" class="btn btn-primary" align="center" id="history-button">Søk</button>
-  </div>
-</div> 
+  <div class="container" align="center">
+    <div class="button-group">
+      <button type="button" class="btn btn-primary" id="history-button">Søk</button>
+      <button type="button" class="btn btn-success" id="download" style="display:none">Last ned</button>
+    </div>
+  </div> 
+</div>
 </br>
 <div class="row">
   <div class="col-8">
@@ -117,10 +120,6 @@
         <div id="chart-NO2" class="chart">
             <svg id="chart-NO2" width="300" height="200"></svg>
         </div>
-    </div>
-    <hr class="my-4">
-    <div class="float" id="download" style="display:none">
-        <button type="button" class="btn btn-success">Last ned</button>
     </div>
   </div>
 </div> 
@@ -188,48 +187,50 @@ $('#history-button').click(function(e)
     provider = "student" 
     components = ["dust", "temperature", "humidity"]
     ret = barChartStudent(area, customGPS, components, datestring);
-    if(ret == false) {
-      console.log("false")
-    }
+
     // addToMap(map, area, customGPS, provider, component, datestring)
     
     $('#student-data').show();
   }
 
-  $("#download").css("display", "block")
+  $("#download").css("display", "inline")
 });
 
-  // $("#download").click(function()
-  // {
-  //   var from = $('#from').val()
-  //   from = new Date(from)
-
-  //   var to = $('#to').val()
-  //   to = new Date(to)
-
-  //   area = "Tromsø"
-  //   datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
-
-  //   var component = "PM10"
-  //   var url = getHistoricalUrl(area, datestring, component)
-  //   window.open(url, '_blank');
-
-  //   component = "NO2"
-  //   url = getHistoricalUrl(area, datestring, component)
-  //   window.open(url, '_blank');
-
-  //   var component = "dust"
-  //   url = getStudentUrl(datestring, component);
-  //   window.open(url, '_blank'); 
-
-  //   var component = "temperature"
-  //   url = getStudentUrl(datestring, component);
-  //   window.open(url, '_blank'); 
-
-  //   var component = "humidity"
-  //   url = getStudentUrl(datestring, component);
-  //   window.open(url, '_blank'); 
-  // })
+var studentData;
+var niluDataPm;
+var niluDataNo;
+$("#download").click(function() {
+  var customGPS = false;
+  datestring = createDatestring();
+  if ($('#checkbox-student').is(':checked')) {
+    if ($('#custom-gps').is(':checked')) {
+      var within = coordinates
+      within.push(radius)
+      area = within.join()
+      customGPS = true;
+    }
+    var url = getStudentUrl(area, customGPS, datestring) 
+    $.get(url, function(data) {
+      studentData = data;
+    });
+    alert(studentData);
+    // window.open(url, '_blank');
+  }
+  // console.log("Moving on")
+  if ($('#checkbox-nilu').is(':checked')) {
+    component = "PM10"
+    var url = getHistoricalUrl(area, datestring, component)
+    $.get(url, function(data) {
+      niluDataPm = data;
+      alert(niluDataPm);
+    });
+    component = "NO2"
+    var url = getHistoricalUrl(area, datestring, component)
+    $.get(url, function(data) {
+      niluDataNo = data;
+    });
+  }
+})
 </script> 
 
 

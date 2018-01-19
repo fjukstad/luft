@@ -91,7 +91,6 @@ function barChartStudent(area, customGPS, components, datestring) {
         height = +svg.attr("height") - margin.top - margin.bottom,
         g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         charts.push(g);
-        console.log(width)
     }
 
     var x = d3.scaleTime()
@@ -108,7 +107,6 @@ function barChartStudent(area, customGPS, components, datestring) {
     var units = [];
     var stations = {};
     
-    console.log("Hå")
     d3.csv(url,
         function(d) { 
             if(!stations[d.station]){
