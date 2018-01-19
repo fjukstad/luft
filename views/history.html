@@ -89,7 +89,7 @@
   <div class="container" align="center">
     <div class="button-group">
       <button type="button" class="btn btn-primary" id="history-button">Søk</button>
-      <button type="button" class="btn btn-success" id="download" style="display:none">Last ned</button>
+      <button type="button" class="btn btn-success" id="download" onclick="downloadAll()" style="display:none">Last ned</button>
     </div>
   </div> 
 </div>
@@ -158,6 +158,7 @@ $('#history-button').click(function(e)
   map = drawMap(area);
 
   datestring = createDatestring();
+  console.log(datestring)
 
   if ($('#checkbox-nilu').is(':checked')) {
     component = "PM10"
@@ -196,12 +197,16 @@ $('#history-button').click(function(e)
   $("#download").css("display", "inline")
 });
 
-var studentData;
-var niluDataPm;
-var niluDataNo;
-$("#download").click(function() {
-  var customGPS = false;
+
+function downloadAll() {
+  var zip = new JSZip();
+  var count = 0;
+  var zipFilename = "airbit.zip";
+
+  var urls = [];
+  var filenames = []
   datestring = createDatestring();
+  var customGPS = false;
   if ($('#checkbox-student').is(':checked')) {
     if ($('#custom-gps').is(':checked')) {
       var within = coordinates
@@ -209,28 +214,39 @@ $("#download").click(function() {
       area = within.join()
       customGPS = true;
     }
-    var url = getStudentUrl(area, customGPS, datestring) 
-    $.get(url, function(data) {
-      studentData = data;
-    });
-    alert(studentData);
-    // window.open(url, '_blank');
+    urls.push(getStudentUrl(area, customGPS, datestring))
+    filenames.push("studentdata.csv")
   }
-  // console.log("Moving on")
   if ($('#checkbox-nilu').is(':checked')) {
     component = "PM10"
-    var url = getHistoricalUrl(area, datestring, component)
-    $.get(url, function(data) {
-      niluDataPm = data;
-      alert(niluDataPm);
-    });
+    urls.push(getHistoricalUrl(area, datestring, component))
+    filenames.push("Nilu-PM10.csv")
+
+    
     component = "NO2"
-    var url = getHistoricalUrl(area, datestring, component)
-    $.get(url, function(data) {
-      niluDataNo = data;
-    });
+    urls.push(getHistoricalUrl(area, datestring, component))
+    filenames.push("Nilu-NO2.csv")    
   }
-})
+
+  urls.forEach(function(url){
+    // loading a file and add it in a zip file
+    JSZipUtils.getBinaryContent(url, function (err, data) {
+      var filename = filenames[count];
+      if(err) {
+          console.log(err)
+          throw err; // or handle the error
+      }
+      zip.file(filename, data, {binary:true});
+      count++;
+      console.log(count)
+      if (count == urls.length) {
+         zip.generateAsync({type:'blob'}).then(function(content) {
+            saveAs(content, zipFilename);
+         });
+      }
+    });
+  });
+}
 </script> 
 
 
