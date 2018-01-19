@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>Programmering med GPS antenna &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>Programmering med GPS antenna</h1>
+                        <hr/>
+                        <p>Neste komponent vi kan se nærmere på er GPS-antenna til air:bit. Igjen kommer<br/>vi til å skjekke for GPS posisjonen og skrive ut dataen fra GPS&#39;en til seriell<br/>kommunikasjon. Men for å gjøre ting litt mere interessant kommer vi også til å<br/>lyse opp LED-lysene for å vise at du har kontakt med nok GPS-satellitter for å<br/>bestemme posisjon.</p>
+<p>Å bruke LED-lysene får å vise GPS signal kan være en god idé, siden det fort<br/>kan skje at man mister kontakt med GPS avhengig av forhold, fjell eller<br/>tunneller på veien. Det vil også være mye vanskeligere å få GPS-kontakt nå du<br/>er inne i hus, spesiellt om huset har tykke betongvegger. Når du går rundt ute<br/>og tar målinger forventes det ikke at du har en svær datamaskin koblet til<br/>air:bit hele tiden for å kunne lese ut tekst du sender ut via seriell-koblingen.</p>
+<h2 id="ny-sketch">Ny Sketch</h2>
+<p>Igjen starter vi med en helt fersk ny Sketch. <code>File</code>&rarr;<code>New</code> i menyen.</p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span> <span class="hljs-params">()</span> </span>{
+
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+
+}
+</code></pre>
+<h2 id="laste-ned-og-installere-tinygps-biblioteket">Laste ned og installere <code>TinyGPS++</code> biblioteket</h2>
+<p>Igjen skal vi bruke et bibliotek for å kommunisere med GPS-antenna. Denne gangen<br/>skal vi igjen bruke et bibliotek du ikke finner i <code>Library Manager</code>. Klikk på<br/>følgende link for å laste ned: <strong><a href="http://arduiniana.org/libraries/tinygpsplus/">TinyGPS++ Biblioteket</a></strong></p>
+<p><a href="http://arduiniana.org/libraries/tinygpsplus/"><img src="TinyGPSPlusPlus-library-download.png" alt="Nedlastning av TinyGPS++ biblioteket"/></a></p>
+<p>Klikk på den store grønne pilen der det står Download. Husk at du ikke vil åpne<br/>file du laster ned, men at du lagre den!</p>
+<p>I <code>Arduino IDE</code>, finn menyen <code>Sketch</code>&rarr;<code>Include library</code>&rarr;<code>Add ZIP library</code><br/>og velg filen du nettopp lastet ned.</p>
+<h2 id="globale-definisjoner">Globale definisjoner</h2>
+<p>I likhet med <code>SDS011</code>-biblioteket du brukte for støvsensoren, bruker også<br/><code>TinyGPS++</code> <code>SoftwareSerial</code>-biblioteket. Navnet for <code>#include</code> direktivet for<br/><code>TinyGPS++</code>-biblioteket er <code>&lt;TinyGPS++.h&gt;</code>. Legg til begge<br/><code>#include</code>-direktivene i toppen av sketchen din.</p>
+<p>Så sjekker du <a href="airbit-Pinout.html">pinout skjemaet</a> for <code>RX</code> og <code>TX</code> pinnene for<br/>GPS-antenna og lager definisjoner for disse. Vi må også lage definisjoner for<br/>LED-lysene våre, siden vi skal bruke dem også.</p>
+<p>Så til globale variabler som kontrollerer kommunikasjonen med antenna.<br/><code>SDS011</code>-biblioteket tok seg automatisk av håndteringen for<br/>seriell-kommunikasjonen med støvsensoren. <code>TinyGPS++</code> gjør desverre ikke det<br/>samme for GPS&#39;en (<code>Tiny</code> er hintet her). Derfor trenger vi en variabel som<br/>styrer kommunikasjonen til GPS&#39;en.</p>
+<pre><code class="lang-cpp"><span class="hljs-function">SoftwareSerial <span class="hljs-title">gpsCom</span><span class="hljs-params">(GPS_RX, GPS_TX)</span></span>;
+</code></pre>
+<p>Ikke bry deg alt for mye om at variabel-deklarasjonen i linja over ser litt<br/>uvanlig ut. Datatypen er <code>SoftwareSerial</code>, navnet på variablen er <code>gpsCom</code>.<br/>Verdiene <code>GPS_TX</code> og <code>GPS_RX</code> er konstantene for GPS-pinnene på Arduinoen (det<br/>kan hende at du gir dem andre navn i din kode).</p>
+<p>Til slutt må vi også lage en variabel som representerer selve sensoren. Her<br/>bruker vi nå datatypen som følger med <code>TinyGPS++</code>-biblioteket, den heter<br/><code>TinyGPSPlus</code>.</p>
+<pre><code class="lang-cpp">TinyGPSPlus gps;
+</code></pre>
+<h2 id="-setup-"><code>setup</code></h2>
+<p>Husk at vi må bruke <code>pinMode</code>-kommandoen for å få å aktivere kontroll over<br/>LED-lysene på Arduinoen. Husk at <code>OUTPUT</code> skal brukes som andre argument (i<br/>tillegg til hvilken pinne du skal aktivere).</p>
+<p>Bruk <code>Serial.begin</code>-kommandoen for å starte opp seriell kommunikasjonen med<br/>datamaskinen over USB. Bruk verdien <code>9600</code> som argument her.</p>
+<p>Og så må vi også starte opp kommunikasjonen med GPS-antenna. Dette er også en<br/>helt vanlig seriell-kommunikasjon, bare at vi bruker <code>gpsCom</code>-variablen i<br/>stedet for <code>Serial</code>, så det blir:</p>
+<pre><code class="lang-cpp">  gpsCom.begin(<span class="hljs-number">9600</span>);
+</code></pre>
+<h2 id="-loop-"><code>loop</code></h2>
+<p>GPS&#39;en forteller oss om den har en gyldig posisjon. I tilegg til å printe ut<br/>teksten over USB-ledningen til datamaskinen vil vi bruke LED-lysene for å blinke<br/>grønt når vi har kontakt med GPS-satellitten. Og så kan vi blinke rødt når vi<br/>ikke får kontakt med satellitten. Dette betyr at vi må gjøre litt <code>if</code>-sjekking.</p>
+<p>Generell tommelfingerregel i programmering er at man burde gjøre håndtering av<br/>feil øverst i kodeblokkene sine. Dvs. skjekk først for alle feil. Dette er fordi<br/>det som regel er enklere å teste mot spesifikke feilbetingelser. Vi kan også<br/>skrive instruksjoner som får Arduinoen til å forlate <code>loop</code> blokken med en gang,<br/>slik at den hopper videre til neste gjennomgang av <code>loop</code>-funksjonen.</p>
+<p>Første tingen vi kan skjekke er om GPS&#39;en har sent noe data. Vi kan bruke<br/><code>available</code>-kommandoen til <code>gpsCom</code>-variablen vår for å se om det har kommet in<br/>ny GPS data, som ikke enda har blitt evaluert. Som vi sa nettopp, skal vi<br/>skjekke mot feil eller ugyldig status først. Dvs. vi vil skjekke om vi <strong>ikke</strong><br/>har ny data tilgjengelig. Vi kan bruke <code>!</code> operatoren i C++ for å negere en<br/>påstand:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">if</span> (!gpsCom.available()) {
+    <span class="hljs-comment">// No new data available.</span>
+  }
+</code></pre>
+<p>Merk at det ofte er lurt å skrive ut hele <code>if</code>-blokken med en gang. Vi kan fylle<br/>ut kode mellom krøllparantesene (<code>{</code>, <code>}</code>) etterpå. På denne måten glemmer du<br/>ikke å skrive inn parantesene eller krøllparantesene som må være her.<br/><code>if</code>-blokker ser <strong>altid</strong> nøyaktig ut som vist over, så det er bare noe<br/>man lærer å skrive i søvne etterhvert.</p>
+<p>Okei i betingelsen over ser du at vi bruker <code>gpsCom.available()</code> for å skjekke<br/>om data er tilgjengelig. Denne kommandoen vil svare med verdien <code>true</code> dersom<br/>det er data tilgjengelig. <code>!</code> vil så negere denne verdien. Derfor skjekker denne<br/>betingelsen om det <strong>ikke</strong> er data tilgjengelig.</p>
+<p>Når vi ikke har ny data å lese, er det liten vits å fortsette. Det betyr<br/>egentlig bare at GPS&#39;en ikke har hatt tid nok til å sende ny dataen til<br/>Arduinoen. I likhet med støvsensoren har GPS&#39;en en viss oppdateringshastighet.<br/>Du kan ikke spørre den om data oftere/fortere enn den klarer å håndtere.</p>
+<p>Så, om vi ikke har noe data tilgjengelig, vil vi egentlig bare avslutte den<br/>aktuelle gjennomgangen gjennom <code>loop</code> med en gang. Uten data er det rett og<br/>slett ikke noe annet vi kan gjøre. Vi bruker <code>return</code> instruksjonen for dette:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">if</span> (!gpsCom.available()) {
+    <span class="hljs-comment">// No new data available.</span>
+    <span class="hljs-comment">// return immediately</span>
+    <span class="hljs-keyword">return</span>;
+  }
+</code></pre>
+<p>Da har vi forsikret oss at vi har data tilgjengelig, siden <code>gpsCom.available()</code><br/>da vil evaluere til <code>true</code>, negasjonen av dette blir <code>false</code>, og <code>if</code>-blokken<br/>vil ikke utføres dersom betingelsen evalueres til <code>false</code>, som vil få Arduinoen<br/>til å &#39;hoppe over&#39; koden med <code>return</code> instruksjonen.<br/>Nå må vi altså lese inn den nye dataen GPSen har sendt. Vi bruker nå to<br/>kommandoen inni hverandre. Innerst bruker vi <code>gpsCom.read()</code> for å lese data,<br/>og rundt dette bruker vi <code>gps.encode()</code> for å tolke dataen vi har mottat:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">bool</span> complete = gps.encode(gpsCom.read());
+</code></pre>
+<p>Merk også at <code>encode</code>-kommandoen gir oss en status-verdi. Denne vil være <code>true</code><br/>dersom GPS-dataen ble avlest rett. Vi lagrer denne verdien i en variabel av<br/>type <code>bool</code>. <code>bool</code> er datatypen som brukes for å lagre sannheter eller det vi<br/>kaller påstander. Den kan ha verdiene <code>true</code> eller <code>false</code>.</p>
+<p>Av og til vil vi ende opp i en situasjon at vi har fått litt data fra GPS&#39;en,<br/>men at den ikke enda har blitt ferdig med sende alt enda. Se for deg en<br/>nedlastning av en stor fil fra internettet. Du må vente til hele filen, dvs.<br/>all dataen i den filen er lastet ned før du kan bruke den.</p>
+<p>Så igjen har vi fin feiltest her: Dersom ikke <code>encode</code>-kommandoen ble fullført,<br/>kan vi igjen avbryte gjennomgangen gjennom <code>loop</code> med en gang. Dvs. vi venter<br/>til vi er sikre på at all data har blitt lest, og det var noe nyttig informasjon<br/>der. Vi har <code>complete</code>-variablen for teste dette. Igjen vil teste mot feil-<br/>betingelsen, så vi må igjen negere påstanden:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">if</span> (!complete) {
+    <span class="hljs-comment">// Data is incomplete, </span>
+    <span class="hljs-comment">// nothing to do yet, either.</span>
+    <span class="hljs-keyword">return</span>;
+  }
+</code></pre>
+<p>Når vi har klart å komme gjennom begge betingelsene uten å finne en feil (dvs.<br/>enten ingen data, eller ikke enda nok data) kan vi være sikre på at vi har fått<br/>informasjon fra GPSen og den har klart å tolke data som har kommet inn. La oss<br/>nå skjekke om vi har en gyldig posisjon. Vi bruker<br/><code>location.isValid()</code>-kommandoen til <code>gps</code>-variablen for dette. Igjen er<br/><code>location.isValid()</code> en sannhetsverdi, så la oss sjekke mot usann, dvs. om<br/>tilfellet der vi ikke har en gyldig posisjon:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">if</span> (!gps.location.isValid()) {
+    <span class="hljs-comment">// No valid position.</span>
+    <span class="hljs-comment">// I.e. no GPS fix.</span>
+  }
+</code></pre>
+<p>Hvis vi har fått kontakt med satellitter og så etterhvert mister kontakten igjen<br/>(f.eks. fordi du går inn i en tunnel, et hus med tykke vegger, o.l.) vil<br/><code>location.isValid</code> forsette å gi <code>true</code> som svar. Så vi må også sjekke om dataen<br/>har blitt oppdatert siden siste gang vi leste av. Vi bruker <code>location.isUpdated</code><br/>for dette. Så vi endrer betingelsen og bruker <code>&amp;&amp;</code> for knytte to betingelser<br/>sammen. <code>&amp;&amp;</code> betyr <em>OG</em>, dvs. både høyre og venstre betingelsene må være <code>true</code><br/>for at hele betingelsen skal være <code>true</code>. Merk at vi forsatt trekker negasjonen<br/>utenfor ved å sette parenteser rundt hele uttrykket:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">if</span> (!(gps.location.isValid() &amp;&amp; gps.location.isUpdated())) {
+    <span class="hljs-comment">// No valid position.</span>
+    <span class="hljs-comment">// I.e. no GPS fix.</span>
+  }
+</code></pre>
+<p>Følgende kode vil være lik den over, men kan være litt enklere å lese:</p>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">bool</span> gpsValid = gps.location.isValid();
+  <span class="hljs-keyword">bool</span> gpsUpdated = gps.location.isUpdated();
+  <span class="hljs-keyword">bool</span> isUseful = gpsValid &amp;&amp; gpsUpdated;
+  <span class="hljs-keyword">if</span> (!isUseful) {
+    <span class="hljs-comment">// No valid position.</span>
+    <span class="hljs-comment">// I.e. no GPS fix.</span>
+  }
+</code></pre>
+<p><em>Merk at vi kaller <code>!</code> for <strong>NOT</strong>-operatoren. Dvs. betingelsen leses som:<br/>NOT isUseful</em></p>
+<p>I tilfeller der vi ikke har en gyldig posisjon, har vi ikke kontakt med<br/>satellitten. Da ville vi blinke rødt. Husk hvordan vi gjorde det: </p>
+<ol>
+<li>Skru på rødt lys. <code>digitalWrite</code> med <code>HIGH</code> som andre argument.</li>
+<li>Vent litt. <code>delay</code></li>
+<li>Skru av rødt lys. <code>digitalWrite</code> med <code>LOW</code> som andre argument.</li>
+</ol>
+<pre><code class="lang-cpp">  <span class="hljs-keyword">bool</span> gpsValid = gps.location.isValid();
+  <span class="hljs-keyword">bool</span> gpsUpdated = gps.location.isUpdated();
+  <span class="hljs-keyword">bool</span> isUseful = gpsValid &amp;&amp; gpsUpdated;
+  <span class="hljs-keyword">if</span> (!isUseful) {
+    <span class="hljs-comment">// No valid position.</span>
+    <span class="hljs-comment">// I.e. no GPS fix.</span>
+    Serial.println(<span class="hljs-string">"No valid GPS position"</span>);
+    digitalWrite(LED_RED, HIGH);
+    delay(<span class="hljs-number">500</span>);
+    digitalWrite(LED_RED, LOW);
+    <span class="hljs-keyword">return</span>;
+  }
+</code></pre>
+<p><em>Merk at koden over også har med en instruksjon for å printe ut over<br/>seriell-koblingen med datamaskinen at vi ikke fikk kontakt.</em></p>
+<p>Så til slutt det vi <em>egentlig</em> hadde lyst å gjøre: Blinke grønt, og printe ut<br/>GPS dataen over seriell-koblingen til datamaskinen.</p>
+<p>Det enkleste først: Blink det grønne LED-lyset for å vise at vi har fått kontakt<br/>med GPS-satellitter.</p>
+<p><code>gps.location.lat()</code> og <code>gps.location.lng()</code> gir oss posisjonen i lengde- og<br/>breddegrader som kommatall. I en <code>Serial.print()</code>-kommando kan du legge til et<br/>argument for å spesifisere antall desimaler bak kommaet, når du skriver ut<br/>kommatall. Eksemplet under vil skrive ut posisjonen med <code>6</code> desimaler bak<br/>kommaet:</p>
+<pre><code class="lang-cpp">  Serial.print(<span class="hljs-string">"Latitude: "</span>);
+  Serial.print(gps.location.lat(), <span class="hljs-number">6</span>); <span class="hljs-comment">// Latitude in degrees</span>
+  Serial.print(<span class="hljs-string">"\t"</span>);
+  Serial.print(<span class="hljs-string">"Longitude: "</span>);
+  Serial.print(gps.location.lng(), <span class="hljs-number">6</span>); <span class="hljs-comment">// Longitude in degrees</span>
+  Serial.println();
+</code></pre>
+<h2 id="gps-data">GPS data</h2>
+<p>GPS-antenna er komponenten med flest tilgjengelig informasjon. Du kan se hav du<br/>kan hente ut i listen under. Du har med hjelp av denne mulighet til å selv<br/>eksperimentere med hva du kan få ut av GPS&#39;en. Posisjon og tid vil være mest<br/>nyttig for målinger du skal gjøre med air:bit. Men det er alltids gøy å leke seg<br/>med de andre verdiene her også.</p>
+<p>*Listen er kopiert fra nettsiden der du lastet ned<br/><code>TinyGPS++</code>-biblioteket ifra.<br/>Den viser også eksempelvis kode for hvordan du kan printe ut ting.</p>
+<pre><code class="lang-cpp">Serial.println(gps.location.lat(), <span class="hljs-number">6</span>); <span class="hljs-comment">// Latitude in degrees (double)</span>
+Serial.println(gps.location.lng(), <span class="hljs-number">6</span>); <span class="hljs-comment">// Longitude in degrees (double)</span>
+Serial.print(gps.location.rawLat().negative ? <span class="hljs-string">"-"</span> : <span class="hljs-string">"+"</span>);
+Serial.println(gps.location.rawLat().deg); <span class="hljs-comment">// Raw latitude in whole degrees</span>
+Serial.println(gps.location.rawLat().billionths);<span class="hljs-comment">// ... and billionths (u16/u32)</span>
+Serial.print(gps.location.rawLng().negative ? <span class="hljs-string">"-"</span> : <span class="hljs-string">"+"</span>);
+Serial.println(gps.location.rawLng().deg); <span class="hljs-comment">// Raw longitude in whole degrees</span>
+Serial.println(gps.location.rawLng().billionths);<span class="hljs-comment">// ... and billionths (u16/u32)</span>
+Serial.println(gps.date.value()); <span class="hljs-comment">// Raw date in DDMMYY format (u32)</span>
+Serial.println(gps.date.year()); <span class="hljs-comment">// Year (2000+) (u16)</span>
+Serial.println(gps.date.month()); <span class="hljs-comment">// Month (1-12) (u8)</span>
+Serial.println(gps.date.day()); <span class="hljs-comment">// Day (1-31) (u8)</span>
+Serial.println(gps.time.value()); <span class="hljs-comment">// Raw time in HHMMSSCC format (u32)</span>
+Serial.println(gps.time.hour()); <span class="hljs-comment">// Hour (0-23) (u8)</span>
+Serial.println(gps.time.minute()); <span class="hljs-comment">// Minute (0-59) (u8)</span>
+Serial.println(gps.time.second()); <span class="hljs-comment">// Second (0-59) (u8)</span>
+Serial.println(gps.time.centisecond()); <span class="hljs-comment">// 100ths of a second (0-99) (u8)</span>
+Serial.println(gps.speed.value()); <span class="hljs-comment">// Raw speed in 100ths of a knot (i32)</span>
+Serial.println(gps.speed.knots()); <span class="hljs-comment">// Speed in knots (double)</span>
+Serial.println(gps.speed.mph()); <span class="hljs-comment">// Speed in miles per hour (double)</span>
+Serial.println(gps.speed.mps()); <span class="hljs-comment">// Speed in meters per second (double)</span>
+Serial.println(gps.speed.kmph()); <span class="hljs-comment">// Speed in kilometers per hour (double)</span>
+Serial.println(gps.course.value()); <span class="hljs-comment">// Raw course in 100ths of a degree (i32)</span>
+Serial.println(gps.course.deg()); <span class="hljs-comment">// Course in degrees (double)</span>
+Serial.println(gps.altitude.value()); <span class="hljs-comment">// Raw altitude in centimeters (i32)</span>
+Serial.println(gps.altitude.meters()); <span class="hljs-comment">// Altitude in meters (double)</span>
+Serial.println(gps.altitude.miles()); <span class="hljs-comment">// Altitude in miles (double)</span>
+Serial.println(gps.altitude.kilometers()); <span class="hljs-comment">// Altitude in kilometers (double)</span>
+Serial.println(gps.altitude.feet()); <span class="hljs-comment">// Altitude in feet (double)</span>
+Serial.println(gps.satellites.value()); <span class="hljs-comment">// Number of satellites in use (u32)</span>
+Serial.println(gps.hdop.value()); <span class="hljs-comment">// Horizontal Dim. of Precision (100ths-i32)</span>
+</code></pre>
+<p>I koden over ser du at forfatteren av <code>TinyGPS++</code>-biblioteket har skrevet<br/>datatypen dem bruker i parantes på slutten av hver linje. <code>i32</code>, <code>i16</code> og <code>i8</code><br/>er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme<br/>gjelder for typene med <code>u</code> i stedet for <code>i</code>, men disse er <code>unsigned</code>, dvs. de<br/>har ikke fortegn og kan derfor kun gi positive verdier eller <code>0</code>. <code>double</code> er<br/>en nyere kommatall-type enn <code>float</code>. </p>
+<!--
+*Klikk på følgende link, for en liste over
+datatyper i C++: [Datatyper i C++][datatypes]*
+-->
+<h2 id="ferdig">Ferdig</h2>
+<p>Avhengig av hvlike verdier du printer ut, hvordan du navngir dine variabler,<br/>osv. kan koden dir se litt anderlesed ut enn her. Men i essense burde ting<br/>stemme rimelig overens med dette:</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SoftwareSerial.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;TinyGPS++.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LED_RED A1</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LED_GREEN A0</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GPS_RX 7</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GPS_TX 6</span>
+
+<span class="hljs-function">SoftwareSerial <span class="hljs-title">gpsCom</span><span class="hljs-params">(GPS_RX, GPS_TX)</span></span>;
+TinyGPSPlus gps;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-comment">// Activate control over LEDs</span>
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+
+  <span class="hljs-comment">// Initialize serial communication</span>
+  Serial.begin(<span class="hljs-number">9600</span>); <span class="hljs-comment">// to Computer (USB)</span>
+  gpsCom.begin(<span class="hljs-number">9600</span>); <span class="hljs-comment">// to GPS antenna</span>
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">if</span> (!gpsCom.available()) {
+    <span class="hljs-comment">// No new data available.</span>
+    <span class="hljs-comment">// return immediately</span>
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">bool</span> complete = gps.encode(gpsCom.read());
+  <span class="hljs-keyword">if</span> (!complete) {
+    <span class="hljs-comment">// Data is incomplete, </span>
+    <span class="hljs-comment">// nothing to do yet, either.</span>
+    <span class="hljs-keyword">return</span>;
+  }
+
+  <span class="hljs-keyword">bool</span> gpsValid = gps.location.isValid();
+  <span class="hljs-keyword">bool</span> gpsUpdated = gps.location.isUpdated();
+  <span class="hljs-keyword">bool</span> isUseful = gpsValid &amp;&amp; gpsUpdated;
+  <span class="hljs-keyword">if</span> (!isUseful) {
+    <span class="hljs-comment">// No valid position.</span>
+    <span class="hljs-comment">// I.e. no GPS fix.</span>
+    Serial.println(<span class="hljs-string">"No valid GPS position"</span>);
+    digitalWrite(LED_RED, HIGH);
+    delay(<span class="hljs-number">500</span>);
+    digitalWrite(LED_RED, LOW);
+    <span class="hljs-keyword">return</span>;
+  }
+
+  digitalWrite(LED_GREEN, HIGH);
+  delay(<span class="hljs-number">500</span>);
+  digitalWrite(LED_GREEN, LOW);
+
+  Serial.print(<span class="hljs-string">"Time: "</span>);
+  Serial.print(gps.date.day());
+  Serial.print(<span class="hljs-string">"."</span>);
+  Serial.print(gps.date.month());
+  Serial.print(<span class="hljs-string">"."</span>);
+  Serial.print(gps.date.year());
+  Serial.print(<span class="hljs-string">" "</span>);
+  Serial.print(gps.time.hour());
+  Serial.print(<span class="hljs-string">":"</span>);
+  Serial.print(gps.time.minute());
+  Serial.print(<span class="hljs-string">":"</span>);
+  Serial.print(gps.time.second());
+  Serial.print(<span class="hljs-string">"."</span>);
+  Serial.print(gps.time.centisecond());
+
+  Serial.print(<span class="hljs-string">"\t"</span>);
+
+  Serial.print(<span class="hljs-string">"Latitude: "</span>);
+  Serial.print(gps.location.lat(), <span class="hljs-number">6</span>); <span class="hljs-comment">// Latitude in degrees</span>
+  Serial.print(<span class="hljs-string">"\t"</span>);
+  Serial.print(<span class="hljs-string">"Longitude: "</span>);
+  Serial.print(gps.location.lng(), <span class="hljs-number">6</span>); <span class="hljs-comment">// Longitude in degrees</span>
+
+  Serial.println();
+}
+</code></pre>
+<h2 id="g-videre">Gå videre</h2>
+<p>&uarr; <a href="airbit-Programmering.html">Gå til <strong>innholdsfortegnelsen</strong></a><br/>&larr; <a href="Programmering-med-Stovsensoren.html">Gå tilbake forrige neste steg: <strong>Støvsensoren</strong></a><br/>&rarr; <a href="Programmering-av-filer-pa-SD-kortet.html">Gå til neste steg: <strong>SD-kortet og filer</strong></a>  </p>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsoking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a><!--- [Tekniske Spesifikasjoner][tech]-->
+</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+</html>

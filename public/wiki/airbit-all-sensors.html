@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="nb-NO" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" charset="utf-8" />
+    <title>airbit all sensors &ndash; air:bit Wiki</title>
+
+    <!-- Boots -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk="
+        crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-93186535-1', 'auto');
+        ga('send', 'pageview');</script>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/vis.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">air:bit</a>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <!-- <a class="nav-link" target="_blank" href="https://luft-184208.appspot.com/">Last opp data<span class="sr-only">(current)</span></a> -->
+                    <a class="nav-link" href="/lastopp">Last opp data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/historikk">Søk i tid</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/live">Live</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
+                    <div class="markdown">
+                        <h1>airbit all sensors</h1>
+                        <hr/>
+                        <h1 id="example-code-to-print-all-measurements">Example code to print all measurements</h1>
+<p>The only thing left to do is to write them to the memory card!</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;TinyGPS++.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SoftwareSerial.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SDS011.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SD.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SimpleDHT.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SD_PIN 10</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DHTPIN 9</span>
+
+SimpleDHT22 dht22;
+File file;
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LED_WHITE PIN_A1</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> LED_GREEN PIN_A0</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PM_TX 2</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> PM_RX 3</span>
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> GPS_RX = <span class="hljs-number">7</span>;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> GPS_TX = <span class="hljs-number">6</span>;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">uint32_t</span> GPSBaud = <span class="hljs-number">9600</span>;
+TinyGPSPlus gps;
+<span class="hljs-function">SoftwareSerial <span class="hljs-title">ss</span><span class="hljs-params">(GPS_RX, GPS_TX)</span></span>;
+
+SDS011 sds;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  pinMode(LED_WHITE, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+  sds.begin(PM_TX, PM_RX);
+  ss.begin(GPSBaud);
+  Serial.begin(<span class="hljs-number">9600</span>);
+
+  pinMode(SD_PIN, OUTPUT);
+  SD.begin();
+  <span class="hljs-keyword">char</span> filename[] = <span class="hljs-string">"fil.txt"</span>;
+
+  <span class="hljs-comment">// If file exsist on the memory card, append to it, if it doesn't exist</span>
+  <span class="hljs-comment">// create it and write one line to the file before continuing.</span>
+
+  <span class="hljs-keyword">if</span> (SD.exists(filename)) {
+    file.close();
+    file = SD.open(filename, O_WRITE | O_APPEND);
+  } <span class="hljs-keyword">else</span> {
+    file = SD.open(filename, O_WRITE | O_CREAT);
+    file.print(<span class="hljs-string">"Time, Latitude, Longitude, PM25, PM10, Temperature, Humidity\n"</span>);
+    file.flush();
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    ss.listen();
+    <span class="hljs-keyword">if</span> (ss.available()) {
+      <span class="hljs-keyword">if</span> (gps.encode(ss.read())) {
+        <span class="hljs-keyword">if</span> (gps.location.isValid()) {
+          digitalWrite(LED_GREEN, HIGH);
+
+          <span class="hljs-comment">// Date</span>
+          Serial.print(<span class="hljs-string">"Date: "</span>);
+          Serial.print(gps.date.day());
+          Serial.print(<span class="hljs-string">"/"</span>);
+          Serial.print(gps.date.month());
+          Serial.print(<span class="hljs-string">"/"</span>);
+          Serial.print(gps.date.year());
+          Serial.print(<span class="hljs-string">" "</span>);
+          Serial.print(gps.time.hour());
+          Serial.print(<span class="hljs-string">":"</span>);
+          Serial.print(gps.time.minute());
+          Serial.print(<span class="hljs-string">":"</span>);
+          Serial.print(gps.time.second());
+          Serial.print(<span class="hljs-string">","</span>);
+
+          <span class="hljs-comment">// Latitude.</span>
+          <span class="hljs-comment">// Note that we convert the float output to a string. This is</span>
+          <span class="hljs-comment">// for convenience when we're later going to write it to a file</span>
+          <span class="hljs-comment">// on a SD memory card.</span>
+
+          <span class="hljs-keyword">char</span> lat[<span class="hljs-number">15</span>];
+          dtostrf(gps.location.lat(), <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, lat);
+
+          Serial.print(<span class="hljs-string">" Latitude: "</span>);
+          Serial.print(lat);
+          Serial.print(<span class="hljs-string">","</span>);
+
+          <span class="hljs-comment">// long</span>
+          <span class="hljs-keyword">char</span> lng[<span class="hljs-number">15</span>];
+          dtostrf(gps.location.lng(), <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, lng);
+          Serial.print(<span class="hljs-string">" Longitude: "</span>);
+          Serial.print(lng);
+          Serial.println(<span class="hljs-string">","</span>);
+
+          <span class="hljs-comment">// put your main code here, to run repeatedly:</span>
+          <span class="hljs-keyword">float</span> temperature = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">float</span> humidity = <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">while</span> (temperature == <span class="hljs-number">0</span> &amp;&amp; humidity == <span class="hljs-number">0</span>) {
+            dht22.read2(DHTPIN, &amp;temperature, &amp;humidity, <span class="hljs-literal">NULL</span>);
+            delay(<span class="hljs-number">250</span>);
+          }
+          Serial.print(<span class="hljs-string">"Temperature: "</span>);
+          Serial.print(temperature);
+          Serial.println(<span class="hljs-string">"C"</span>);
+          Serial.print(<span class="hljs-string">"Humidity: "</span>);
+          Serial.print(humidity);
+          Serial.println(<span class="hljs-string">"%"</span>);
+
+
+          delay(<span class="hljs-number">500</span>);
+          digitalWrite(LED_GREEN, LOW);
+          <span class="hljs-keyword">break</span>;
+        }
+        <span class="hljs-keyword">else</span> {
+          digitalWrite(LED_WHITE, HIGH);
+          delay(<span class="hljs-number">500</span>);
+          digitalWrite(LED_WHITE, LOW);
+          delay(<span class="hljs-number">500</span>);
+
+        }
+      }
+    }
+  }
+
+  <span class="hljs-keyword">float</span> pm25, pm10;
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
+    <span class="hljs-keyword">int</span> error = sds.read(&amp;pm25, &amp;pm10);
+    <span class="hljs-keyword">if</span> (error == <span class="hljs-number">0</span>) {
+      Serial.print(<span class="hljs-string">"PM 2.5 "</span>);
+      Serial.println(pm25);
+      Serial.print(<span class="hljs-string">"PM 10 "</span>);
+      Serial.println(pm10);
+      <span class="hljs-keyword">break</span>;
+    } <span class="hljs-keyword">else</span> {
+      delay(<span class="hljs-number">1000</span>);
+    }
+  }
+
+}
+</code></pre>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-sm-push-9 well">
+                    <h1 id="meny">Meny</h1>
+<ul>
+<li><a href="Home.html">Hjem</a></li>
+<li><a href="airbit-Guider.html">Guider</a><ul>
+<li><a href="Guide-Bygging-og-Lodding.html">Bygging og Lodding</a></li>
+<li><a href="Guide-Oppsett-for-programmering.html">Oppsett av programmvare</a></li>
+<li><a href="Introduksjon-til-Arduino-programmering.html">Arduino programmering</a></li>
+<li><a href="airbit-Programmering.html">air:bit programmering</a></li>
+<li><a href="Feilsoking-av-programmeringsfeil.html">Feilsøking</a></li>
+</ul>
+</li>
+<li><a href="airbit-Pinout.html">Pinout</a></li>
+<li><a href="Dataformat.html">Dataformat</a><!--- [Tekniske Spesifikasjoner][tech]-->
+</li>
+</ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer" class="footer"></footer>
+</body>
+</html>
