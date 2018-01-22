@@ -222,6 +222,73 @@ Serial.println(gps.hdop.value()); // Horizontal Dim. of Precision (100ths-i32)
 
 I koden over ser du at forfatteren av `TinyGPS++`-biblioteket har skrevet datatypen dem bruker i parantes på slutten av hver linje. `i32`, `i16` og `i8` er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme gjelder for typene med `u` i stedet for `i`, men disse er `unsigned`, dvs. de har ikke fortegn og kan derfor kun gi positive verdier eller `0`. `double` er en nyere kommatall-type enn `float`.
 
+## Optimialisering
+
+Du vil kanskje legge merke til at koden over kjører veldig tregt og det tar lang tid mellom målingene før LED-lyset blinker og ny GPS posisjon vises.
+
+Dette skyldes i de to `while`-løkkene helt i begynnelsen. Så lå oss stokke litt om på dem.
+
+Begge `while`-løkkene tilsammen omfatter hele delene med å lese informasjon bra GPS-chipen inn til Arduinoen. (Det er det `read`- og `encode`-kommandoene gjør.) Vi kan ta de to `while`-løkkene og skrive dem om til to `if`-setninger i stedet.
+
+``` cpp
+  if (!gpsCom.available()) {
+    // No new data available.
+  }
+  if (!gps.encode(gpsCom.read())) {
+    // Data is incomplete, 
+    // nothing to do yet, either.
+  }
+```
+
+Så lager vi oss en variabel som lagrer om vi fikk lest av informasjonen og setter den til false helt øverst, og så til resultatet av `encode`-kommandoen.
+
+``` cpp
+  bool gpsEncodeComplete = false;
+  if (!gpsCom.available()) {
+    // No new data available.
+  }
+  gpsEncodeComplete = gps.encode(gpsCom.read());
+  if (!gpsEncodeComplete) {
+    // Data is incomplete, 
+    // nothing to do yet, either.
+  }
+```
+
+Nå kan vi putte begge `if`-setningene i en `do`-`while`-løkke og bruke `gpsEncodeComplete` variablen vår for å sjekke om vi er klar får å gå videre i koden
+
+``` cpp
+  bool gpsEncodeComplete = false;
+  do {
+    if (!gpsCom.available()) {
+      // No new data available.
+    }
+    gpsEncodeComplete = gps.encode(gpsCom.read());
+    if (!gpsEncodeComplete) {
+      // Data is incomplete, 
+      // nothing to do yet, either.
+    }
+  } while (!gpsEncodeComplete); // Loop until gps data was successfully read and encoded from GPS module
+```
+
+I en løkke kan du bruke `continue`-kodeordet for å *hoppe* til slutten av en løkke. Dette vil vi bruke inni begge `if`-setningene der det nå bare er kommentarer
+
+``` cpp
+  bool gpsEncodeComplete = false;
+  do {
+    if (!gpsCom.available()) {
+      // No new data available.
+      // Immediately jump to next iteration
+      continue;
+    }
+    gpsEncodeComplete = gps.encode(gpsCom.read());
+    if (!gpsEncodeComplete) {
+      // Data is incomplete, 
+      // Jump to next iteration and try again
+      continue;
+    }
+  } while (!gpsEncodeComplete); // Loop until gps data was successfully read and encoded from GPS module
+```
+
 ## Ferdig
 
 Avhengig av hvlike verdier du printer ut, hvordan du navngir dine variabler, osv. kan koden dir se litt anderlesed ut enn her. Men i essense burde ting stemme rimelig overens med dette:
@@ -250,13 +317,21 @@ void setup() {
 }
 
 void loop() {
-  while (!gpsCom.available()) {
-    // No new data available.
-  }
-  while (!gps.encode(gpsCom.read())) {
-    // Data is incomplete, 
-    // nothing to do yet, either.
-  }
+  gpsCom.listen();
+  bool gpsEncodeComplete = false;
+  do {
+    if (!gpsCom.available()) {
+      // No new data available.
+      // Immediately jump to next iteration
+      continue;
+    }
+    gpsEncodeComplete = gps.encode(gpsCom.read());
+    if (!gpsEncodeComplete) {
+      // Data is incomplete, 
+      // Jump to next iteration and try again
+      continue;
+    }
+  } while (!gpsEncodeComplete); // Loop until gps data was successfully read and encoded from GPS module
 
   bool gpsValid = gps.location.isValid();
   bool gpsUpdated = gps.location.isUpdated();
