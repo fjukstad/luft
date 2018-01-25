@@ -222,7 +222,7 @@ Serial.println(gps.hdop.value()); // Horizontal Dim. of Precision (100ths-i32)
 
 I koden over ser du at forfatteren av `TinyGPS++`-biblioteket har skrevet datatypen dem bruker i parantes på slutten av hver linje. `i32`, `i16` og `i8` er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme gjelder for typene med `u` i stedet for `i`, men disse er `unsigned`, dvs. de har ikke fortegn og kan derfor kun gi positive verdier eller `0`. `double` er en nyere kommatall-type enn `float`.
 
-## Optimialisering
+## Optimalisering
 
 Du vil kanskje legge merke til at koden over kjører veldig tregt og det tar lang tid mellom målingene før LED-lyset blinker og ny GPS posisjon vises.
 
