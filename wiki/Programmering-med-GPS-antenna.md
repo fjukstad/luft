@@ -32,6 +32,8 @@ I likhet med `SDS011`-biblioteket du brukte for støvsensoren, bruker også `Tin
 
 Så sjekker du [pinout skjemaet][pinout] for `RX` og `TX` pinnene for GPS-antenna og lager definisjoner for disse. Vi må også lage definisjoner for LED-lysene våre, siden vi skal bruke dem også.
 
+Merk at GPS-antenna har `RX`- og `TX`-linjer. `RX`-linjen er linjen GPS-antenna får kommandoer fra Arduinoen over (`RX` for *receive transmission*). `TX`-linjen er linjen GPS-antenna sender data over til Arduinoen (`TX` for *transmit transmission*). På Arduinoen derimot er det omvendt, siden Arduinoen må **lytte** på linjen GPSen *sender* på, og må **sende** på linjen GPSen *lytter* på. Derfor må vi bytte om på verdiene for `RX` og `TX` på Arduinoen. Så `GPS_RX` blir `7` og `GPS_TX` blir `6`.
+
 Så til globale variabler som kontrollerer kommunikasjonen med antenna. `SDS011`-biblioteket tok seg automatisk av håndteringen for seriell-kommunikasjonen med støvsensoren. `TinyGPS++` gjør desverre ikke det samme for GPS'en (`Tiny` er hintet her). Derfor trenger vi en variabel som styrer kommunikasjonen til GPS'en.
 
 ``` cpp
