@@ -16,24 +16,36 @@ void loop() {
 }
 ```
 
-### Installere `SimpleDHT` biblioteket helplink
+### Installere `DHT snsor library` biblioteket helplink
 
-Før vi begynner må vi laste ned og installere et Arduino bibliotek. Tidligere har vi brukt kommandoer som `delay`, `pinMode` og `digitalWrite` som alle er del av standard-biblioteket for Arduino. Vi trenger nye kommandoer for å lese av temperatur fra DHT-sensoren. Disse vil vi finne i et bibliotek som heter `SimpleDHT`.
+Før vi begynner må vi laste ned og installere et Arduino bibliotek. Tidligere har vi brukt kommandoer som `delay`, `pinMode` og `digitalWrite` som alle er del av standard-biblioteket for Arduino. Vi trenger nye kommandoer for å lese av temperatur fra DHT-sensoren. Disse vil vi finne i et bibliotek som heter `DHT sensore library` som er laget av selskapet Adafruit. *Adafruit er en av de største produsentene for Arduino-utstyr.*
 
 `Arduino IDE` har en innebygd meny for å laste ned Arduino bibliotek. Klikk på `Sketch`&rarr;`Include library`&rarr;`Manage libraries...` for å åpne `Library Manager`.
 
 ![Arduino IDE Manage libraries][manage-libraries-menu]
 
-I `Library Manager` som åpner seg, må du nå søke for `SimpleDHT` som er biblioteket for sensoren i air:bit. Skriv inn `SimpleDHT` i søkefeltet. Klikk på resultatet som kommer opp, velg den nyeste versjonen i Drop-Down-menyen og klikk på `Install`.
+I `Library Manager` som åpner seg, må du nå søke for `DHT sensor library` som er biblioteket for sensoren DHT i air:bit. Skriv inn `DHT sensor library` i søkefeltet. Klikk på resultatet som kommer opp, velg den nyeste versjonen i Drop-Down-menyen og klikk på `Install`.
 
-![Arduino IDE Library Manager SimpleDHT][library-manager-simple-dht]
+![Arduino IDE Library Manager: DHT sensor library][library-manager-dht-sensor-library]
+
+### Installere `Adafruit_Sensor` biblioteket helplink
+
+`DHT snsor library`-biblioteket bruker Adafruit sitt overordnete `Adafruit_Sensor` bibliotek. Dette inneholder informasjon som er til felles for alle Adafruit sine sensorer.
+
+For å installere dette biblioteket skal vi laste ned nyeste version selv ved å klikke på denne linken: [**Adafruit_Sensor**][adafruit-sensor-latest]  
+Klikk på linken **Source code** (zip) for å laste ned biblioteket.  
+Det er viktig at du lagrer (**ikke åpner**) filen. Husk hvor du lagrer filen, vi må finne frem den filen i neste steg.
+
+![Download Adafruit_Sensor library][adafruit_sensor-download]
+
+Etter du har lastet ned biblioteket og lagret filen må vi installere biblioteket i `Arduino IDE`. Klikk i menyen på `Sketch`&rarr;`Include library`&rarr;`Add ZIP library` (punktet under `Manage libraries`). Velg filen du nettopp lastet ned. Om nettleseren din ikke ba deg om å velge hvor filen skulle lagres, vil du mest sannsynligvis finne den under `Downloads` (`Nedlastninger`).
 
 ## Globale definisjoner helplink
 
-Først må `SimpleDHT`-biblioteket inkluderes i Arduino-Sketchen. I `C++` bruker vi `#include` direktivet for dette:
+Først må `DHT`-biblioteket inkluderes i Arduino-Sketchen. I `C++` bruker vi `#include` direktivet for dette:
 
 ``` cpp
-#include <SimpleDHT.h>
+#include <DHT.h>
 ```
 
 Så ta en titt på [Pinout Skjemaet][pinout]. Definér en konstant for pinnen for Temperatursensoren:
@@ -42,13 +54,15 @@ Så ta en titt på [Pinout Skjemaet][pinout]. Definér en konstant for pinnen fo
 #define DHTPIN 9
 ```
 
-Tidligere i [eksempelet for telling][counting], deklarte du en variabel med datatype `int`. Nå må du deklarere en variabel for å kontrollere forbindelsen med DHT sensoren. Datatypen for dette kommer fra det inkluderte `SimpleDHT` biblioteket og heter `SimpleDHT22`.
+Tidligere i [eksempelet for telling][counting], deklarte du en variabel med datatype `int`. Nå må du deklarere en variabel for å kontrollere forbindelsen med DHT sensoren. Datatypen for dette kommer fra det inkluderte `DHT` biblioteket og heter `DHT`. For å deklarere denne variablen trenger du to ting: Hvilken pinne den er koblet til på, og slags type DHT du bruker.
+
+Pinnen har du allere definiert i `DHTPIN` konstanten i linjen over, og i vårt tilfelle bruker vi en DHT-sensor type `DHT22`.
 
 ``` cpp
-SimpleDHT22 dhtSensor;
+DHT dhtSensor(DHTPIN, DHT22);
 ```
 
-*I koden over kalles variablen `dhtSensor`, men du kan bruke hvilket som helst navn som du har lyst å bruke. Det anbefales å bruke et deskriptivt navn som virker intuitivt å bruke. Merk også at vi bruker datatypen `SimpleDHT22`. Fra beskrivelsen som vistes når du installerte DHT-biblioteket kan du se at det finnes flere varianter av DHT-sensorer. air:bit sin sensor er av den nyere `DHT22` varianten.*
+*I koden over kalles variablen `dhtSensor`, men du kan bruke hvilket som helst navn som du har lyst å bruke. Det anbefales å bruke et deskriptivt navn som virker intuitivt å bruke. Merk også at vi bruker konstanten `DHT22`. Fra beskrivelsen som vistes når du installerte DHT-biblioteket kan du se at det finnes flere varianter av DHT-sensorer. air:bit sin sensor er av den nyere `DHT22` varianten.*
 
 ## `setup` helplink
 
@@ -73,21 +87,18 @@ Temperatur og Fuktighet er verdier som representeres som kommatall. F.eks. et va
 
 I koden over ser du at variabler også kan initialiseres samtidig med deklarasjonen. Merk at kommatall bruker `.` (punktum) som komma-tegn. *Igjen, merk at variablene kan navngis hvordan som helst.*
 
-Nå kan vi bruke `read2` kommandoen som hører til `dhtSensor` variablen vår. `read2` vil hente ut begge målingene i en kommando (derfor `2` i navnet). Kommandoen forventer pinnen for dataen fra sensoren (som deklarert tidligere) som første argument. Så tar kommandoen imot først plasseringen for temperatur- og så for fuktighetsmålingen. Sist følger et til argument for å motta tillegsdata fra sensoren, som vi ikke kommer til å bry oss om her.
-
-Siden det kan være litt kryptisk å sende in plasseringer i kode, la oss set på følgende kodelinje:
+Nå kan vi bruke `readTemperature` og `readHumidity` kommandoene som hører til `dhtSensor` variablen vår. Resultatene vil bli gitt i hhv. grader Celsius (`°C`) og `%` relativ fuktighet.
 
 ``` cpp
-  dhtSensor.read2(DHTPIN, &temperature, &humidity, NULL);
+  temperature = dhtSensor.readTemperature();
+  humidity = dhtSensor.readHumidity();
 ```
 
-For å skrive en plassering brukes `&` symbolet for navnet til variablen verdien skal plasseres i. `NULL` er en spesiell verdi, som i dette tilfellet forteller `read2` kommandoen å ignorere det siste argumentet.
-
-Etter denne kommandoen vil den aktuelle verdien for temperatur og fuktighet være lagret i variablene, så vi kan skrive dem ut.
+Etter disse kommandoene vil den aktuelle verdien for temperatur og fuktighet være lagret i variablene, så vi kan skrive dem ut.
 
 ``` cpp
   Serial.print(temperature);
-  Serial.print("C");
+  Serial.print("°C");
   Serial.print("\t");
   Serial.print(humidity);
   Serial.print("%");
@@ -107,10 +118,10 @@ Helt til slutt vil vi vente en liten stund til det leses av en ny måling. Bruk 
 Siden variabler kan navgis som du ønsker kan koden din se litt anderledes ut, men hovedsakelig burde ting se u som vist under.
 
 ``` cpp
-#include <SimpleDHT.h>
+#include <DHT.h>
 
 #define DHTPIN 9
-SimpleDHT22 dht22;
+DHT dht22(DHTPIN, DHT22);
 
 void setup() {
   Serial.begin(9600);
@@ -121,11 +132,12 @@ void loop() {
   float temperature = 0;
   float humidity = 0;
   // Take readings from sensor
-  dht22.read2(DHTPIN, &temperature, &humidity, NULL);
+  temperature = dht22.readTemperature();
+  humidity = dht22.readHumidity();
 
   // Print out readings
   Serial.print(temperature);
-  Serial.print("C");
+  Serial.print("°C");
   Serial.print("\t");
   Serial.print(humidity);
   Serial.print("%");
@@ -149,5 +161,9 @@ void loop() {
 [led]: airbit-LED-Blinking
 [pm]: Programmering-med-Støvsensoren
 
+[adafruit-sensor-latest]: https://github.com/adafruit/Adafruit_Sensor/releases/latest
+
 [manage-libraries-menu]: Arduino-IDE-Manage-Library.png
 [library-manager-simple-dht]: Arduino-IDE-Library-Manager-SimpleDHT.png
+[library-manager-dht-sensor-library]: Arduino-IDE-Library-Manager-DHTSensorLibrary.png
+[adafruit_sensor-download]: GitHub-Adafruit_Sensor-download.png
