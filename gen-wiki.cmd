@@ -1,4 +1,4 @@
-@ECHO OFF
+REM @ECHO OFF
 PUSHD "%~dp0."
 PUSHD wiki
 npm install
