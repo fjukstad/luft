@@ -217,11 +217,11 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 		}
 
 
-		lat, err := strconv.ParseFloat(record[0], 64)
+		long, err := strconv.ParseFloat(record[0], 64)
 		if err != nil {
 			return []Measurement{}, errors.Wrap(err, "error parsing float (latitude)")
 		}
-		long, err := strconv.ParseFloat(record[1], 64)
+		lat, err := strconv.ParseFloat(record[1], 64)
 		if err != nil {
 			return []Measurement{}, errors.Wrap(err, "error parsing float (longitude)")
 		}
