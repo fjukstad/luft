@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Generate HTML",
-            "program": "${workspaceFolder}/airbit.wiki.js"
+            "program": "${workspaceFolder}/wiki/airbit.wiki.js"
         }
     ]
 }
