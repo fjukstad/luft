@@ -66,7 +66,7 @@ Vi skal også skrive ut målingene over seriell tilkoblingen til datamaskinen.
 
 ## `loop` helplink
 
-Som med temperatursensoren, skal vi lese ut målingene fra støvsensoren og så printe dem ut. Støvsensoren tar målinger for to forskjellige partikelstørrelser: 2.5µm og 10µm. Begge tall gir konsentrasjoner som desimaltall.
+Som med temperatursensoren, skal vi lese ut målingene fra støvsensoren og så printe dem ut. Støvsensoren tar målinger for to forskjellige partikelstørrelser: 2.5µm og 10µm. Begge tall gir konsentrasjoner som desimaltall. Enheten for verdiene er i `µg/m³` (mikrogramm per kubikmeter)
 
 ``` cpp
   float pm25, pm10;
