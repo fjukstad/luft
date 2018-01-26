@@ -9,6 +9,8 @@ import (
 	"mime/multipart"
 	"sync"
 	// "strings"
+
+	"github.com/google/uuid"
 )
 
 
@@ -85,8 +87,10 @@ func sendFile(fh *multipart.FileHeader, c chan PostResponse, wg *sync.WaitGroup)
 	// url := "http://localhost:8080/api/upload"
 	url := "https://luft-184208.appspot.com/api/upload"
 	
+	fiUuid := uuid.New()
+
 	fi := FileInfo {
-		Filename: fh.Filename,
+		Filename: fiUuid.String() + ".csv",
 		Size: fileSize,
 		ContentType: fh.Header["Content-Type"][0], 
 		Contents: buf.String(),

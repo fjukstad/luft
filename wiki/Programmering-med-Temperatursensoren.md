@@ -16,9 +16,9 @@ void loop() {
 }
 ```
 
-### Installere `DHT snsor library` biblioteket helplink
+### Installere `DHT sensor library` biblioteket helplink
 
-Før vi begynner må vi laste ned og installere et Arduino bibliotek. Tidligere har vi brukt kommandoer som `delay`, `pinMode` og `digitalWrite` som alle er del av standard-biblioteket for Arduino. Vi trenger nye kommandoer for å lese av temperatur fra DHT-sensoren. Disse vil vi finne i et bibliotek som heter `DHT sensore library` som er laget av selskapet Adafruit. *Adafruit er en av de største produsentene for Arduino-utstyr.*
+Før vi begynner må vi laste ned og installere et Arduino bibliotek. Tidligere har vi brukt kommandoer som `delay`, `pinMode` og `digitalWrite` som alle er del av standard-biblioteket for Arduino. Vi trenger nye kommandoer for å lese av temperatur fra DHT-sensoren. Disse vil vi finne i et bibliotek som heter `DHT sensor library` som er laget av selskapet Adafruit. *Adafruit er en av de største produsentene for Arduino-utstyr.*
 
 `Arduino IDE` har en innebygd meny for å laste ned Arduino bibliotek. Klikk på `Sketch`&rarr;`Include library`&rarr;`Manage libraries...` for å åpne `Library Manager`.
 
