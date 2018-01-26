@@ -75,18 +75,14 @@ Generell tommelfingerregel i programmering er at man burde gjøre håndtering av
 Første tingen vi kan skjekke er om GPS'en har sent noe data. Vi kan bruke `available`-kommandoen til `gpsCom`-variablen vår for å se om det har kommet in ny GPS data, som ikke enda har blitt evaluert. Som vi sa nettopp, skal vi skjekke mot feil eller ugyldig status først. Dvs. vi vil skjekke om vi **ikke** har ny data tilgjengelig. Vi kan bruke `!` operatoren i C++ for å negere en påstand:
 
 ``` cpp
-  while (!gpsCom.available()) {
+  if (!gpsCom.available()) {
     // No new data available.
   }
 ```
 
-I kode biten over bruker vi en `while`-løkke. Denne likner veldig på `do`-`while`-løkken som du brukte med støvsensoren. Eneste forskjell er at den skjekker betingelsen *først* for å bestemme om kommandoen inni krøllparentesene skal repeteres en gang til. Dersom betingelsen ikke er sann, vil den hoppe over koden mellom krøllparentesene og forsette med koden som følger etter løkken.
-
 Merk at det ofte er lurt å skrive ut hele `if`-, `while`, eller `do`-blokken med en gang. Vi kan fylle ut kode mellom krøllparantesene (`{`, `}`) etterpå. På denne måten glemmer du ikke å skrive inn parantesene eller krøllparantesene som må være her. `if` og `while`-blokker ser **altid** nøyaktig ut som vist over, så det er bare noe man lærer å skrive i søvne etterhvert.
 
 Okei i betingelsen over ser du at vi bruker `gpsCom.available()` for å skjekke om data er tilgjengelig. Denne kommandoen vil svare med verdien `true` dersom det er data tilgjengelig. `!` vil så negere denne verdien. Derfor skjekker denne betingelsen om det **ikke** er data tilgjengelig.
-
-Når vi ikke har ny data å lese, er det liten vits å fortsette. Det betyr egentlig bare at GPS'en ikke har hatt tid nok til å sende ny data til Arduinoen. Så vi må bare vente helt til det har kommet nok data, dvs. til `gpsCom.available()` gir oss resultatet `true`. Så, om vi ikke har noe data tilgjengelig, trenger vi egentlig ikke å gjøre noe mellom krøllparentesene til `while`-løkken. Om du vil kan du godt skrive en `Serial.println`-kommando.
 
 Da har vi forsikret oss at vi har data tilgjengelig. Nå må vi altså lese inn den nye dataen GPSen har sendt. Vi kommer nå til å bruke to kommandoer inni hverandre. Innerst bruker vi `gpsCom.read()` for å lese data, og rundt dette bruker vi `gps.encode()` for å tolke dataen vi har mottat:
 
@@ -94,18 +90,58 @@ Da har vi forsikret oss at vi har data tilgjengelig. Nå må vi altså lese inn 
   gps.encode(gpsCom.read());
 ```
 
-Merk også at `encode`-kommandoen gir oss en status-verdi. Denne vil være `true` dersom GPS-dataen ble avlest rett.
-
-Av og til vil vi ende opp i en situasjon at vi har fått litt data fra GPS'en, men at den ikke enda har blitt ferdig med sende alt enda. Se for deg en nedlastning av en stor fil fra internettet. Du må vente til hele filen, dvs. all dataen i den filen er lastet ned før du kan bruke den.
-
-Så igjen har vi fin feiltest her: Dersom ikke `encode`-kommandoen ble fullført, kan vi igjen avbryte gjennomgangen gjennom `loop` med en gang. Dvs. vi venter til vi er sikre på at all data har blitt lest, og det var noe nyttig informasjon der. Vi har `complete`-variablen for teste dette. Igjen vil teste mot feil-betingelsen, så vi må igjen negere påstanden:
+Merk også at `encode`-kommandoen gir oss en status-verdi. Denne vil være `true` dersom GPS-dataen ble avlest rett. For enkelhetens skyld burde vi nå lage oss en variabel som lagrer resultatet av linjen over.
 
 ``` cpp
-  while (!gps.encode(gpsCom.read())) {
-    // Data is incomplete, 
-    // nothing to do yet, either.
+  bool gpsEncodeComplete;
+  gpsEncodeComplete = gps.encode(gpsCom.read());
+``` 
+
+Så kan vi gjøre en `if`-test på denne verdien også:
+
+``` cpp
+  if (!gpsEncodeComplete) {
+    // Not enough data to encode successfully yet
   }
 ```
+
+Okai, nå må vi faktisk håndtere lese- og enkoderings-feilene. I prinsippet kommer begge feilene av dat Arduinoen ikke enda har mottatt nok data fra GPSen. Så det som må gjøres er å kjøre hele den koden vi nettop skrev i en løkke, helt til `gpsEncodeComplete` er `true`. Dette betyr at vi legger hele koden i en `do`-`while`-løkke.
+
+``` cpp
+  bool gpsEncodeComplete = false;
+  do {
+    if (!gpsCom.available()) {
+      // No new data available.
+    }
+    gpsEncodeComplete = gps.encode(gpsCom.read());
+    if (!gpsEncodeComplete) {
+      // Not enough data to encode successfully yet
+    }
+  } while (!gpsEncodeComplete); 
+```
+
+*Merk at vi flyttet deklarasjonen av `gpsEncodeComplete`-variablen utenfor `do`-`while`-løkken og initialiserer den til `false` til å begynne med. Se [Bruk av variabler utenfor scope][debugging-var-out-of-scope] for å lære hvorfor.*
+
+Inni begge `if`-setningen vil vi egentlig at Arduinoen bare starter en ny gjennomgang gjennom `do`-`while`-løkken. I kode bruker vi `continue`-instruksjonen for dette:
+
+``` cpp
+  bool gpsEncodeComplete = false;
+  do {
+    if (!gpsCom.available()) {
+      // No new data available.
+      // Immediately jump to next iteration
+      continue;
+    }
+    gpsEncodeComplete = gps.encode(gpsCom.read());
+    if (!gpsEncodeComplete) {
+      // Not enough data to encode successfully yet
+      // Jump to next iteration and try again
+      continue;
+    }
+  } while (!gpsEncodeComplete); 
+```
+
+*Under testingen kan du godt legge til en `Serial.println` før `continue`-instruksjonen for å se at Arduinoen faktisk gjøre noenting.*
 
 Etter dette skriver vi koden som kjører når vi har klart å komme gjennom begge betingelsene uten å finne en feil (dvs. enten ingen data, eller ikke enda nok data). Nå kan vi være sikre på at vi har fått informasjon fra GPSen og den har klart å tolke data som har kommet inn. La oss nå skjekke om vi har en gyldig posisjon. Vi bruker `location.isValid()`-kommandoen til `gps`-variablen for dette. Igjen er `location.isValid()` en sannhetsverdi, så la oss sjekke mot usann, dvs. om tilfellet der vi ikke har en gyldig posisjon. Nå når vi har data bruker vi `if`-setninger for å skjekke betingelser:
 
@@ -224,73 +260,6 @@ Serial.println(gps.hdop.value()); // Horizontal Dim. of Precision (100ths-i32)
 
 I koden over ser du at forfatteren av `TinyGPS++`-biblioteket har skrevet datatypen dem bruker i parantes på slutten av hver linje. `i32`, `i16` og `i8` er vanlige heltall (med enten 32 bits, 16 bits eller 8 bits lengde). Det samme gjelder for typene med `u` i stedet for `i`, men disse er `unsigned`, dvs. de har ikke fortegn og kan derfor kun gi positive verdier eller `0`. `double` er en nyere kommatall-type enn `float`.
 
-## Optimalisering
-
-Du vil kanskje legge merke til at koden over kjører veldig tregt og det tar lang tid mellom målingene før LED-lyset blinker og ny GPS posisjon vises.
-
-Dette skyldes i de to `while`-løkkene helt i begynnelsen. Så lå oss stokke litt om på dem.
-
-Begge `while`-løkkene tilsammen omfatter hele delene med å lese informasjon bra GPS-chipen inn til Arduinoen. (Det er det `read`- og `encode`-kommandoene gjør.) Vi kan ta de to `while`-løkkene og skrive dem om til to `if`-setninger i stedet.
-
-``` cpp
-  if (!gpsCom.available()) {
-    // No new data available.
-  }
-  if (!gps.encode(gpsCom.read())) {
-    // Data is incomplete, 
-    // nothing to do yet, either.
-  }
-```
-
-Så lager vi oss en variabel som lagrer om vi fikk lest av informasjonen og setter den til false helt øverst, og så til resultatet av `encode`-kommandoen.
-
-``` cpp
-  bool gpsEncodeComplete = false;
-  if (!gpsCom.available()) {
-    // No new data available.
-  }
-  gpsEncodeComplete = gps.encode(gpsCom.read());
-  if (!gpsEncodeComplete) {
-    // Data is incomplete, 
-    // nothing to do yet, either.
-  }
-```
-
-Nå kan vi putte begge `if`-setningene i en `do`-`while`-løkke og bruke `gpsEncodeComplete` variablen vår for å sjekke om vi er klar får å gå videre i koden
-
-``` cpp
-  bool gpsEncodeComplete = false;
-  do {
-    if (!gpsCom.available()) {
-      // No new data available.
-    }
-    gpsEncodeComplete = gps.encode(gpsCom.read());
-    if (!gpsEncodeComplete) {
-      // Data is incomplete, 
-      // nothing to do yet, either.
-    }
-  } while (!gpsEncodeComplete); // Loop until gps data was successfully read and encoded from GPS module
-```
-
-I en løkke kan du bruke `continue`-kodeordet for å *hoppe* til slutten av en løkke. Dette vil vi bruke inni begge `if`-setningene der det nå bare er kommentarer
-
-``` cpp
-  bool gpsEncodeComplete = false;
-  do {
-    if (!gpsCom.available()) {
-      // No new data available.
-      // Immediately jump to next iteration
-      continue;
-    }
-    gpsEncodeComplete = gps.encode(gpsCom.read());
-    if (!gpsEncodeComplete) {
-      // Data is incomplete, 
-      // Jump to next iteration and try again
-      continue;
-    }
-  } while (!gpsEncodeComplete); // Loop until gps data was successfully read and encoded from GPS module
-```
-
 ## Ferdig
 
 Avhengig av hvlike verdier du printer ut, hvordan du navngir dine variabler, osv. kan koden dir se litt anderlesed ut enn her. Men i essense burde ting stemme rimelig overens med dette:
@@ -393,3 +362,4 @@ void loop() {
 [sd]: Programmering-av-filer-på-SD-kortet
 
 [pinout]: airbit-Pinout
+[debugging-var-out-of-scope]: Feilsøking-av-programmeringsfeil#bruk-av-variabler-utenfor-scope
