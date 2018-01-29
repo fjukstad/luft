@@ -99,7 +99,7 @@ I kodebiten over ser du at vi skjekker om `error` er ulik 0. Med én gang `error
 ``` cpp
   int error;
   do {
-    int error = sds.read(&pm25, &pm10);
+    error = sds.read(&pm25, &pm10);
   } while (error != 0);
 ```
 
