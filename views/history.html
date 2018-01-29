@@ -12,9 +12,13 @@
         <label form="area-form"><b>Velg område</b></label>
         <div class="form-group justify-content-center" id="gps-form-group">
           <select class="form-control" name="area" id="area">
-            <option value="Tromsø">Tromsø</option>
+            <option value="Alta">Alta</option>
             <option value="Bodø">Bodø</option>
+            <option value="Harstad">Harstad</option>
+            <option value="Lakselv">Lakselv</option>
             <option value="Narvik">Narvik</option>
+            <option value="Nord-Troms">Nord-Troms</option>
+            <option value="Tromsø">Tromsø</option>
           </select>
           <div class="col-4" align="center">
             eller
@@ -158,7 +162,6 @@ $('#history-button').click(function(e)
   map = drawMap(area);
 
   datestring = createDatestring();
-  console.log(datestring)
 
   if ($('#checkbox-nilu').is(':checked')) {
     component = "PM10"
@@ -166,15 +169,15 @@ $('#history-button').click(function(e)
     container = "chart-"+component
 
     var provider = "nilu" 
-
     barChartNilu(area, component, datestring, container, element); 
-    // addToMap(map, area, customGPS, provider, component, datestring) 
+    addToMap(map, area, customGPS, provider, component, datestring) 
     component = "NO2" 
     element = "svg#chart-"+component
     container = "chart-"+component
-    // addToMap(map, area, customGPS, provider, component, datestring) 
+    addToMap(map, area, customGPS, provider, component, datestring) 
     barChartNilu(area, component, datestring, container, element); 
 
+    $('#nilu-title').show();
     $('#nilu-data').show();
   }
 
@@ -189,8 +192,9 @@ $('#history-button').click(function(e)
     components = ["dust", "temperature", "humidity"]
     ret = barChartStudent(area, customGPS, components, datestring);
 
-    // addToMap(map, area, customGPS, provider, component, datestring)
+    addToMap(map, area, customGPS, provider, null, datestring)
     
+    $('#student-title').show();
     $('#student-data').show();
   }
 
@@ -228,25 +232,49 @@ function downloadAll() {
     filenames.push("Nilu-NO2.csv")    
   }
 
-  urls.forEach(function(url){
-    // loading a file and add it in a zip file
-    JSZipUtils.getBinaryContent(url, function (err, data) {
-      var filename = filenames[count];
-      if(err) {
-          console.log(err)
-          throw err; // or handle the error
-      }
-      zip.file(filename, data, {binary:true});
-      count++;
-      console.log(count)
-      if (count == urls.length) {
-         zip.generateAsync({type:'blob'}).then(function(content) {
+
+  if (urls.length == 1) {
+    var link = document.createElement('a');
+    var uri = urls[0];
+    if (typeof link.download === 'string') {
+        document.body.appendChild(link); // Firefox requires the link to be in the body
+        link.download = filenames[0];
+        link.href = uri;
+        link.click();
+        document.body.removeChild(link); // remove the link when done
+    } else {
+        location.replace(uri);
+    }
+  }
+  else {
+    urls.forEach(function(url){
+      // loading a file and add it in a zip file
+      JSZipUtils.getBinaryContent(url, function (err, data) {
+        var filename = filenames[count];
+        if(err) {
+            throw err; // or handle the error
+        }
+        zip.file(filename, data, {binary:true});
+        count++;
+        if (count == urls.length) {
+          zip.generateAsync({type:'blob'}).then(function(content) {
             saveAs(content, zipFilename);
-         });
-      }
+          });
+        }
+      });
     });
-  });
+  }
 }
+
+$("#area-container").change(function () {
+  $("#download").css("display", "none");  
+}); 
+$("#time-container").change(function () {
+  $("#download").css("display", "none");  
+}); 
+$("#data-container").change(function () {
+  $("#download").css("display", "none");  
+}); 
 </script> 
 
 

@@ -21,13 +21,17 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
 
     function onEachFeature(feature, layer) {
         // does this feature have a property named popupContent?
-        if (feature.properties && feature.properties.name) {
-            content = "<b>"+feature.properties.name+"</b></br>"
+        if (feature.properties) {
+            var  content = ""
+            if (feature.properties.name) {
+                content = "<b>"+feature.properties.name+"</b></br>"
+            }
             if(feature.properties.component) {
                 content += feature.properties.component+": "+feature.properties.value + "</br>"
             } 
-            if(feature.properties.dust){ 
-                content += "Dust: " + feature.properties.dust + "</br>" 
+            if(feature.properties.pmTen){ 
+                content += "PM10: " + feature.properties.pmTen + "</br>" 
+                content += "PM2.5: " + feature.properties.pmTwoFive + "</br>" 
                 content += "Temperature: "+feature.properties.temperature + "</br>"
                 content += "Humidity: "+feature.properties.humidity + "</br>"
             }
@@ -38,32 +42,36 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
 
     var colorScheme = d3.scaleOrdinal(d3.schemeCategory20);
 
+    var url = ""
+    if(provider == "nilu") {
+        url = "/"+ provider+"aqis?area="+area+"&"+datestring+"&component="+component
+    }
+    else {
+        if(customGPS == true) {
+            url = "/"+ provider+"aqis?within="+area+"&"+datestring
+        }
+        else {
+            url = "/"+ provider+"aqis?area="+area+"&"+datestring
+        }
+    }
+
     $.ajax({
         dataType: "json",
-        url: function(customGPS) {
-            if(customGPS == true) {
-                return "/"+ provider+"aqis?within="+area+"&"+datestring+"&component="+component
-            }
-            else {
-                return "/"+ provider+"aqis?area="+area+"&"+datestring+"&component="+component
-            }
-        },
+        url: url,
         success: function(data) {
             var layer = L.geoJSON(data.features, {
                 pointToLayer: function(feature, latlng){
-
-                    var color = "" ; 
+                    var color = ""
                     if(!feature.properties.color){
                         color = colorScheme(feature.properties.name)
                     } else {
                         color = "#" + feature.properties.color
                     }
-
                     var geojsonMarkerOptions = {
                         color: color,
                         weight: feature.properties.weight,
-                        opacity: 1,
-                        fillOpacity: 0.8
+                        opacity: 0.2,
+                        fillOpacity: 0.2
                     };
                     return L.circle(latlng, geojsonMarkerOptions)
                 },
@@ -112,7 +120,6 @@ function barChartStudent(area, customGPS, components, datestring) {
             if(!stations[d.station]){
                 stations[d.station] = []
             }
-            console.log(stations.length)
             d.timestamp = parseTime(d.timestamp);
             d.values = [[parseFloat(d.pmTwoFive), parseFloat(d.pmTen)], parseFloat(d.humidity), parseFloat(d.temperature)]; 
             units = [d.unitDust, d.unitHum, d.unitTemp];
@@ -223,7 +230,6 @@ function drawNoData(components) {
     for(var i = 0; i < components.length; i++) {
         $('svg#chart-' + components[i]).empty();
         var container = "chart-"+ components[i]
-        console.log(container)
         var element = "svg#chart-" + components[i]
         var svg = document.querySelector(element); 
         svg.setAttribute("width", document.getElementById(container).clientWidth) 
@@ -281,7 +287,6 @@ function barChartNilu(area, component, datestring, container, element) {
         return d; 
     },
     function(error, data){
-        console.log(data);
         if(data == 0) {
             drawNoData(component);
         }

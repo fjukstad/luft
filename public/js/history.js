@@ -1,8 +1,11 @@
 var areas = {
-    "Tromsø" : [69.680, 18.95],
-    "Bodø"   : [67.28, 14.405],
-    "Narvik" : [68.438,17.427] 
-
+    "Tromsø"      : [69.680, 18.95],
+    "Bodø"        : [67.28, 14.405],
+    "Narvik"      : [68.438, 17.427],
+    "Alta"        : [69.971, 23.303],
+    "Nord-Troms"  : [69.929, 20.999],
+    "Harstad"     : [68.798, 16.541],
+    "Lakselv"     : [70.051, 24.971]
 };
 
 function toggleGPSInput(checkbox) {
@@ -27,8 +30,8 @@ function clearCharts() {
   $("svg#chart-dust").empty()
   $("svg#chart-temperature").empty()
   $("svg#chart-humidity").empty()
-  // $("#nilu-data").hide();
-  // $("#student-data").hide();
+  $("#student-title").hide()
+  $("#nilu-title").hide()
 }
 
 function getCoordinates() {
