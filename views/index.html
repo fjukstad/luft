@@ -1,28 +1,41 @@
 {{ define "content" }}
-<ul class="nav justify-content-end">
+<ul id="index-nav" class="nav justify-content-end">
   <li class="nav-item">
-    <a class="nav-link" id="nav-link" href="/public/wiki/Home.html">Programmering</a>
+    <a class="nav-link" id="nav-wiki-home" href="/public/wiki/Home.html">Programmering</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="nav-link" href="/public/wiki/Guide-Bygging-og-Lodding.html">Bygging</a>
+    <a class="nav-link" id="nav-wiki-build" href="/public/wiki/Guide-Bygging-og-Lodding.html">Bygging</a>
   </li>
 </ul>
+<br style="clear: both" />
 <div class="jumbotron" id="om">
-  <h1 class="display-3">Hei!</h1>
+  <div id="splash">
+      <img id="logo" alt="air:bit logo" src="public/img/airbit-logo-blue.png" />
+  </div>
+  <h1 class="display-3" id="om-intro">
+    Hei!
+  </h1>
   <p class="lead">
     Velkommen til air:bit-prosjektet til
-    <a href="https://uit.no/skolelab">Skolelabben på UiT - Norges Arktiske Universitet.</a>
-    På denne siden kan du se på, og laste ned, luftforurensningsdata som er samlet inn av elever i Videregående skoler i hele
+    <strong>air:bit &ndash; Et forskningsproskekt om luftforurensing</strong> av
+    <a href="https://uit.no/skolelab">Skolelaboratoriet i realfag og teknologi ved UiT Norges arktiske universitet</a>.
+  </p>
+  <p class="lead">
+    På denne siden kan du se på, og laste ned luftforurensningsdata som er samlet inn av elever på Videregående skoler i hele
     Nord-Norge! Elevene skal selv bygge en air:bit som består av GPS, en støvmåler, luftfuktighetsmåler og temperatursensor
-    i tillegg til et minnekort for å logge dataene. Vi kommer til å legge ut en oppskrift både på hvordan man bygger et sensorkit,
-    samt hvordan man programmere den til å hente ut måledata fra de forskjellige sensorene.
-    </br>
-    </br>
-
+    i tillegg til et minnekort for å logge målingene.
+  </p>
+  <p class="lead">
+    Gå til våre
+    <strong>
+      <a href="public/wiki/Home.html">Wiki-sider</a>
+    </strong> for mer informasjon samt
+    <a href="public/wiki/airbit-Guider.html">guider</a> om bygging og programmering av air:bit sensoren.
+  </p>
+  <p class="lead">
     På denne siden finner du også luftkvalitetsdata fra
     <a href="http://www.nilu.no/">Norsk Institutt for Luftforskning (NILU)</a> her, i tillegg til værdata fra
     <a href="https://met.no/">Meteorologisk Instiutt</a>.
-
   </p>
   <hr class="my-4">
   <p>

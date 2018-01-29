@@ -10,6 +10,8 @@ import (
 	"sync"
 	"path/filepath"
 	// "strings"
+
+	"github.com/google/uuid"
 )
 
 
@@ -87,7 +89,10 @@ func sendFile(fh *multipart.FileHeader, c chan PostResponse, wg *sync.WaitGroup)
 	url := "https://luft-184208.appspot.com/api/upload"
 
 	
+	fiUuid := uuid.New()
+
 	fi := FileInfo {
+
 		Filename: filepath.Base(fh.Filename),
 		Size: fileSize,
 		ContentType: fh.Header["Content-Type"][0], 

@@ -1,3 +1,7 @@
+
 public/js/jszip/test
 public/js/jszip-utils/test
+public/wiki
+.vs
+*.exe
 
