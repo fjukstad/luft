@@ -1,6 +1,6 @@
 Når vi programmerer, skriver vi *kode* i et programmeringsspråk. *Kode* er egentlig bare ren tekst slik du ville skrive på en notatblokk, eller i matteleksen. Men i stedet for vanlig norsk, skriver vi et *språk* som datamaskinen kan lese og forstå. På mange måter funker dette veldig liknende til hvordan en kalkulator forstår enkle regnestykker som inneholder symboler som f.eks. `+`, `-`, `/` og `*`. Poenget er: Akkurat som du ikke kan skrive vanlig norsk inn i en kalkulator, må vi bruke en korrekt syntaks for det rette språket når vi skriver programkode.
 
-Siden prgramm som `Microsoft Word` gjør mye mer enn bare skrive tekst (du får mange muligheter for å endre skrift, størrelse, fettskrift, kursiv, osv.), må bruke et eget program for tekstredigering som er spesialisert for Arduino-kode. Det er blant annet derfor vi bruker `Arduino IDE`.
+Siden program som `Microsoft Word` gjør mye mer enn bare skrive tekst (du får mange muligheter for å endre skrift, størrelse, fettskrift, kursiv, osv.), må bruke et eget program for tekstredigering som er spesialisert for Arduino-kode. Det er blant annet derfor vi bruker `Arduino IDE`.
 
 Innen `Arduino IDE` kalles filen du skriver kode i, en *Sketch*. La oss se en gang til på koden i en *tom* Sketch:
 
@@ -16,7 +16,7 @@ void loop() {
 }
 ```
 
-I koden over ser vi to *funksjoner* (også kallt *sub-rutiner*). De er kallt `setup` og `loop`. Du kan se navnene etter kodeordet `void`.
+I koden over ser vi to *funksjoner* (også kalt *sub-rutiner*). De er kalt `setup` og `loop`. Du kan se navnene etter kodeordet `void`.
 
 ### Kodeblokker mellom `{` og `}` helplink
 
@@ -30,7 +30,7 @@ Uansett hvor i koden, så vil to skråstreker `//` alltids starte en linje-komme
 
 ### Funksjonen `setup` helplink
 
-Funksjonen `setup` er funksjonen vi bruker for å starte opp Arduinoen og sette den opp til å gjøre det vi vil. Dette er steg som kjøres én gang når vi kobler til strømmen til Arduinoen. Koden vi plasserer her, kan sammenliknes med det din datamaskin gjør når den starter opp, før du blir bedt å skrive inn passordet.
+Funksjonen `setup` er funksjonen vi bruker for å starte opp Arduinoen og sette den opp til å gjøre det vi vil. Dette er et steg som kjøres én gang når vi kobler til strømmen til Arduinoen. Koden vi plasserer her kan sammenlignes med det din datamaskin gjør når den starter opp, før du blir bedt om å skrive inn passordet.
 
 Akkurat nå ser vi at det ikke er noen instruksjoner i blokken som utgjør denne funksjonen. Det eneste som står mellom krøllparantesene er en kommentar som sier
 
@@ -38,7 +38,7 @@ Akkurat nå ser vi at det ikke er noen instruksjoner i blokken som utgjør denne
 
 ### Funksjonen `loop` helplink
 
-Etter Arduinoen har startet opp vil den starte å kjøre instruksjonene i `loop`-funksjonen. Disse vil bli kjørt om igjen og om igjen i en evig loop.
+Etter Arduinoen har startet opp vil den starte å kjøre instruksjonene i `loop`-funksjonen. Disse vil bli kjørt om og om igjen i en evig loop.
 
 Som funksjonen `setup` har også denne kodeblokken ingen intruksjoner i seg, siden den bare inneholder en kommentar.
 

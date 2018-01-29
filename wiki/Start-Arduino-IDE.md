@@ -1,6 +1,6 @@
 Etter installasjonen vil du kunne finne `Arduino` eller `Arduino IDE` (navnet kan variere) i start-menyen og også på Skrivebordet. Klikk på denne for å starte opp Arduino IDE programmet for første gang.
 
-Du vil få opp et vidu som viser følgende kode (eller noe veldig liknende)
+Du vil få opp et vindu som viser følgende kode (eller noe veldig liknende)
 
 ``` cpp
 void setup() {

@@ -1,4 +1,4 @@
-For å teste at datamaskinen din kan kommunisere med Arduinoen, og at vi faktisk kan sende opp kode til den, skal vi nå prøve å laste opp et "tomt" programm til Arduinoen din.
+For å teste at datamaskinen din kan kommunisere med Arduinoen, og at vi faktisk kan sende opp kode til den, skal vi nå prøve å laste opp et "tomt" program til Arduinoen din.
 
 Først, sørg for at koden du ser i din editor er lik den du ser under.
 
@@ -21,7 +21,7 @@ Ikke vær redd om du ikke skjønner hva som foregår her og hva `void` og alle p
 Vær sikker at Arduinoen er plugget inn. Kill så på `Upload` knappen (se bildet under) for å laste opp.  
 ![Upload knappen, for å laste opp kode til Arduinoen][upload-empty]
 
-Når du klikker på `Upload`, så vil det dukke opp en *progress-bar* på den nedre delen av vinduet. Du vil se at den først viser tekten `Compiling` (`Kompilerer`) og så går over til `Done uploading.` når den er ferdig.
+Når du klikker på `Upload`, så vil det dukke opp en *progress-bar* på den nedre delen av vinduet. Du vil se at den først viser teksten `Compiling` (`Kompilerer`) og så går over til `Done uploading.` når den er ferdig.
 
 ![Skjermen etter opplastingen er fullført][upload-empty-complete]
 

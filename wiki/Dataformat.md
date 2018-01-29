@@ -52,7 +52,7 @@ Serial.println(tall, 5); // -> 42.42700
 
 ## Format på tid og dato
 
-Du ser at tid og dato vises på en litt uvanglig måte her. Dette er dato- og tidsrepresentasjonen som følger det vi kaller standard [ISO 8601][iso8601-wiki]. Det er en av de mest brukte og uproblematiske måtene å representere et tidspunkt på slik at datamaskinen kan fortstå det:
+Du ser at tid og dato vises på en litt uvanlig måte her. Dette er dato- og tidsrepresentasjonen som følger det vi kaller standard [ISO 8601][iso8601-wiki]. Det er en av de mest brukte og uproblematiske måtene å representere et tidspunkt på slik at datamaskinen kan fortstå det:
 
 1. Årstall, **4** siffrer
 1. En bindestrek, `-`
@@ -64,7 +64,7 @@ Du ser at tid og dato vises på en litt uvanglig måte her. Dette er dato- og ti
 1. Et kolon, `:`
 1. Minutter, **2** siffrer
 1. Et kolon, `:`
-1. Sekunder, **2** siffrer. Om du har desimal-sekunder (altså sekunder angitt som kommatall), bruker du puntum, `.` for å skille mellom siffrer før og etter desimalen.
+1. Sekunder, **2** siffrer. Om du har desimal-sekunder (altså sekunder angitt som kommatall), bruker du punktum, `.` for å skille mellom siffrer før og etter desimalen.
 1. Helt til slutt kommer tidssonen. GPS bruker det vi kaller [UTC][utc-wiki] som ligger **én time bak norsk tid** om vinteren, og **to timer bak** om sommeren. *I militæret kaller man UTC-tid også for Z- eller Zulu-tid.* Bruk en stor bokstav Z for å angi UTC-tidssonen, `Z`
 
 Se før deg at du har følgende variabler i koden din for å lagre tiden i din air:bit sketch:

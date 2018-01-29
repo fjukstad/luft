@@ -2,7 +2,7 @@ De enkleste komponentene på air:bit er LED lyspærene. Så for å starte med sk
 
 ## Komme i gang helplink
 
-Vi starter med en helt fersk ny Sketch. Først er det greit å bare begynne med å legge til de *tomme* funksjonene for `setup` og `loop` som vi allerede har sett på tidligere.
+Vi starter med en helt ny Sketch. Først er det greit å bare begynne med å legge til de *tomme* funksjonene for `setup` og `loop` som vi allerede har sett på tidligere.
 
 ``` cpp
 void setup() {
@@ -27,18 +27,18 @@ Denne syntaksen som du ser i koden over har vi ikke brukt før. I motsetningen t
 
 ## `setup` helplink
 
-I setup koden vår, må vi nå fortelle Arduinoen at vi har lyst å bruke pinnene for LED-pærene. Kommandoen for dette er `pinMode`. Arduinoen har muligheten for å enten sende ut signaler, dvs. strøm, på en pinne, eller motta. Ved å bruke argumentet `OUTPUT` sier vi at vi ikke forventer å motta noe data på pinnen og bare skal sende strøm ut.
+I setup koden vår må vi nå fortelle Arduinoen at vi har lyst å bruke pinnene for LED-pærene. Kommandoen for dette er `pinMode`. Arduinoen har muligheten for å enten sende ut signaler, dvs. strøm, på en pinne, eller motta. Ved å bruke argumentet `OUTPUT` sier vi at vi ikke forventer å motta noe data på pinnen og bare skal sende strøm ut.
 
 ``` cpp
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
 ```
 
-Merk at dette ikke faktisk skrur på eller av strømmen til LED enda. Det bare setter opp Arduinoen slik at den vil kunne skru av og på strømmen med en senere kommando i `loop`. Vi ser også at vi har to instruksjoner her, én for hver pinne. Om bare skal bruke en LED ved en senere anledning, kunne du bare fjernet en av de to linjene. Vi kommer til å bruke begge LED i dette eksemplet, så vi må derfor sette opp begge pinnene.
+Merk at dette ikke faktisk skrur på eller av strømmen til LED enda. Det bare setter opp Arduinoen slik at den vil kunne skru av og på strømmen med en senere kommando i `loop`. Vi ser også at vi har to instruksjoner her, én for hver pinne. Om du bare skal bruke en LED ved en senere anledning kunne du bare fjernet en av de to linjene. Vi kommer til å bruke begge LED i dette eksemplet, så vi må derfor sette opp begge pinnene.
 
 ## `loop` helplink
 
-Ideen er at vi skal blinke avvekslende med den røde og grønne LED på air:bit. Før vi skriver noe kode, må vi først tenke over hvordan dette faktisk skjer steg for steg.
+Idéen er at vi skal blinke avvekslende med den røde og grønne LED på air:bit. Før vi skriver noen kode må vi først tenke over hvordan dette faktisk skjer, steg for steg.
 
 1. Skru på rød LED
 1. Vent i ett sekund
@@ -61,11 +61,11 @@ Vi kan derfor tenke oss at å skru av og på strømmen til en LED er en form for
   digitalWrite(LED_RED, LOW); // Turn off red LED.
 ```
 
-Prøv å oversett stegene vi skrev på norsk i opplistingen over, og skriv ned kommandoene i rett rekkefølge. Du kan gjerne leke litt her og se hva som skjer om du endrer rekkefølge eller vente-tid. Minker du f.eks. tallet i `delay`-kommandoene, vil LEDene blinke fortere.
+Prøv å oversett stegene vi skrev på norsk i opplistingen over, og skriv ned kommandoene i rett rekkefølge. Du kan gjerne leke litt her og se hva som skjer om du endrer rekkefølge eller vente-tid. Minker du f.eks. tallet i `delay`-kommandoene vil LEDene blinke fortere.
 
 ## Ferdig
 
-Mye rart man kan gjøre med blinking og mange rare rytmer man kan få til her om man bare er litt kreativ. Men hvis vi tar utgangspunkt i den helt kjedelige blinkingen i ett sekund mellomrom, vi du få kode som likner på dette:
+Mye rart man kan gjøre med blinking og mange rare rytmer man kan få til her om man bare er litt kreativ, men hvis vi tar utgangspunkt i den helt kjedelige blinkingen i ett sekund mellomrom, vi du få kode som ligner på dette:
 
 ```cpp
 #define LED_RED   A1
