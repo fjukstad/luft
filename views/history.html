@@ -12,9 +12,13 @@
         <label form="area-form"><b>Velg område</b></label>
         <div class="form-group justify-content-center" id="gps-form-group">
           <select class="form-control" name="area" id="area">
-            <option value="Tromsø">Tromsø</option>
+            <option value="Alta">Alta</option>
             <option value="Bodø">Bodø</option>
+            <option value="Harstad">Harstad</option>
+            <option value="Lakselv">Lakselv</option>
             <option value="Narvik">Narvik</option>
+            <option value="Nord-Troms">Nord-Troms</option>
+            <option value="Tromsø">Tromsø</option>
           </select>
           <div class="col-4" align="center">
             eller
@@ -86,10 +90,13 @@
 </div>
 <hr class="my-4">
 <div class="row">
-  <div class="span6" style="float: none; margin: 0 auto;">
-    <button type="button" class="btn btn-primary" align="center" id="history-button">Søk</button>
-  </div>
-</div> 
+  <div class="container" align="center">
+    <div class="button-group">
+      <button type="button" class="btn btn-primary" id="history-button">Søk</button>
+      <button type="button" class="btn btn-success" id="download" onclick="downloadAll()" style="display:none">Last ned</button>
+    </div>
+  </div> 
+</div>
 </br>
 <div class="row">
   <div class="col-8">
@@ -117,10 +124,6 @@
         <div id="chart-NO2" class="chart">
             <svg id="chart-NO2" width="300" height="200"></svg>
         </div>
-    </div>
-    <hr class="my-4">
-    <div class="float" id="download" style="display:none">
-        <button type="button" class="btn btn-success">Last ned</button>
     </div>
   </div>
 </div> 
@@ -166,15 +169,15 @@ $('#history-button').click(function(e)
     container = "chart-"+component
 
     var provider = "nilu" 
-
     barChartNilu(area, component, datestring, container, element); 
-    // addToMap(map, area, customGPS, provider, component, datestring) 
+    addToMap(map, area, customGPS, provider, component, datestring) 
     component = "NO2" 
     element = "svg#chart-"+component
     container = "chart-"+component
-    // addToMap(map, area, customGPS, provider, component, datestring) 
+    addToMap(map, area, customGPS, provider, component, datestring) 
     barChartNilu(area, component, datestring, container, element); 
 
+    $('#nilu-title').show();
     $('#nilu-data').show();
   }
 
@@ -188,48 +191,90 @@ $('#history-button').click(function(e)
     provider = "student" 
     components = ["dust", "temperature", "humidity"]
     ret = barChartStudent(area, customGPS, components, datestring);
-    if(ret == false) {
-      console.log("false")
-    }
-    // addToMap(map, area, customGPS, provider, component, datestring)
+
+    addToMap(map, area, customGPS, provider, null, datestring)
     
+    $('#student-title').show();
     $('#student-data').show();
   }
 
-  $("#download").css("display", "block")
+  $("#download").css("display", "inline")
 });
 
-  // $("#download").click(function()
-  // {
-  //   var from = $('#from').val()
-  //   from = new Date(from)
 
-  //   var to = $('#to').val()
-  //   to = new Date(to)
+function downloadAll() {
+  var zip = new JSZip();
+  var count = 0;
+  var zipFilename = "airbit.zip";
 
-  //   area = "Tromsø"
-  //   datestring = "from=" + from.toJSON() + "&to=" + to.toJSON()
+  var urls = [];
+  var filenames = []
+  datestring = createDatestring();
+  var customGPS = false;
+  if ($('#checkbox-student').is(':checked')) {
+    if ($('#custom-gps').is(':checked')) {
+      var within = coordinates
+      within.push(radius)
+      area = within.join()
+      customGPS = true;
+    }
+    urls.push(getStudentUrl(area, customGPS, datestring))
+    filenames.push("studentdata.csv")
+  }
+  if ($('#checkbox-nilu').is(':checked')) {
+    component = "PM10"
+    urls.push(getHistoricalUrl(area, datestring, component))
+    filenames.push("Nilu-PM10.csv")
 
-  //   var component = "PM10"
-  //   var url = getHistoricalUrl(area, datestring, component)
-  //   window.open(url, '_blank');
+    
+    component = "NO2"
+    urls.push(getHistoricalUrl(area, datestring, component))
+    filenames.push("Nilu-NO2.csv")    
+  }
 
-  //   component = "NO2"
-  //   url = getHistoricalUrl(area, datestring, component)
-  //   window.open(url, '_blank');
 
-  //   var component = "dust"
-  //   url = getStudentUrl(datestring, component);
-  //   window.open(url, '_blank'); 
+  if (urls.length == 1) {
+    var link = document.createElement('a');
+    var uri = urls[0];
+    if (typeof link.download === 'string') {
+        document.body.appendChild(link); // Firefox requires the link to be in the body
+        link.download = filenames[0];
+        link.href = uri;
+        link.click();
+        document.body.removeChild(link); // remove the link when done
+    } else {
+        location.replace(uri);
+    }
+  }
+  else {
+    urls.forEach(function(url){
+      // loading a file and add it in a zip file
+      JSZipUtils.getBinaryContent(url, function (err, data) {
+        var filename = filenames[count];
+        if(err) {
+            throw err; // or handle the error
+        }
+        zip.file(filename, data, {binary:true});
+        count++;
+        if (count == urls.length) {
+          zip.generateAsync({type:'blob'}).then(function(content) {
+            saveAs(content, zipFilename);
+          });
+        }
+      });
+    });
+  }
+}
 
-  //   var component = "temperature"
-  //   url = getStudentUrl(datestring, component);
-  //   window.open(url, '_blank'); 
-
-  //   var component = "humidity"
-  //   url = getStudentUrl(datestring, component);
-  //   window.open(url, '_blank'); 
-  // })
+$("#area-container").change(function () {
+  $("#download").css("display", "none");  
+}); 
+$("#time-container").change(function () {
+  $("#download").css("display", "none");  
+}); 
+$("#data-container").change(function () {
+  $("#download").css("display", "none");  
+}); 
 </script> 
 
 

@@ -25,9 +25,13 @@
     <div align="center">
       <div class="form-group">
         <select class="form-control" id="select-box" onChange="updatePosition();">
-          <option value="Tromsø">Tromsø</option>
+          <option value="Alta">Alta</option>
           <option value="Bodø">Bodø</option>
+          <option value="Harstad">Harstad</option>
+          <option value="Lakselv">Lakselv</option>
           <option value="Narvik">Narvik</option>
+          <option value="Nord-Troms">Nord-Troms</option>
+          <option value="Tromsø">Tromsø</option>
         </select>
       </div>
     </div>
@@ -96,12 +100,16 @@
 <script> 
 
 var areas = {
-    "Tromsø" : [69.680, 18.95],
-    "Bodø"   : [67.28, 14.405],
-    "Narvik" : [68.438,17.427] 
-
+    "Tromsø"      : [69.680, 18.95],
+    "Bodø"        : [67.28, 14.405],
+    "Narvik"      : [68.438, 17.427],
+    "Alta"        : [69.971, 23.303],
+    "Nord-Troms"  : [69.929, 20.999],
+    "Harstad"     : [68.798, 16.541],
+    "Lakselv"     : [70.051, 24.971]
 };
-map = newMap(mapid, areas["Tromsø"]);
+
+map = newMap(mapid, areas["Alta"]);
 setPosition(); 
 
 

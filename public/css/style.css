@@ -149,7 +149,7 @@ label {
   padding-right: 5px;
 }
 
-#gps-input, #time-input {
+#gps-input, #time-input, h3#student-title, h3#nilu-title {
   display: none;
 }
 

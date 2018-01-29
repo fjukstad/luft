@@ -48,10 +48,12 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 		geom := geojson.NewPointGeometry([]float64{measurement.Longitude, measurement.Latitude})
 		f := geojson.NewFeature(geom)
 		f.SetProperty("date", measurement.Date)
-		f.SetProperty("dust", measurement.PmTen)
+		f.SetProperty("pmTen", measurement.PmTen)
+		f.SetProperty("pmTwoFive", measurement.PmTwoFive)
 		f.SetProperty("humidity", measurement.Humidity)
 		f.SetProperty("temperature", measurement.Temperature)
-		f.SetProperty("weight", 2)
+		f.SetProperty("color", "6ee86e")
+		f.SetProperty("weight", 10)
 		fc = fc.AddFeature(f)
 	}
 
@@ -105,10 +107,12 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	records := [][]string{}
-	header := []string{"timestamp", "pmTen", "unitDust", "pmTwoFive", "humidity", "unitHum", "temperature", "unitTemp"}
+	header := []string{"timestamp", "latitude", "longitude", "pmTen", "unitDust", "pmTwoFive", "humidity", "unitHum", "temperature", "unitTemp"}
 	records = append(records, header)
 
 	for _, measurement := range data {
+		var latitude 				 float64
+		var longitude 			 float64
 		var valuePmTen 			 float64
 		var valuePmTwoFive 	 float64
 		var valueHumidity		 float64
@@ -117,7 +121,9 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		var unitHumidity string
 		var unitTemperature string
 
-	
+		
+		latitude 					= measurement.Latitude
+		longitude 				= measurement.Longitude
 		valuePmTen 				= measurement.PmTen
 		valuePmTwoFive 		= measurement.PmTwoFive
 		valueHumidity 		= measurement.Humidity
@@ -126,6 +132,8 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		unitHumidity 			= "%"
 		unitTemperature 	= "C"
 
+		formattedLatitude 				:= strconv.FormatFloat(latitude, 'f', -1, 64)
+		formattedLongitude 				:= strconv.FormatFloat(longitude, 'f', -1, 64)
 		formattedPmTenValue 			:= strconv.FormatFloat(valuePmTen, 'f', -1, 64)
 		formattedPmTwoFiveValue 	:= strconv.FormatFloat(valuePmTwoFive, 'f', -1, 64)
 		formattedHumidityValue		:= strconv.FormatFloat(valueHumidity, 'f', -1, 64)
@@ -136,6 +144,8 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 
 		record := []string{
 							timestamp, 
+							formattedLatitude,
+							formattedLongitude,
 							formattedPmTenValue, unitDust, 
 							formattedPmTwoFiveValue, 
 							formattedHumidityValue, unitHumidity, 
@@ -146,7 +156,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 
 	writer := csv.NewWriter(w)
 
-	filename := "student.csv"
+	filename := "studentdata.csv"
 	w.Header().Set("Content-Disposition", "attachment; filename="+filename)
 
 	err = writer.WriteAll(records)
