@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"mime/multipart"
 	"sync"
-	"path/filepath"
 )
 
 
@@ -87,7 +86,7 @@ func sendFile(fh *multipart.FileHeader, c chan PostResponse, wg *sync.WaitGroup)
 
 	fi := FileInfo {
 
-		Filename: filepath.Base(fh.Filename),
+		Filename: fh.Filename,
 		Size: fileSize,
 		ContentType: fh.Header["Content-Type"][0], 
 		Contents: buf.String(),
