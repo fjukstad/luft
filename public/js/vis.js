@@ -24,16 +24,16 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
         if (feature.properties) {
             var  content = ""
             if (feature.properties.name) {
-                content = "<b>"+feature.properties.name+"</b></br>"
+                content = "<b>" + feature.properties.name + "</b><br />"
             }
-            if(feature.properties.component) {
-                content += feature.properties.component+": "+feature.properties.value + "</br>"
-            } 
-            if(feature.properties.pmTen){ 
-                content += "PM10: " + feature.properties.pmTen + "</br>" 
-                content += "PM2.5: " + feature.properties.pmTwoFive + "</br>" 
-                content += "Temperature: "+feature.properties.temperature + "</br>"
-                content += "Humidity: "+feature.properties.humidity + "</br>"
+            if (feature.properties.component) {
+                content += feature.properties.component + ": " + feature.properties.value + "<br />"
+            }
+            if (feature.properties.pmTen) {
+                content += "PM10: " + feature.properties.pmTen + "<br />"
+                content += "PM2.5: " + feature.properties.pmTwoFive + "<br />"
+                content += "Temperature: " + feature.properties.temperature + "<br />"
+                content += "Humidity: " + feature.properties.humidity + "<br />"
             }
             content += feature.properties.date
             layer.bindPopup(content);
