@@ -24,6 +24,7 @@ func main() {
 	mux.HandleFunc("/live", controllers.LiveHandler)
 	mux.HandleFunc("/historikk", controllers.HistoryHandler)
 	mux.HandleFunc("/lastopp", controllers.UploadHandler)
+	mux.HandleFunc("/resources", controllers.ResourcesHandler)
 
 	port := os.Getenv("PORT")
 

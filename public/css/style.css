@@ -203,6 +203,10 @@ div.markdown img {
   height: 16rem;
 }
 
+.resource-media-preview {
+  max-height: 206px;
+}
+
 footer p {
   width: 100%;
   text-align: center;

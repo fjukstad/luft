@@ -56,6 +56,17 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+var resourcesTemplate = template.Must(template.ParseFiles("views/base.html",
+	"views/header.html", "views/navbar.html", "views/navbar2.html",
+	"views/resources.html", "views/footer.html"))
+
+func ResourcesHandler(w http.ResponseWriter, r *http.Request) {
+	err := resourcesTemplate.Execute(w, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
 type FileInfo struct {
 	Filename 		string
 	Size 				int64
