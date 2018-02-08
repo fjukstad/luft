@@ -8,7 +8,6 @@ RUN ["node", "airbit.wiki.js"]
 
 FROM golang
 
-RUN go get github.com/google/uuid
 RUN go get github.com/fjukstad/luftkvalitet
 RUN go get github.com/fjukstad/met
 RUN go get github.com/paulmach/go.geojson
