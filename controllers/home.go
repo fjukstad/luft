@@ -13,7 +13,7 @@ import (
 
 
 var indexTemplate = template.Must(template.ParseFiles("views/base.html",
-	"views/header.html", "views/navbar.html",
+	"views/header.html", "views/navbar.html", "views/navbar2.html",
 	"views/index.html", "views/footer.html"))
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
