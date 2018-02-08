@@ -1,4 +1,4 @@
-Av alle sensorene til air:bit er temperatursensoren den enkleste. Temperatursensoren vi bruker i air:bit, DHT, er en veldig vanlig type sensor. Heldigvis betyr dette for oss, at noen andre allerede har gjort jobben med å finne ut hvordan man leser av data fra sensoren. Dette gjør det veldig mye enklere å lese av temperatur data.
+Av alle sensorene til air:bit er temperatursensoren den enkleste. Temperatursensoren vi bruker i air:bit, DHT, er en veldig vanlig type sensor. Heldigvis betyr dette for oss at noen andre allerede har gjort jobben med å finne ut hvordan man leser av data fra sensoren. Dette gjør det veldig mye enklere å lese av temperaturdata.
 
 Vi kommer til å skrive en veldig enkel Arduino Sketch, der vi skriver ut temperatur og fuktighetsmålinger over en seriell forbindelse.
 
@@ -30,7 +30,7 @@ I `Library Manager` som åpner seg, må du nå søke for `DHT sensor library` so
 
 ### Installere `Adafruit_Sensor` biblioteket helplink
 
-`DHT snsor library`-biblioteket bruker Adafruit sitt overordnete `Adafruit_Sensor` bibliotek. Dette inneholder informasjon som er til felles for alle Adafruit sine sensorer.
+`DHT sensor library`-biblioteket bruker Adafruit sitt overordnete `Adafruit_Sensor` bibliotek. Dette inneholder informasjon som er til felles for alle Adafruit sine sensorer.
 
 For å installere dette biblioteket skal vi laste ned nyeste version selv ved å klikke på denne linken: [**Adafruit_Sensor**][adafruit-sensor-latest]  
 Klikk på linken **Source code** (zip) for å laste ned biblioteket.  
@@ -38,7 +38,7 @@ Det er viktig at du lagrer (**ikke åpner**) filen. Husk hvor du lagrer filen, v
 
 ![Download Adafruit_Sensor library][adafruit_sensor-download]
 
-Etter du har lastet ned biblioteket og lagret filen må vi installere biblioteket i `Arduino IDE`. Klikk i menyen på `Sketch`&rarr;`Include library`&rarr;`Add ZIP library` (punktet under `Manage libraries`). Velg filen du nettopp lastet ned. Om nettleseren din ikke ba deg om å velge hvor filen skulle lagres, vil du mest sannsynligvis finne den under `Downloads` (`Nedlastninger`).
+Etter du har lastet ned biblioteket og lagret filen må vi installere biblioteket i `Arduino IDE`. Klikk i menyen på `Sketch`&rarr;`Include library`&rarr;`Add ZIP library` (punktet under `Manage libraries`). Velg filen du nettopp lastet ned. Om nettleseren din ikke ba deg om å velge hvor filen skulle lagres, vil du mest sannsynligvis finne den under `Downloads` (`Nedlastinger`).
 
 ## Globale definisjoner helplink
 
@@ -54,7 +54,7 @@ Så ta en titt på [Pinout Skjemaet][pinout]. Definér en konstant for pinnen fo
 #define DHTPIN 9
 ```
 
-Tidligere i [eksempelet for telling][counting], deklarte du en variabel med datatype `int`. Nå må du deklarere en variabel for å kontrollere forbindelsen med DHT sensoren. Datatypen for dette kommer fra det inkluderte `DHT` biblioteket og heter `DHT`. For å deklarere denne variablen trenger du to ting: Hvilken pinne den er koblet til på, og slags type DHT du bruker.
+Tidligere i [eksempelet for telling][counting] deklarerte du en variabel med datatype `int`. Nå må du deklarere en variabel for å kontrollere forbindelsen med DHT sensoren. Datatypen for dette kommer fra det inkluderte `DHT` biblioteket og heter `DHT`. For å deklarere denne variabelen trenger du to ting: hvilken pinne den er koblet til på, og hvilken slags type DHT du bruker.
 
 Pinnen har du allere definiert i `DHTPIN` konstanten i linjen over, og i vårt tilfelle bruker vi en DHT-sensor type `DHT22`.
 
@@ -62,7 +62,7 @@ Pinnen har du allere definiert i `DHTPIN` konstanten i linjen over, og i vårt t
 DHT dhtSensor(DHTPIN, DHT22);
 ```
 
-*I koden over kalles variablen `dhtSensor`, men du kan bruke hvilket som helst navn som du har lyst å bruke. Det anbefales å bruke et deskriptivt navn som virker intuitivt å bruke. Merk også at vi bruker konstanten `DHT22`. Fra beskrivelsen som vistes når du installerte DHT-biblioteket kan du se at det finnes flere varianter av DHT-sensorer. air:bit sin sensor er av den nyere `DHT22` varianten.*
+*I koden over kalles variabelen `dhtSensor`, men du kan bruke hvilket som helst navn som du har lyst å bruke. Det anbefales å bruke et deskriptivt navn som virker intuitivt å bruke. Merk også at vi bruker konstanten `DHT22`. Fra beskrivelsen som vistes når du installerte DHT-biblioteket kan du se at det finnes flere varianter av DHT-sensorer. air:bit sin sensor er av den nyere `DHT22` varianten.*
 
 ## `setup` helplink
 
@@ -76,7 +76,7 @@ For dette eksemplet for programmering med DHT sensoren skal vi bruke en seriell 
 
 For hver gjennomgang gjennom `loop`-funksjonen skal vi lese ut måleverdiene fra sensoren, så skrive dem ut over seriell-forbindelsen. Til slutt skal vi vente en stund til vi tar neste måling.
 
-For å starte med trenger vi to lokale variabler for å lagre måleverdiene (en for temperatur og en for fuktighet). Lokale variabler deklareres akkurat som globale variabler (som f.eks. `dhtSensor`), men de varer bare for én gjennomgang gjennom `loop`-funksjonen, dvs. variablen lages på nytt for hver gjennomgang. Variabler for å lagre en måling fra sensorer lages best som lokale variabler i stedet for globale variabler.
+For å starte med trenger vi to lokale variabler for å lagre måleverdiene (en for temperatur og en for fuktighet). Lokale variabler deklareres akkurat som globale variabler (som f.eks. `dhtSensor`), men de varer bare for én gjennomgang gjennom `loop`-funksjonen, dvs. variabelen lages på nytt for hver gjennomgang. Variabler for å lagre en måling fra sensorer lages best som lokale variabler i stedet for globale variabler.
 
 Temperatur og Fuktighet er verdier som representeres som kommatall. F.eks. et vanlig digitalt termometer vil vise temperatur som f.eks. `20.7°C`. Fuktighet måles som relativ fuktighet i %, f.eks. `41.2% RH`. Variabler for å lagre kommatall må bruke datatypen `float`. *`float` er en forkortelse for `floating-point decimal number` og det er slik en datamaskin vanligvis håndterer kommatall.*
 
@@ -87,7 +87,7 @@ Temperatur og Fuktighet er verdier som representeres som kommatall. F.eks. et va
 
 I koden over ser du at variabler også kan initialiseres samtidig med deklarasjonen. Merk at kommatall bruker `.` (punktum) som komma-tegn. *Igjen, merk at variablene kan navngis hvordan som helst.*
 
-Nå kan vi bruke `readTemperature` og `readHumidity` kommandoene som hører til `dhtSensor` variablen vår. Resultatene vil bli gitt i hhv. grader Celsius (`°C`) og `%` relativ fuktighet.
+Nå kan vi bruke `readTemperature` og `readHumidity` kommandoene som hører til `dhtSensor` variabelen vår. Resultatene vil bli gitt i hhv. grader Celsius (`°C`) og `%` relativ fuktighet.
 
 ``` cpp
   temperature = dhtSensor.readTemperature();
@@ -105,7 +105,7 @@ Etter disse kommandoene vil den aktuelle verdien for temperatur og fuktighet væ
   Serial.println();
 ```
 
-I den tredje linjen over ser du at `\t` skrives ut. I `C++` brukes `\` (backslash) for spesielle tegn. `\t` er et spesiellt tegn kalt tabulator. Det brukes for å skille kolonner i en tabell fra hverandre. I et vanlig tekst-programm, som f.eks. Word, vil du skrive et tabulator-symbol ved å trykke Tab-tasten til venstre for `Q` på det norske tastaturet.
+I den tredje linjen over ser du at `\t` skrives ut. I `C++` brukes `\` (backslash) for spesielle tegn. `\t` er et spesiellt tegn kalt tabulator. Det brukes for å skille kolonner i en tabell fra hverandre. I et vanlig tekst-program, som f.eks. Word, vil du skrive et tabulator-symbol ved å trykke Tab-tasten til venstre for `Q` på det norske tastaturet.
 
 Helt til slutt vil vi vente en liten stund til det leses av en ny måling. Bruk `delay`-kommandoen for dette.
 
@@ -115,7 +115,7 @@ Helt til slutt vil vi vente en liten stund til det leses av en ny måling. Bruk 
 
 ## Ferdig
 
-Siden variabler kan navgis som du ønsker kan koden din se litt anderledes ut, men hovedsakelig burde ting se u som vist under.
+Siden variabler kan navngis som du ønsker kan koden din se litt anderledes ut, men hovedsakelig burde ting se ut som vist under.
 
 ``` cpp
 #include <DHT.h>

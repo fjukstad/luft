@@ -1,4 +1,4 @@
-I forrige steg skrev vi ut teksten `Hello World!`. Vi så at Arduinoen kjørte gjennom instruksjonene i `loop` funksjonen om igjen og om igjen. La oss nå endre Hello-World-programmet til å også skrive ut en teller verdi, som vi øker for hver linje.
+I forrige steg skrev vi ut teksten `Hello World!`. Vi så at Arduinoen kjørte gjennom instruksjonene i `loop` funksjonen om og om igjen. La oss nå endre Hello-World-programmet til å også skrive ut en teller verdi, som vi øker for hver linje.
 
 For dette må vi lage en variabel i programmet vårt. En variabel er en verdi med et navn som kan endre verdi.
 
@@ -16,15 +16,15 @@ Foran navnet finner vi kodeordet `int`. Kort for `integer`, som er det engelske 
 
 ### Initialisering helplink
 
-Med deklerasjonen av `counter` variablen, må vi nå sette verdien til variablen til en nyttig verdi. Dette må vi gjøre én gang når Arduinoen starter opp. Derfor legger vi følgende til `setup`-funksjonen: (*dvs. før den lukkende krøllparantesen*)
+Med deklerasjonen av `counter` variablen må vi nå sette verdien til variablen til en nyttig verdi. Dette må vi gjøre én gang når Arduinoen starter opp. Derfor legger vi følgende til `setup`-funksjonen: (*dvs. før den lukkende krøllparantesen*)
 
 ``` cpp
   counter = 0;
 ```
 
-Et enkel likhetstegn er i Arduinokode operatoren for å lagre en verdi i en variabel. Verdien på høresiden av likhetstegnet plasseres i verdien på venstresiden. Kommandoen over oversettes altså til: Plasser verdien `0` i variablen `counter`. Etter denne instruksjonen vil verdien til `counter` altså være `0`, helt til vi endrer den igjen med en annen instruksjon.
+Et enkel likhetstegn er i Arduinokode operatoren for å lagre en verdi i en variabel. Verdien på høyresiden av likhetstegnet plasseres i verdien på venstresiden. Kommandoen over oversettes altså til: plasser verdien `0` i variablen `counter`. Etter denne instruksjonen vil verdien til `counter` altså være `0`, helt til vi endrer den igjen med en annen instruksjon.
 
-Kode som denne, som setter start-verdier i variabler kaller vi *initialisering*.
+Kode som denne, som setter start-verdier i variabler, kaller vi *initialisering*.
 
 ### Printe ut variabler helplink
 
@@ -48,7 +48,7 @@ Nå er vi ferdig med å skrive linjen, så nå er rette tiden for å skrive vide
   Serial.println();
 ```
 
-*Merk at det ikke står noe mellom parantesene. Men parantesene må fortsatt være der.*
+*Merk at det ikke står noe mellom parantesene, men parantesene må fortsatt være der.*
 
 ### Øke verdien til variablen helplink
 

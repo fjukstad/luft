@@ -1,4 +1,4 @@
-air:bit Programmeringsguiden består av flere småguider, én for hver sensor. Guidene for hver sensor vil gi deg forklaringer og tipps for hvordan du skal programmere Arduinoen til å bruke de ulike sensorene.
+air:bit Programmeringsguiden består av flere småguider, én for hver sensor. Guidene for hver sensor vil gi deg forklaringer og tips for hvordan du skal programmere Arduinoen til å bruke de ulike sensorene.
 
 Selv om guidene vil innholde en del kodeekssempler, vi du likevel være nødt til å selv sy sammen alle de ulike smådelene til et helhetlig air:bit program.
 
