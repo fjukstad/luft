@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"mime/multipart"
 	"sync"
-	"path/filepath"
+	"strings"
 )
 
 
@@ -85,9 +85,18 @@ func sendFile(fh *multipart.FileHeader, c chan PostResponse, wg *sync.WaitGroup)
 	// url := "http://localhost:8080/api/upload"
 	url := "https://luft-184208.appspot.com/api/upload"
 
+	// Remove Windows-style path
+	pathAndFilename := strings.Split(fh.Filename, "\\")
+	filename := pathAndFilename[len(pathAndFilename)-1]
+
+	// Remove unix path
+	pathAndFilename = strings.Split(filename, "/")
+	filename = pathAndFilename[len(pathAndFilename)-1]
+
+
 	fi := FileInfo {
 
-		Filename: filepath.Base(fh.Filename),
+		Filename: filename,
 		Size: fileSize,
 		ContentType: fh.Header["Content-Type"][0], 
 		Contents: buf.String(),
