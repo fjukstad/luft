@@ -202,3 +202,8 @@ div.markdown img {
 #logo {
   height: 16rem;
 }
+
+footer p {
+  width: 100%;
+  text-align: center;
+}
