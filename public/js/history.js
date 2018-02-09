@@ -5,7 +5,8 @@ var areas = {
     "Alta"        : [69.971, 23.303],
     "Nord-Troms"  : [69.929, 20.999],
     "Harstad"     : [68.798, 16.541],
-    "Lakselv"     : [70.051, 24.971]
+    "Lakselv"     : [70.051, 24.971],
+    "Mo i Rana"   : [66.313, 14.142]
 };
 
 function toggleGPSInput(checkbox) {

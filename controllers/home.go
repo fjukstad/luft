@@ -107,6 +107,7 @@ func sendFile(fh *multipart.FileHeader, c chan PostResponse, wg *sync.WaitGroup)
 		fmt.Println(err)
 	}
 
+
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(file))
   req.Header.Set("X-Custom-Header", "myvalue")
   req.Header.Set("Content-Type", "application/json")

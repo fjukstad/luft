@@ -107,7 +107,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	records := [][]string{}
-	header := []string{"timestamp", "latitude", "longitude", "pmTen", "unitDust", "pmTwoFive", "humidity", "unitHum", "temperature", "unitTemp"}
+	header := []string{"timestamp", "latitude", "longitude", "pmTen", "pmTwoFive", "humidity", "temperature"}
 	records = append(records, header)
 
 	for _, measurement := range data {
@@ -117,10 +117,6 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		var valuePmTwoFive 	 float64
 		var valueHumidity		 float64
 		var valueTemperature float64
-		var unitDust string
-		var unitHumidity string
-		var unitTemperature string
-
 		
 		latitude 					= measurement.Latitude
 		longitude 				= measurement.Longitude
@@ -128,9 +124,6 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		valuePmTwoFive 		= measurement.PmTwoFive
 		valueHumidity 		= measurement.Humidity
 		valueTemperature 	= measurement.Temperature
-		unitDust 					= "ug/m3"
-		unitHumidity 			= "%"
-		unitTemperature 	= "C"
 
 		formattedLatitude 				:= strconv.FormatFloat(latitude, 'f', -1, 64)
 		formattedLongitude 				:= strconv.FormatFloat(longitude, 'f', -1, 64)
@@ -146,10 +139,10 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 							timestamp, 
 							formattedLatitude,
 							formattedLongitude,
-							formattedPmTenValue, unitDust, 
+							formattedPmTenValue,  
 							formattedPmTwoFiveValue, 
-							formattedHumidityValue, unitHumidity, 
-							formattedTemperatureValue, unitTemperature, 
+							formattedHumidityValue,  
+							formattedTemperatureValue, 
 						}
 		records = append(records, record)
 	}
