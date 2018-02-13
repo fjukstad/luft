@@ -84,195 +84,124 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
 }
 
 function barChartStudent(area, customGPS, components, datestring) {
+  var dates = datestring.split("&")
 
-    var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
-    var charts = []
+  var start = moment(dates[0].split("=")[1])
+  var end = moment(dates[1].split("=")[1])
 
-    for (var i = 0; i < components.length; i++) {
-        var container = "chart-" + components[i]
-        var element = "svg#chart-" + components[i]
-        var svg = document.querySelector(element);
-        svg.setAttribute("width", document.getElementById(container).clientWidth)
-        var svg = d3.select(element),
-            margin = {
-                top: 20,
-                right: 30,
-                bottom: 20,
-                left: 30
-            },
-            width = +svg.attr("width") - margin.left - margin.right,
-            height = +svg.attr("height") - margin.top - margin.bottom,
-            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        charts.push(g);
+  var duration = moment.duration(end.diff(start))
+  var timespan = duration.asHours()
+  
+  var url = getStudentUrl(area, customGPS, datestring)
+  Plotly.d3.csv(url, function(err, rows){
+    
+    var groupedBy = rows.groupBy('timestamp', timespan)
+    var averagePmTen = calculateAvg(groupedBy, "pmTen")
+    var averagePmTwoFive = calculateAvg(groupedBy, "pmTwoFive")
+    var averageTemperature = calculateAvg(groupedBy, "temperature")
+    var averageHumidity = calculateAvg(groupedBy, "humidity")
+
+    function unpack(rows) {
+      return Object.keys(rows).map(function(key){ return rows[key][0]; });
+    }
+  
+    var pm10 = {
+      type: "scatter",
+      mode: "lines+markers",
+      name: 'PM10',
+      x: Object.keys(averagePmTen),
+      y: unpack(averagePmTen),
+      line: {color: '#17BECF'}
     }
 
-    var x = d3.scaleTime()
-        .rangeRound([0, width]);
 
-    var y = d3.scaleLinear()
-        .rangeRound([height, 0]);
-
-    var z = d3.scaleOrdinal(d3.schemeCategory20);
-
-    var url = getStudentUrl(area, customGPS, datestring)
-
-    var components = ["dust", "humidity", "temperature"];
-    var units = [];
-    var stations = {};
-
-    d3.csv(url,
-        function (d) {
-            if (!stations[d.station]) {
-                stations[d.station] = []
-            }
-            d.timestamp = parseTime(d.timestamp);
-            d.values = [
-                [parseFloat(d.pmTwoFive), parseFloat(d.pmTen)], parseFloat(d.humidity), parseFloat(d.temperature)
-            ];
-            units = [d.unitDust, d.unitHum, d.unitTemp];
-            stations[d.station].push(d)
-            return d;
-        },
-        function (error, data) {
-            var line;
-            if (data == 0) {
-                drawNoData(components);
-            }
-            for (var v = 0; v < units.length; v++) {
-                var component = components[v];
-                x.domain(d3.extent(data, function (d) {
-                    return d.timestamp;
-                }));
-
-                if (v == 0) {
-                    var min = d3.min([d3.min(data, function (d) {
-                        return d.values[v][0]
-                    }), d3.min(data, function (d) {
-                        return d.values[v][1]
-                    })])
-                    var max = d3.max([d3.max(data, function (d) {
-                        return d.values[v][0]
-                    }), d3.max(data, function (d) {
-                        return d.values[v][1]
-                    })])
-                    y.domain([min, max]);
-
-                } else {
-                    y.domain(d3.extent(data, function (d) {
-                        return d.values[v];
-                    }));
-                    line = d3.line()
-                        .curve(d3.curveBasis)
-                        .x(function (d) {
-                            return x(d.timestamp);
-                        })
-                        .y(function (d) {
-                            return y(d.values[v]);
-                        });
-                }
-
-                charts[v].append("g")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x))
-                    .select(".domain")
-                    .remove();
-
-                charts[v].append("g")
-                    .call(d3.axisLeft(y))
-                    .append("text")
-                    .attr("fill", "#000")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
-                    .attr("dy", "0.71em")
-                    .attr("text-anchor", "end")
-                    .text(component + "(" + units[v] + ")");
-
-                label_offset = width / 2
-                var component_selector = component.replace("/", "")
-
-                charts[v].append("g")
-                    .append("text")
-                    .attr("id", component_selector + "-label")
-                    .attr("transform", "translate(" + label_offset + ",0)")
-                    .attr("fill", "#000")
-                    .text("")
-
-                for (var station in stations) {
-                    var id = station.replace("\ ", "")
-                    id = id.replace(",", "")
-                    id = id.replace(".", "")
-
-                    if (v == 0) {
-                        for (var s = 0; s < 2; s++) {
-                            line = d3.line()
-                                .curve(d3.curveBasis)
-                                .x(function (d) {
-                                    return x(d.timestamp);
-                                })
-                                .y(function (d) {
-                                    return y(d.values[v][s]);
-                                });
-                            path = charts[v].append("path")
-                                .datum(stations[station])
-                                .attr("fill", "none")
-                                .style("stroke", z(station))
-                                .attr("stroke", "steelblue")
-                                .attr("stroke-linejoin", "round")
-                                .attr("stroke-linecap", "round")
-                                .attr("stroke-width", 1.5)
-                                .attr("d", line)
-                                .attr("id", id + "-" + component_selector)
-                        }
-                    } else {
-                        path = charts[v].append("path")
-                            .datum(stations[station])
-                            .attr("fill", "none")
-                            .style("stroke", z(station))
-                            .attr("stroke", "steelblue")
-                            .attr("stroke-linejoin", "round")
-                            .attr("stroke-linecap", "round")
-                            .attr("stroke-width", 1.5)
-                            .attr("d", line)
-                            .attr("id", id + "-" + component_selector)
-                    }
-                    d3.select("path#" + id + "-" + component_selector).on("mouseover", function () {
-                            d3.select(this).style("stroke-width", 5);
-                            label = d3.select(this).data()[0][0].station
-                            d3.select("text#" + component_selector + "-label").text(label)
-                        })
-
-                        .on("mouseout", function () {
-                            d3.select(this).style("stroke-width", 1.5);
-                            d3.select("text#" + component_selector + "-label").text("")
-                        })
-                }
-            }
-
-        }
-    )
-}
-
-function drawNoData(components) {
-    for (var i = 0; i < components.length; i++) {
-        $('svg#chart-' + components[i]).empty();
-        var container = "chart-" + components[i]
-        var element = "svg#chart-" + components[i]
-        var svg = document.querySelector(element);
-        svg.setAttribute("width", document.getElementById(container).clientWidth)
-        var svg = d3.select(element),
-            margin = {
-                top: 20,
-                right: 30,
-                bottom: 20,
-                left: 0
-            },
-            width = +svg.attr("width") - margin.left - margin.right,
-            height = +svg.attr("height") - margin.top - margin.bottom,
-            g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        g.append("text")
-            .text("Ingen data tilgjengelig for denne tidsperdioden")
+    var pm25 = {
+      type: "scatter",
+      mode: "lines+markers",
+      name: 'PM2.5',
+      x: Object.keys(averagePmTwoFive),
+      y: unpack(averagePmTwoFive),
+      line: {color: '#7F7F7F'}
     }
+
+    var dataDust = [pm10,pm25];
+    var layoutDust = {
+      title: 'Støvkonsentrasjon',
+      height: 500,
+      width: 600,
+    };
+
+    Plotly.newPlot('chart-dust', dataDust, layoutDust);
+
+    var temperature = {
+      type: "scatter",
+      mode: "lines+markers",
+      name: "Temperatur",
+      x: Object.keys(averageTemperature),
+      y: unpack(averageTemperature),
+      line: {color: '#17BECF'}
+    }
+
+    var dataTemperature = [temperature];
+    var layoutTemperature = {
+      title: 'Temperatur',
+      height: 500,
+      width: 600,
+      yaxis: {title: "Celcius"},
+    };
+
+    Plotly.newPlot('chart-temperature', dataTemperature, layoutTemperature);
+
+    var humidity = {
+      type: "scatter",
+      mode: "lines+markers",
+      name: "Luftfuktighet",
+      x: Object.keys(averageHumidity),
+      y: unpack(averageHumidity),
+      line: {color: '#17BECF'}
+    }
+
+    var dataHumidity = [humidity];
+    var layoutHumidity = {
+      title: 'Luftfuktighet',
+      height: 500,
+      width: 600,
+      yaxis: {title: "%"},      
+    };
+
+    Plotly.newPlot('chart-humidity', dataHumidity, layoutHumidity);
+  })
 }
+
+Array.prototype.groupBy = function(prop, timespan) {
+    return this.reduce(function(groups, item) {
+      var val;
+      if (timespan <= 1) {val = item[prop].slice[0,16]}
+      if (timespan <= 24) { val = item[prop].slice(0,13)}
+      else if (timespan <= 744) { val = item[prop].slice(0,10) }
+      else { val = item[prop].slice(0,7)}
+
+      groups[val] = groups[val] || []
+      groups[val].push(item)
+      return groups
+    }, {})
+}
+
+function calculateAvg(groups, key) {
+  var newGroups = {}
+  for (var index in groups) {
+    newGroups[index] = newGroups[index] || []
+    newGroups[index].push(getAvg(groups[index].map(function(row) {return row[key]})))
+  }
+  return newGroups
+}
+
+function getAvg(values) {
+  return String(values.reduce(function (p, c) {
+    return Number(p) + Number(c);
+  }) / values.length);
+}
+
 
 function barChartNilu(area, component, datestring, container, element) {
 

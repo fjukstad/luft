@@ -26,11 +26,7 @@ function toggleGPSInput(checkbox) {
 }
 
 function clearCharts() {
-  $("svg#chart-PM10").empty()
-  $("svg#chart-NO2").empty()
-  $("svg#chart-dust").empty()
-  $("svg#chart-temperature").empty()
-  $("svg#chart-humidity").empty()
+  // $("#student-data").hide()
   $("#student-title").hide()
   $("#nilu-title").hide()
 }

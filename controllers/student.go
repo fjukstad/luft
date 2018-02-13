@@ -101,6 +101,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	}	
 
 	data, err := getStudentData(filter)
+
 	if err != nil {
 		http.Error(w, "Could not parse student data: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -132,7 +133,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		formattedHumidityValue		:= strconv.FormatFloat(valueHumidity, 'f', -1, 64)
 		formattedTemperatureValue := strconv.FormatFloat(valueTemperature, 'f', -1, 64)
 
-		timestamp := measurement.Date.Format(timeLayout)
+		timestamp := measurement.Date.Format(studentResponseTimeLayout)
 		// station := measurement.Group
 
 		record := []string{
@@ -160,7 +161,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var studentTimeLayout string = "2006-01-02T15:04:05"
-var studentResponseTimeLayout string = "2006-01-02 15:04:05 +0100"
+var studentResponseTimeLayout string = "2006-01-02 15:04:05 -0700"
 
 type Measurement struct {
 	Latitude      float64
@@ -248,6 +249,7 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 		}
 
 		date, err := time.Parse(studentResponseTimeLayout, record[6])
+		
 		if err != nil {
 			fmt.Println(err)
 			msg := "Could not parse date " + record[6] + " skipping measurement.\n"
@@ -257,7 +259,6 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 			continue
 			//return []Measurement{}, errors.Wrap(err, msg)
 		}
-
 
 		data = append(data, Measurement{
 			lat,
