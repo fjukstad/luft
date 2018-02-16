@@ -26,9 +26,18 @@ function toggleGPSInput(checkbox) {
 }
 
 function clearCharts() {
-  // $("#student-data").hide()
+  Plotly.purge("chart-dust");
+  Plotly.purge("chart-humidity");
+  Plotly.purge("chart-temperature");
+  Plotly.purge("chart-PM10");
+  Plotly.purge("chart-NO2");
+  $("#student-data").hide()
   $("#student-title").hide()
   $("#nilu-title").hide()
+  $("#nilu-data").hide()
+  $("#infobox-student").hide()
+  $("#infobox-PM10").hide()
+  $("#infobox-NO2").hide()
 }
 
 function getCoordinates() {

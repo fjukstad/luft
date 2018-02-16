@@ -83,7 +83,7 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
     });
 }
 
-function barChartStudent(area, customGPS, components, datestring) {
+function barChartStudent(area, customGPS, datestring) {
   var dates = datestring.split("&")
 
   var start = moment(dates[0].split("=")[1])
@@ -94,8 +94,12 @@ function barChartStudent(area, customGPS, components, datestring) {
   
   var url = getStudentUrl(area, customGPS, datestring)
   Plotly.d3.csv(url, function(err, rows){
+    if ( rows.length == 0 ) {
+      $("#infobox-student").show()
+      return; 
+    }
     
-    var groupedBy = rows.groupBy('timestamp', timespan)
+    var groupedBy = rows.groupByTime('timestamp', timespan)
     var averagePmTen = calculateAvg(groupedBy, "pmTen")
     var averagePmTwoFive = calculateAvg(groupedBy, "pmTwoFive")
     var averageTemperature = calculateAvg(groupedBy, "temperature")
@@ -127,8 +131,9 @@ function barChartStudent(area, customGPS, components, datestring) {
     var dataDust = [pm10,pm25];
     var layoutDust = {
       title: 'Støvkonsentrasjon',
-      height: 500,
-      width: 600,
+      height: 470,
+      width: 570,
+      yaxis: {title: '\u03BC'+"g/m3"},      
     };
 
     Plotly.newPlot('chart-dust', dataDust, layoutDust);
@@ -145,8 +150,8 @@ function barChartStudent(area, customGPS, components, datestring) {
     var dataTemperature = [temperature];
     var layoutTemperature = {
       title: 'Temperatur',
-      height: 500,
-      width: 600,
+      height: 470,
+      width: 570,
       yaxis: {title: "Celcius"},
     };
 
@@ -164,8 +169,8 @@ function barChartStudent(area, customGPS, components, datestring) {
     var dataHumidity = [humidity];
     var layoutHumidity = {
       title: 'Luftfuktighet',
-      height: 500,
-      width: 600,
+      height: 470,
+      width: 570,
       yaxis: {title: "%"},      
     };
 
@@ -173,7 +178,68 @@ function barChartStudent(area, customGPS, components, datestring) {
   })
 }
 
-Array.prototype.groupBy = function(prop, timespan) {
+function barChartNilu(area, component, datestring) {
+  layoutColors = ['#17BECF', '#7F7F7F']
+
+  var url = getHistoricalUrl(area, datestring, component)
+
+  Plotly.d3.csv(url, function(err, rows){
+    function unpack(rows, key) {
+      return rows.map(function(row){ return row[key]; });
+    }
+    if ( rows.length == 0 ) {
+      $("#infobox-"+component).show()
+      return; 
+    }
+
+    var stations = rows.groupBy("station")
+    var keys = Object.keys(stations)
+
+    var data = []
+    for ( i = 0; i < keys.length; i++ ) {
+      console.log(keys[i])
+      var trace = {
+        type: "scatter",
+        mode: "lines+markers",
+        name: keys[i],
+        x: unpack(stations[keys[i]], "to"),
+        y: unpack(stations[keys[i]], "value"),
+        line: {color: layoutColors[i]}
+      }
+
+      data.push(trace);
+    };
+       
+    var layout = {
+      title: component,
+      height: 500,
+      width: 600,
+      yaxis: {title: '\u03BC'+"g/m3"},     
+      showlegend: true, 
+    };
+
+    Plotly.newPlot('chart-'+ component, data, layout);
+
+  })
+   
+}
+
+
+function getHistoricalUrl(area, datestring, component) {
+    area = encodeURIComponent(area);
+    return "/historical?area=" + area + "&" + datestring + "&component=" + component
+}
+
+function getStudentUrl(area, customGPS, datestring, component) {
+    area = encodeURIComponent(area);
+    if (customGPS == true) {
+        return "/student?within=" + area + "&" + datestring
+    } else {
+        return "/student?area=" + area + "&" + datestring
+    }
+}
+
+Array.prototype.groupByTime = function(prop, timespan) {
     return this.reduce(function(groups, item) {
       var val;
       if (timespan <= 1) {val = item[prop].slice[0,16]}
@@ -181,6 +247,15 @@ Array.prototype.groupBy = function(prop, timespan) {
       else if (timespan <= 744) { val = item[prop].slice(0,10) }
       else { val = item[prop].slice(0,7)}
 
+      groups[val] = groups[val] || []
+      groups[val].push(item)
+      return groups
+    }, {})
+}
+
+Array.prototype.groupBy = function(prop) {
+    return this.reduce(function(groups, item) {
+      var val = item[prop]; 
       groups[val] = groups[val] || []
       groups[val].push(item)
       return groups
@@ -200,144 +275,6 @@ function getAvg(values) {
   return String(values.reduce(function (p, c) {
     return Number(p) + Number(c);
   }) / values.length);
-}
-
-
-function barChartNilu(area, component, datestring, container, element) {
-
-    var parseTime = d3.utcParse("%Y-%m-%dT%H:%M:%S.%LZ");
-
-    var svg = document.querySelector(element);
-    svg.setAttribute("width", document.getElementById(container).clientWidth)
-
-    var svg = d3.select(element),
-        margin = {
-            top: 20,
-            right: 30,
-            bottom: 20,
-            left: 30
-        },
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom,
-        g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    var x = d3.scaleTime()
-        .rangeRound([0, width]);
-
-    var y = d3.scaleLinear()
-        .rangeRound([height, 0]);
-
-    var z = d3.scaleOrdinal(d3.schemeCategory20);
-
-    var line = d3.line()
-        .curve(d3.curveBasis)
-        .x(function (d) {
-            return x(d.from);
-        })
-        .y(function (d) {
-            return y(d.value);
-        });
-
-    var unit = "";
-
-    var stations = {};
-    var url;
-    url = getHistoricalUrl(area, datestring, component);
-
-    d3.csv(url, function (d) {
-            if (!stations[d.station]) {
-                stations[d.station] = []
-            }
-            d.from = parseTime(d.from);
-            d.to = parseTime(d.to);
-            d.value = parseFloat(d.value)
-            component = d.component
-            unit = d.unit
-            stations[d.station].push(d)
-            return d;
-        },
-        function (error, data) {
-            if (data == 0) {
-                drawNoData(component);
-            }
-            x.domain(d3.extent(data, function (d) {
-                return d.from;
-            }));
-            y.domain(d3.extent(data, function (d) {
-                return d.value;
-            }));
-
-            g.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x))
-                .select(".domain")
-                .remove();
-
-            g.append("g")
-                .call(d3.axisLeft(y))
-                .append("text")
-                .attr("fill", "#000")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 6)
-                .attr("dy", "0.71em")
-                .attr("text-anchor", "end")
-                .text(component + "(" + unit + ")");
-
-            label_offset = width / 2
-            var component_selector = component.replace("/", "")
-
-            g.append("g")
-                .append("text")
-                .attr("id", component_selector + "-label")
-                .attr("transform", "translate(" + label_offset + ",0)")
-                .attr("fill", "#000")
-                .text("")
-
-
-            for (var station in stations) {
-                var id = station.replace("\ ", "")
-                id = id.replace(",", "")
-                id = id.replace(".", "")
-
-
-                path = g.append("path")
-                    .datum(stations[station])
-                    .attr("fill", "none")
-                    .style("stroke", z(station))
-                    .attr("stroke", "steelblue")
-                    .attr("stroke-linejoin", "round")
-                    .attr("stroke-linecap", "round")
-                    .attr("stroke-width", 1.5)
-                    .attr("d", line)
-                    .attr("id", id + "-" + component_selector)
-
-                d3.select("path#" + id + "-" + component_selector).on("mouseover", function () {
-                        d3.select(this).style("stroke-width", 5);
-                        label = d3.select(this).data()[0][0].station
-                        d3.select("text#" + component_selector + "-label").text(label)
-                    })
-
-                    .on("mouseout", function () {
-                        d3.select(this).style("stroke-width", 1.5);
-                        d3.select("text#" + component_selector + "-label").text("")
-                    })
-            }
-        })
-}
-
-
-function getHistoricalUrl(area, datestring, component) {
-    area = encodeURIComponent(area);
-    return "/historical?area=" + area + "&" + datestring + "&component=" + component
-}
-
-function getStudentUrl(area, customGPS, datestring, component) {
-    area = encodeURIComponent(area);
-    if (customGPS == true) {
-        return "/student?within=" + area + "&" + datestring
-    } else {
-        return "/student?area=" + area + "&" + datestring
-    }
 }
 
 
