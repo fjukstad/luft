@@ -63,24 +63,26 @@
      
     <div class="row" id="student-row">
      <h3>Målinger fra elevene de siste 24 timene</h3>
+      <div id="infobox-student" style="display:none;">Ingen data tilgjengelig </div>
       <div id="chart-dust" class="chart">
-          <svg id="chart-dust" width="300" height="200"></svg>
       </div>
       <div id="chart-temperature" class="chart">
-          <svg id="chart-temperature" width="300" height="200"></svg>
       </div>
       <div id="chart-humidity" class="chart">
-          <svg id="chart-humidity" width="300" height="200"></svg>
       </div>
     </div>
 
     <div class="row" id="nilu-row">
       <h3>Målinger fra NILU de siste 24 timene</h3>
+      <div id="infobox-PM10" style="display:none;">
+        <b>PM10</b></br> Ingen data tilgjengelig 
+      </div>
       <div id="chart-PM10" class="chart">
-          <svg id="chart-PM10" width="300" height="200"></svg>
+      </div>
+      <div id="infobox-NO2" style="display:none;">
+        <b>NO2</b></br> Ingen data tilgjengelig 
       </div>
       <div id="chart-NO2" class="chart">
-          <svg id="chart-NO2" width="300" height="200"></svg>
       </div>
     </div>
   
@@ -139,26 +141,32 @@ function setPosition() {
 
   var provider = "nilu" 
 
-  addToMap(map, area, provider, component, datestring) 
-  barChartNilu(area, component, datestring, container, element); 
+  addToMap(map, area, false, provider, component, datestring) 
+  barChartNilu(area, component, datestring); 
 
   component = "NO2" 
   element = "svg#chart-"+component
   container = "chart-"+component
 
-  addToMap(map, area, provider, component, datestring) 
+  addToMap(map, area, false, provider, component, datestring) 
   barChartNilu(area, component, datestring, container, element); 
 
+  provider = "student"
   components = ["dust", "humidity", "temperature"]
-  barChartStudent(area, false, components, datestring);
+  barChartStudent(area, false, datestring);
+  addToMap(map, area, false, provider, null, datestring)
+
 }
 
 function updatePosition() {
-  $("svg#chart-PM10").empty()
-  $("svg#chart-NO2").empty()
-  $("svg#chart-dust").empty()
-  $("svg#chart-temperature").empty()
-  $("svg#chart-humidity").empty()
+  Plotly.purge("chart-dust");
+  Plotly.purge("chart-humidity");
+  Plotly.purge("chart-temperature");
+  Plotly.purge("chart-PM10");
+  Plotly.purge("chart-NO2");
+  $("#infobox-student").hide()
+  $("#infobox-PM10").hide()
+  $("#infobox-NO2").hide()
   setPosition();
 }
 

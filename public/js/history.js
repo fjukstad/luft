@@ -26,13 +26,18 @@ function toggleGPSInput(checkbox) {
 }
 
 function clearCharts() {
-  $("svg#chart-PM10").empty()
-  $("svg#chart-NO2").empty()
-  $("svg#chart-dust").empty()
-  $("svg#chart-temperature").empty()
-  $("svg#chart-humidity").empty()
+  Plotly.purge("chart-dust");
+  Plotly.purge("chart-humidity");
+  Plotly.purge("chart-temperature");
+  Plotly.purge("chart-PM10");
+  Plotly.purge("chart-NO2");
+  $("#student-data").hide()
   $("#student-title").hide()
   $("#nilu-title").hide()
+  $("#nilu-data").hide()
+  $("#infobox-student").hide()
+  $("#infobox-PM10").hide()
+  $("#infobox-NO2").hide()
 }
 
 function getCoordinates() {
