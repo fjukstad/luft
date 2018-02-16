@@ -71,6 +71,10 @@ body {
   color: black !important;
 }
 
+#index-left-nav a {
+  color: black !important;
+}
+
 #mapdiv { 
   padding-left: 0;
 }
@@ -184,6 +188,10 @@ div.markdown img {
   max-width: 100%;
 }
 
+#index-left-nav {
+  float: left;
+}
+
 #index-nav {
   float: right;
   /* background-color: #1c3249; */
@@ -193,6 +201,7 @@ div.markdown img {
 
 #om {
   padding-top: 2rem;
+  padding-bottom: 1rem;
 }
 
 #splash {
@@ -201,4 +210,13 @@ div.markdown img {
 
 #logo {
   height: 16rem;
+}
+
+.resource-media-preview {
+  max-height: 206px;
+}
+
+footer p {
+  width: 100%;
+  text-align: center;
 }

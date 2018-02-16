@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {{ template "header" . }}
-    </head> 
-    <body>
-        {{template "navbar" . }}
-            <div class="main">         
-                <div class="container-fluid"> 
-                    {{ template "content" . }} 
-                </div> 
-            </div> 
 
-        <footer id="footer" class="footer">
-            {{ template "footer" . }} 
-        </footer>
-    </body>
-</html> 
+<head>
+  {{ template "header" . }}
+</head>
+
+<body>
+  {{template "navbar" . }}
+  <div class="main">
+    <div class="container-fluid">
+      {{ template "content" . }}
+      <hr class="my-4">
+      <footer id="footer" class="footer">
+        {{ template "footer" . }}
+      </footer>
+    </div>
+  </div>
+</body>
+
+</html>
