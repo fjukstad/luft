@@ -71,6 +71,10 @@ body {
   color: black !important;
 }
 
+#index-left-nav a {
+  color: black !important;
+}
+
 #mapdiv { 
   padding-left: 0;
 }
@@ -182,6 +186,10 @@ hr.my-4 {
 div.markdown img {
   display: inline-block;
   max-width: 100%;
+}
+
+#index-left-nav {
+  float: left;
 }
 
 #index-nav {

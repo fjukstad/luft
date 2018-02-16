@@ -1,4 +1,10 @@
-{{ define "content" }} {{ template "navbar2" . }}
+{{ define "content" }}
+<ul id="index-left-nav" class="nav justify-content-begin">
+  <li class="nav-item">
+    <a class="nav-link" href="#english">English</a>
+  </li>
+</ul>
+{{ template "navbar2" . }}
 <div class="jumbotron" id="om">
   <div id="splash">
     <img id="logo" alt="air:bit logo" src="public/img/airbit-logo-blue.png" />
@@ -9,7 +15,7 @@
   <p class="lead">
     Velkommen til
     <strong>air:bit &ndash; Et forskningsproskekt om luftforurensing</strong> av
-    <a href="https://uit.no/skolelab">Skolelaboratoriet i realfag og teknologi ved UiT Norges arktiske universitet</a>.
+    <a href="https://uit.no/skolelab" target="_blank">Skolelaboratoriet i realfag og teknologi ved UiT Norges arktiske universitet</a>.
   </p>
   <p class="lead">
     På denne siden kan du se på, og laste ned luftforurensningsdata som er samlet inn av elever på Videregående skoler i hele
@@ -27,6 +33,31 @@
     På denne siden finner du også luftkvalitetsdata fra
     <a href="http://www.nilu.no/">Norsk Institutt for Luftforskning (NILU)</a> her, i tillegg til værdata fra
     <a href="https://met.no/">Meteorologisk Instiutt</a>.
+  </p>
+  <hr class="my-4" />
+  <h2 id="english">For English readers</h2>
+  <p class="lead">
+    Welcome to
+    <strong>air:bit &ndash; A science project on air pollution</strong> by the
+    <a href="https://uit.no/skolelab" target="_blank">School Laboratory in science and technology at UiT The arctic university of Norway</a>.
+  </p>
+  <p class="lead">
+    On this website you can view and download air pollution data collected by students at Upper Secondary Schools throughout
+    the whole of Northern Norway! The students build their own air:bit sensor from its individual components consisting of
+    a GPS module, a dust particle sensor, a temperature and humidity sensor and a memory card reader to store the collected
+    measurements.
+  </p>
+  <p class="lead">
+    As this project targets Norwegian Upper Secondary School students, the resources, videos and teaching materials found on
+    this site are primarily in Norwegian language. We will be working with translating the material to English.
+    <br/>In the meantime you can use
+    <a href="https://translate.google.com/translate?hl=en&amp;sl=no&amp;tl=en&amp;u=http%3A%2F%2Fairbit.uit.no%2Fpublic%2Fwiki%2FHome.html"
+      target="_blank">Google Translate</a> to read through our teaching material. We realize that using Google Translate is not ideal, but
+    it will allow non-Norwegian readers to get more information about our project while we work on translating everything
+    properly.
+  </p>
+  <p class="lead">
+    Please contact us for more information.
   </p>
 </div>
 {{ end }}
