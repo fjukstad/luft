@@ -92,7 +92,7 @@ Serial.print("-");
 if (month < 10) {
   Serial.print("0");
 }
-Serial.print("0");
+Serial.print(month);
 // SEPARATOR
 Serial.print("-");
 // DAY
