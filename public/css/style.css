@@ -153,6 +153,10 @@ label {
   display: none;
 }
 
+#student-data, #nily-data, #map {
+  margin-bottom: 50px;
+}
+
 #area-checkbox {
   margin-left: 10px;
 }
