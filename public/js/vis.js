@@ -197,7 +197,6 @@ function barChartNilu(area, component, datestring) {
 
     var data = []
     for ( i = 0; i < keys.length; i++ ) {
-      console.log(keys[i])
       var trace = {
         type: "scatter",
         mode: "lines+markers",

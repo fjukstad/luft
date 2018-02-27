@@ -61,30 +61,40 @@
 	    var body = document.getElementsByTagName("BODY")[0]
 			var re = /(\.csv)$/i;
 	    
-
-	    if (files.length == 0) {
-	    		responseMessage.classList.remove('success-message')
-	    		responseMessage.classList.add('error-message');
-	        responseMessage.innerHTML = "Vennligst angi en fil før du trykker 'Last opp'";
-	        responseMessage.style.display = 'block';
-	        setTimeout(function() {
-	    			$('#responseMessage').fadeOut('slow');
-					}, 2000);
-	        return false;
+		  if (files.length == 0) {
+	   		responseMessage.classList.remove('success-message')
+    		responseMessage.classList.add('error-message');
+        responseMessage.innerHTML = "Vennligst angi en fil før du trykker 'Last opp'";
+        responseMessage.style.display = 'block';
+        setTimeout(function() {
+    			$('#responseMessage').fadeOut('slow');
+				}, 2000);
+        return false;
 	    }
 	    else {
+				var response = ""
 		    for (i = 0; i < files.length; i++ ) {
-					if(!re.exec(files[i].name)) {
-	    			responseMessage.classList.remove('success-message')
-	    			responseMessage.classList.add('error-message');
-			      responseMessage.innerHTML = "Alle angitte filer må være av typen '.csv'";
-			      responseMessage.style.display = 'block';
-			      setTimeout(function() {
-			  			$('#responseMessage').fadeOut('slow');
-						}, 2000);
-			      return false;
+					if (!re.exec(files[i].name)) {
+						response = "Alle angitte filer må være av typen '.csv'.";
+						break
+					}
+
+					if (files[i].name.includes(" ")) {
+						response = "Filnavn kan ikke inneholde mellomrom."
+						break
 					}
 		    }
+
+		    if (response != "") {
+	  			responseMessage.classList.remove('success-message')
+	  			responseMessage.classList.add('error-message');
+		      responseMessage.innerHTML = response;
+		      responseMessage.style.display = 'block';
+		      setTimeout(function() {
+		  			$('#responseMessage').fadeOut('slow');
+					}, 2000);
+		      return false;
+		    }	
 		  	
 	    	document.getElementById("submitButton").disabled = true;
 	      body.classList.add('wait');
