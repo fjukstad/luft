@@ -1,10 +1,18 @@
 {{ define "content" }}
 <div class="row">
-  <div class="container" id="history-container">
-    <h4 align="center"> Angi området og tidsrommet du vil se luftkvalitetsdata fra: </h4>
+  <div class="col-1">
+  </div>
+  <div class="col-10">
+    <div class="container" id="history-container" style="width:100%;height:100%; margin:auto;">
+      <h4 align="center" style=" margin:auto;line-height:100px;"> Angi området og tidsrommet du vil se luftkvalitetsdata fra:</h4>
+    </div>
+  </div>
+  <div class="col-1" align="center" onmouseover="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">
+    <i class="fas fa-question-circle fa-2x" style="margin: 10px;"></i></br>
+    Slik bruker du søkesiden
   </div>
 </div>
-
+  
 <div class="row">
   <div class="container" id="area-container">
     <form class="form-inline justify-content-center" id="area-form">
@@ -23,20 +31,6 @@
             <option value="Nord-Troms">Nord-Troms</option>
             <option value="Tromsø">Tromsø</option>
           </select>
-          <div class="col-4" align="center">
-            eller
-          </div>
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" id="custom-gps" onchange="toggleGPSInput(this)">Angi egne koordinater
-          </label>
-        </div>
-        <div class="form-inline justify-content-center" id="gps-input">
-          <label for="latitude">Breddegrad</label>
-          <input class="form-control" type="number" step=0.01 name="latitude" style="margin-right: 10px;" id="latitude" value="69.665294">
-          <label for="longitude">Lengdegrad</label>
-          <input class="form-control" type="number" step=0.01 name="longitude" style="margin-right: 10px;" id="longitude" value="18.8475394">
-          <label for="longitude">Radius</label>
-          <input class="form-control" type="number" name="radius" id="radius" value="7">
         </div>
       </div>
     </form>
@@ -154,6 +148,49 @@
 </div>
 
 
+<!-- MODAL -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Slik bruker du søkesiden</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 data-toggle="collapse" data-target="#select_area">Velg område</h5>
+        <div id="select_area" class="collapse">
+          Søkeområdet kan velges på to måter:
+          <ol>
+            <li>Dropdown-liste</li>
+            <li>Radiussirkel på kart</li>
+          </ol>
+        </div>
+        <hr class="my-6" />
+        <h5 data-toggle="collapse" data-target="#select_time">Velg tidspunkt</h5>
+        <div id="select_time" class="collapse">
+          Søkeområdet kan velges på to måter:
+          <ol>
+            <li>Dropdown-liste</li>
+            <li>Radiussirkel på kart</li>
+          </ol>
+        </div>
+        <hr class="my-6" />
+        <h5 data-toggle="collapse" data-target="#select_data_source">Velg datakilder</h5>
+        <div id="select_data_source" class="collapse">
+          Søkeområdet kan velges på to måter:
+          <ol>
+            <li>Dropdown-liste</li>
+            <li>Radiussirkel på kart</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
   $(document).ready(function () {
     $('input[type="radio"]').click(function () {
@@ -171,18 +208,38 @@
 
   var map;
   var area;
-  var coordinates;
   var radius = 7;
+  var customGPS = false;
+  var coordinates = []
+  var within;
+
+  if (map != undefined) {
+    map.remove();
+  }
+    
+  getCoordinates();  
+  map = drawCustomAreaMap();
+  
+  // reset map if selected area changes
+  $('select').on('change', function() {
+    if (map != undefined) {
+      map.remove();
+    }
+      
+    getCoordinates();  
+    map = drawCustomAreaMap();  
+  });
+
   $('#history-button').click(function (e) {
     clearCharts();
-    var customGPS = false;
 
     if (map != undefined) {
       map.remove();
     }
-    getCoordinates();
-    map = drawMap(area);
 
+    getCoordinates();  
+
+    map = drawCustomAreaMap();
     datestring = createDatestring();
 
     if ($('#checkbox-nilu').is(':checked')) {
@@ -204,12 +261,12 @@
     }
 
     if ($('#checkbox-student').is(':checked')) {
-      if ($('#custom-gps').is(':checked')) {
-        var within = coordinates
+      if (customGPS == true) {
+        within = coordinates.slice(0,2)
         within.push(radius)
         area = within.join()
-        customGPS = true;
       }
+
       provider = "student"
       components = ["dust", "temperature", "humidity"]
       ret = barChartStudent(area, customGPS, datestring);
@@ -221,6 +278,7 @@
     }
 
     $("#download").css("display", "inline")
+    customGPS = false;
   });
 
 
