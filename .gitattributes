@@ -1,0 +1,4 @@
+# Checkout npm package.json and related files with LF line-endings
+package.json text eol=lf
+package-lock.json text eol=lf
+
