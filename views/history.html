@@ -150,7 +150,7 @@
 
 <!-- MODAL -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Slik bruker du søkesiden</h3>
@@ -159,31 +159,38 @@
         </button>
       </div>
       <div class="modal-body">
-        <h5 data-toggle="collapse" data-target="#select_area">Velg område</h5>
+        <h5 data-toggle="collapse" data-target="#select_area" onmouseover="" style="cursor: pointer;">Velg område</h5>
         <div id="select_area" class="collapse">
-          Søkeområdet kan velges på to måter:
-          <ol>
-            <li>Dropdown-liste</li>
-            <li>Radiussirkel på kart</li>
-          </ol>
+          For å angi søkeområde kan du:
+          <ul>  
+            <li><b>Velge område fra dropdown-liste</b></li>
+            <img src="../public/img/select.png" style="margin:10px;"><br/>
+            Ved å velge område fra dropdown-listen, vil søket ta utgangspunkt i et sentrumsnært punkt i området og returnere alle datapunkter innenfor en 7 km radius. 
+            <li><b>Angi område på kartet</b></li>
+            Dersom du ønsker å angi koordinater og radius selv, eller velge et område som ikke er angitt på listen, kan dette gjøres ved å markere et område på kartet på følgende måte: klikk på knappen med sirkel på oppe i høyre hjørne, flytt pekeren til ønsket punkt på kartet, og klikk og dra ut pekeren for å lage en sirkel av ønsket størrelse. 
+            <img id="map-image1" src="../public/img/map1.png"><br/>
+            Dersom sirkelen ikke ble som dere ønsket, kan du slette den ved å klikke på søppelbøtten i øvre høyre hjørne, klikke på sirkelen som du vil fjerne og trykke "save".   
+            <img id="map-image2"  src="../public/img/map3.png"><br/> 
+            TIPS: Bruk gjerne listen fra forrige punkt til å navigere deg rundt på kartet når du skal markere et egendefinert område. Dersom du har laget en sirkel på kartet, vil koordinatene fra denne overstyre listevalget når du trykker "Søk".
+          </ul>
         </div>
         <hr class="my-6" />
-        <h5 data-toggle="collapse" data-target="#select_time">Velg tidspunkt</h5>
+        <h5 data-toggle="collapse" data-target="#select_time" onmouseover="" style="cursor: pointer;">Velg tidspunkt</h5>
         <div id="select_time" class="collapse">
-          Søkeområdet kan velges på to måter:
-          <ol>
-            <li>Dropdown-liste</li>
-            <li>Radiussirkel på kart</li>
-          </ol>
+          For å angi tidsrom kan du:
+          <ul>
+            <li><b>Velge et av de forhåndsdefinerte alternativene</b></li>
+            <img id="time-image1" src="../public/img/time1.png"><br/>
+            <li><b>Spesifisere eget tidsrom.</b></li>
+            <img id="time-image2" src="../public/img/time2.png"><br/>
         </div>
         <hr class="my-6" />
-        <h5 data-toggle="collapse" data-target="#select_data_source">Velg datakilder</h5>
+        <h5 data-toggle="collapse" data-target="#select_data_source" onmouseover="" style="cursor: pointer;">Velg datakilder</h5>
         <div id="select_data_source" class="collapse">
-          Søkeområdet kan velges på to måter:
-          <ol>
-            <li>Dropdown-liste</li>
-            <li>Radiussirkel på kart</li>
-          </ol>
+          Det er mulig å hente ut målepunkter fra elever og fra NILU. For å angi datakilde, kryss av for ønsket alternativ.<br/>
+          <img id="data-source-image" src="../public/img/datasources.png"><br/>
+          MERK: NILU har kun målestasjoner i Tromsø, Bodø, Harstad og Narvik. <br/>
+          MERK2: Dersom du gjør et egendefinert områdesøk, vil ikke data fra NILU sine målestasjoner komme med. 
         </div>
       </div>
     </div>
@@ -237,7 +244,9 @@
       map.remove();
     }
 
-    getCoordinates();  
+    if (customGPS == false) {
+      getCoordinates();  
+    }
 
     map = drawCustomAreaMap();
     datestring = createDatestring();
