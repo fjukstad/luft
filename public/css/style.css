@@ -186,7 +186,16 @@ hr.my-4 {
 #gps-form-group, #gps-input {
   width: 100% !important;
 }
+/*History page end*/
 
+/* History page modal*/
+#map-image1, #map-image2, #time-image1, #time-image2, #data-source-image {
+  margin:10px;
+  max-width: 95%;
+  max-height: 95%;
+}
+
+/* History page modal end */
 div.markdown img {
   display: inline-block;
   max-width: 100%;

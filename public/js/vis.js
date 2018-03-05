@@ -1,7 +1,7 @@
 // Create new map that we can add data points to. 
 function newMap(id, coordinates) {
     map = L.map(id, {
-        editable: true
+      editable: true,
     })
     map.setView(coordinates, 9.6);
 

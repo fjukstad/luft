@@ -42,21 +42,73 @@ function clearCharts() {
 
 function getCoordinates() {
   var areaObject = document.getElementById('area');
-  if (areaObject.disabled == true) {
-    var latitude = document.getElementById('latitude').value;
-    var longitude = document.getElementById('longitude').value;
-    coordinates = [latitude, longitude]
-    radius = document.getElementById('radius').value;
-  } 
-  else {
-    area = areaObject.value
-    coordinates = areas[area]
-  }
+  area = areaObject.value
+  coordinates = areas[area]
 }
 
 function drawMap() {
   return newMap(mapid, coordinates);
 }
+
+function drawCustomAreaMap() {
+    var map = newMap(mapid, coordinates)
+  // Initialise the FeatureGroup to store editable layers
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    var drawControlFull = new L.Control.Draw({
+      position: 'topright',
+      draw: {
+        polyline: false,
+        polygon: false,
+        circle: { 
+          shapeOptions: {
+            color: '#f357a1',
+            weight: 10,
+            clickable: true
+          },
+          repeatMode: false
+        }, 
+        rectangle: false,
+        marker: false,
+      },
+      edit: {
+        featureGroup: drawnItems //REQUIRED!!
+      }
+    });
+
+    var drawControlEditOnly = new L.Control.Draw({
+      position: 'topright',
+      edit: {
+          featureGroup: drawnItems
+      },
+      draw: false
+    });
+
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    map.addControl(drawControlFull);
+
+    map.on('draw:created', function(e) {
+      layer = e.layer;
+      layer.addTo(drawnItems);
+      drawControlFull.remove(map);
+      drawControlEditOnly.addTo(map)
+      customGPS = true;
+      radius = e.layer.getRadius()/1000
+      coordinates = [e.layer.getLatLng()["lat"], e.layer.getLatLng()["lng"]]
+    });
+
+    map.on("draw:deleted", function(e) {
+      if (drawnItems.getLayers().length === 0){
+        drawControlEditOnly.remove(map);
+        drawControlFull.addTo(map);
+        customGPS = false;
+      };
+    }); 
+
+    return map
+}
+
 
 function createDatestring() {
   var now = new Date()
