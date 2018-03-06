@@ -94,7 +94,7 @@
   <div class="container" align="center">
     <div class="button-group">
       <button type="button" class="btn btn-primary" id="history-button">Søk</button>
-      <button type="button" class="btn btn-success" id="download" onclick="downloadAll()" style="display:none">Last ned</button>
+      <button type="button" class="btn btn-success" id="download" onclick="downloadAll()" style="display:inline-block;">Last ned</button>
     </div>
   </div>
 </div>
@@ -163,9 +163,9 @@
         <div id="select_area" class="collapse">
           For å angi søkeområde kan du:
           <ul>  
-            <li><b>Velge område fra dropdown-liste</b></li>
+            <li><b>Velge område fra nedtrekksliste</b></li>
             <img src="../public/img/select.png" style="margin:10px;"><br/>
-            Ved å velge område fra dropdown-listen, vil søket ta utgangspunkt i et sentrumsnært punkt i området og returnere alle datapunkter innenfor en 7 km radius. 
+            Ved å velge område fra nedtrekkslisten, vil søket ta utgangspunkt i et sentrumsnært punkt i området og returnere alle datapunkter innenfor en 7 km radius. 
             <li><b>Angi område på kartet</b></li>
             Dersom du ønsker å angi koordinater og radius selv, eller velge et område som ikke er angitt på listen, kan dette gjøres ved å markere et område på kartet på følgende måte: klikk på knappen med sirkel på oppe i høyre hjørne, flytt pekeren til ønsket punkt på kartet, og klikk og dra ut pekeren for å lage en sirkel av ønsket størrelse. 
             <img id="map-image1" src="../public/img/map1.png"><br/>
@@ -191,6 +191,11 @@
           <img id="data-source-image" src="../public/img/datasources.png"><br/>
           MERK: NILU har kun målestasjoner i Tromsø, Bodø, Harstad og Narvik. <br/>
           MERK2: Dersom du gjør et egendefinert områdesøk, vil ikke data fra NILU sine målestasjoner komme med. 
+        </div>
+        <hr class="my-6" />
+        <h5 data-toggle="collapse" data-target="#download-data" onmouseover="" style="cursor: pointer;">Last ned data</h5>
+        <div id="download-data" class="collapse">
+          For å laste ned data velger dere et område fra nedtrekkslisten eller direkte på kartet, velger tidsområde og datakilde og trykker på "Last ned"-knappen.
         </div>
       </div>
     </div>
@@ -278,15 +283,13 @@
 
       provider = "student"
       components = ["dust", "temperature", "humidity"]
-      ret = barChartStudent(area, customGPS, datestring);
-
       addToMap(map, area, customGPS, provider, null, datestring)
+      barChartStudent(area, customGPS, datestring);
+
 
       $('#student-title').show();
       $('#student-data').show();
     }
-
-    $("#download").css("display", "inline")
     customGPS = false;
   });
 
@@ -299,15 +302,8 @@
     var urls = [];
     var filenames = []
     datestring = createDatestring();
-    var customGPS = false;
     if ($('#checkbox-student').is(':checked')) {
-      if ($('#custom-gps').is(':checked')) {
-        var within = coordinates
-        within.push(radius)
-        area = within.join()
-        customGPS = true;
-      }
-      urls.push(getStudentUrl(area, customGPS, datestring))
+      urls.push(getStudentUrl(area, customGPS, datestring, false))
       filenames.push("studentdata.csv")
     }
     if ($('#checkbox-nilu').is(':checked')) {
@@ -357,16 +353,6 @@
       });
     }
   }
-
-  $("#area-container").change(function () {
-    $("#download").css("display", "none");
-  });
-  $("#time-container").change(function () {
-    $("#download").css("display", "none");
-  });
-  $("#data-container").change(function () {
-    $("#download").css("display", "none");
-  });
 </script>
 
 
