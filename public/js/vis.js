@@ -3,7 +3,7 @@ function newMap(id, coordinates) {
     map = L.map(id, {
       editable: true,
     })
-    map.setView(coordinates, 9.6);
+    map.setView(coordinates, 11.0);
 
     var accessToken = 'pk.eyJ1IjoiZmp1a3N0YWQiLCJhIjoiY2l2Mnh3azRvMDBrYTJ5bnYxcDAzZ3Z0biJ9.RHb5ENfbmzN65gjiB-L_wg';
 
@@ -42,19 +42,17 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
     }
 
     var colorScheme = d3.scaleOrdinal(d3.schemeCategory20);
-
     var areaUri = encodeURIComponent(area);
     var url = ""
     if (provider == "nilu") {
         url = "/" + provider + "aqis?area=" + areaUri + "&" + datestring + "&component=" + component
     } else {
         if (customGPS == true) {
-            url = "/" + provider + "aqis?within=" + areaUri + "&" + datestring
+            url = "/" + provider + "aqis?within=" + areaUri + "&" + datestring + "&plotmap=true" 
         } else {
-            url = "/" + provider + "aqis?area=" + areaUri + "&" + datestring
+            url = "/" + provider + "aqis?area=" + areaUri + "&" + datestring + "&plotmap=true"
         }
     }
-
     $.ajax({
         dataType: "json",
         url: url,
@@ -92,29 +90,22 @@ function barChartStudent(area, customGPS, datestring) {
   var duration = moment.duration(end.diff(start))
   var timespan = duration.asHours()
   
-  var url = getStudentUrl(area, customGPS, datestring)
+  var url = getStudentUrl(area, customGPS, datestring, true)
   Plotly.d3.csv(url, function(err, rows){
     if ( rows.length == 0 ) {
       $("#infobox-student").show()
       return; 
     }
-    
-    var groupedBy = rows.groupByTime('timestamp', timespan)
-    var averagePmTen = calculateAvg(groupedBy, "pmTen")
-    var averagePmTwoFive = calculateAvg(groupedBy, "pmTwoFive")
-    var averageTemperature = calculateAvg(groupedBy, "temperature")
-    var averageHumidity = calculateAvg(groupedBy, "humidity")
 
-    function unpack(rows) {
-      return Object.keys(rows).map(function(key){ return rows[key][0]; });
+    function unpack(rows, key) {
+      return rows.map(function(row){ return row[key]; });
     }
-  
     var pm10 = {
       type: "scatter",
       mode: "lines+markers",
       name: 'PM10',
-      x: Object.keys(averagePmTen),
-      y: unpack(averagePmTen),
+      x: unpack(rows, "timestamp"),
+      y: unpack(rows, "pmTen"),
       line: {color: '#17BECF'}
     }
 
@@ -123,8 +114,8 @@ function barChartStudent(area, customGPS, datestring) {
       type: "scatter",
       mode: "lines+markers",
       name: 'PM2.5',
-      x: Object.keys(averagePmTwoFive),
-      y: unpack(averagePmTwoFive),
+      x: unpack(rows, "timestamp"),
+      y: unpack(rows, "pmTwoFive"),
       line: {color: '#7F7F7F'}
     }
 
@@ -142,8 +133,8 @@ function barChartStudent(area, customGPS, datestring) {
       type: "scatter",
       mode: "lines+markers",
       name: "Temperatur",
-      x: Object.keys(averageTemperature),
-      y: unpack(averageTemperature),
+      x: unpack(rows, "timestamp"),
+      y: unpack(rows, "temperature"),
       line: {color: '#17BECF'}
     }
 
@@ -161,8 +152,8 @@ function barChartStudent(area, customGPS, datestring) {
       type: "scatter",
       mode: "lines+markers",
       name: "Luftfuktighet",
-      x: Object.keys(averageHumidity),
-      y: unpack(averageHumidity),
+      x: unpack(rows, "timestamp"),
+      y: unpack(rows, "humidity"),
       line: {color: '#17BECF'}
     }
 
@@ -229,13 +220,19 @@ function getHistoricalUrl(area, datestring, component) {
     return "/historical?area=" + area + "&" + datestring + "&component=" + component
 }
 
-function getStudentUrl(area, customGPS, datestring, component) {
+function getStudentUrl(area, customGPS, datestring, plotChart) {
     area = encodeURIComponent(area);
+    url = ""
     if (customGPS == true) {
-        return "/student?within=" + area + "&" + datestring
+        url = "/student?within=" + area + "&" + datestring
     } else {
-        return "/student?area=" + area + "&" + datestring
+        url = "/student?area=" + area + "&" + datestring
     }
+    if (plotChart == true) {
+      url += "&plotchart=true"
+    }
+
+    return url
 }
 
 Array.prototype.groupByTime = function(prop, timespan) {

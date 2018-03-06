@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"encoding/json"
 	"encoding/csv"
-	"fmt"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -21,6 +21,8 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	
 	var within string = ""
 	var area string = ""
+	var plotMap string = ""
+	var plotChart string = ""
 
 	if len(values["within"]) > 0 {
 		within = values["within"][0]
@@ -28,12 +30,20 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	if len(values["area"]) > 0 {
 		area = values["area"][0]
 	}
+	if len(values["plotmap"]) > 0 {
+		plotMap = values["plotmap"][0]
+	}
+	if len(values["plotchart"]) > 0 {
+		plotChart = values["plotchart"][0]
+	}
 
 	filter := StudentFilter{
 			ToTime:     to,
 			FromTime:   from,
 			Within:			within,
 			Area:			  area,
+			PlotMap:  	plotMap,
+			PlotChart:  plotChart,
 	}	
 
 	data, err := getStudentData(filter)
@@ -67,11 +77,14 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+
 type StudentFilter struct {
 	Area 				string
 	Within 			string
 	FromTime 		time.Time
 	ToTime 			time.Time
+	PlotMap			string
+	PlotChart   string
 }
 
 func StudentHandler(w http.ResponseWriter, r *http.Request) {
@@ -85,6 +98,8 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 
 	var within string = ""
 	var area string = ""
+	var plotMap string = ""
+	var plotChart string = ""
 
 	if len(values["within"]) > 0 {
 		within = values["within"][0]
@@ -92,16 +107,23 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	if len(values["area"]) > 0 {
 		area = values["area"][0]
 	}
+	if len(values["plotmap"]) > 0 {
+		plotMap = values["plotmap"][0]
+	}
+	if len(values["plotchart"]) > 0 {
+		plotChart = values["plotchart"][0]
+	}
 
 	filter := StudentFilter{
-			ToTime:     to,
-			FromTime:   from,
-			Within:			within,
-			Area:			  area,
-	}	
+		ToTime:     to,
+		FromTime:   from,
+		Within:			within,
+		Area:			  area,
+		PlotMap:  	plotMap,
+		PlotChart:  plotChart,
+	}		
 
 	data, err := getStudentData(filter)
-
 	if err != nil {
 		http.Error(w, "Could not parse student data: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -133,8 +155,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		formattedHumidityValue		:= strconv.FormatFloat(valueHumidity, 'f', -1, 64)
 		formattedTemperatureValue := strconv.FormatFloat(valueTemperature, 'f', -1, 64)
 
-		timestamp := measurement.Date.Format(studentResponseTimeLayout)
-		// station := measurement.Group
+		timestamp := measurement.Date
 
 		record := []string{
 							timestamp, 
@@ -170,7 +191,7 @@ type Measurement struct {
 	PmTwoFive     float64
 	Humidity      float64
 	Temperature   float64
-	Date          time.Time
+	Date          string
 }
 
 // Fetches and parses the student collected data
@@ -180,6 +201,8 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 	toDate := filter.ToTime.Format(studentTimeLayout)
 	within := filter.Within
 	area := filter.Area
+	plotMap := filter.PlotMap
+	plotChart := filter.PlotChart
 
 	var u string
 	// if len(within) > 0 {
@@ -197,79 +220,18 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate
 	}
 
+	if len(plotMap) > 0 {
+		u += "&plotmap=" + plotMap 
+	}	else if len(plotChart) > 0 {
+		u += "&plotchart=" + plotChart 
+	}
 	resp, err := http.Get(u)
 	if err != nil {
 		return []Measurement{}, errors.Wrap(err, "Could not download data from luftprosjekttromso")
 	}
 
-	reader := csv.NewReader(resp.Body)
 
-	records, err := reader.ReadAll()
-	if err != nil {
-		if len(records) == 0 {
-			return []Measurement{}, nil
-		}
-		return []Measurement{}, errors.Wrap(err, "Could not read csv from "+ u)
-	}
-
-	//fc := geojson.NewFeatureCollection()
 	var data []Measurement
-
-	for _, record := range records {
-		if len(record) < 6 {
-			return []Measurement{}, errors.Wrap(err, "error prasing csv, not enough records")
-		}
-
-
-		long, err := strconv.ParseFloat(record[0], 64)
-		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (latitude)")
-		}
-		lat, err := strconv.ParseFloat(record[1], 64)
-		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (longitude)")
-		}
-
-		humid, err := strconv.ParseFloat(record[2], 64)
-		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (humidity)")
-		}
-
-		temp, err := strconv.ParseFloat(record[3], 64)
-		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (temperature)")
-		}
-		pmTen, err := strconv.ParseFloat(record[4], 64)
-		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (pmTen)")
-		}
-		pmTwoFive, err := strconv.ParseFloat(record[5], 64)
-		if err != nil {
-			return []Measurement{}, errors.Wrap(err, "error parsing float (pmTwoFive)")
-		}
-
-		date, err := time.Parse(studentResponseTimeLayout, record[6])
-		
-		if err != nil {
-			fmt.Println(err)
-			msg := "Could not parse date " + record[6] + " skipping measurement.\n"
-			msg += "Url: " + u
-			fmt.Println(msg)
-			fmt.Println("Full record: ", record)
-			continue
-			//return []Measurement{}, errors.Wrap(err, msg)
-		}
-
-		data = append(data, Measurement{
-			lat,
-			long,
-			pmTen,
-			pmTwoFive,
-			humid,
-			temp,
-			date,
-		})
-	}
+	json.NewDecoder(resp.Body).Decode(&data)
 	return data, nil
-
 }
