@@ -64,7 +64,8 @@ body {
 
 .navbar .navbar-brand {
   color: #fff;
-  font-family: 'Source Code Pro', monospace;
+  /* font-family: 'Source Code Pro', monospace; */
+  font-family: monospace;
 }
 
 #index-nav a {
@@ -96,27 +97,27 @@ body {
 }
 
 /* Upload page */
-#upload-form > .input-group > .form-control {
-  margin-bottom: 8px;
-}
-
-#input-div, .form-group {
-  text-align: center;
-}
-
 #input-div > h4 {
+  text-align: center;
   padding-bottom: 20px;
 }
 
-.btn.btn-primary {
+#upload-form span.input-group-text {
+  color: #ffffff;
   background-color: #1c3249;
   border-color: #1c3249; 
-  box-shadow: -2px 1px 1px #888888;
 }
 
-#upload-form > .input-group > input[type="text"] {
-  background-color : #fff; 
-  z-index: -1;
+#upload-form .custom-file-input:lang(no) ~ .custom-file-label::after {
+  content: "Utforsk...";
+  color: #ffffff;
+  background-color: #1c3249;
+  border-color: #1c3249; 
+}
+
+#upload-form .btn.btn-primary {
+  background-color: #1c3249;
+  border-color: #1c3249; 
 }
 
 .error-message {

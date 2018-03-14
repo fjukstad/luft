@@ -8,11 +8,12 @@
     </div>
   </div>
   <div class="col-1" align="center" onmouseover="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">
-    <i class="fas fa-question-circle fa-2x" style="margin: 10px;"></i></br>
+    <i class="fas fa-question-circle fa-2x" style="margin: 10px;"></i>
+    </br>
     Slik bruker du søkesiden
   </div>
 </div>
-  
+
 <div class="row">
   <div class="container" id="area-container">
     <form class="form-inline justify-content-center" id="area-form">
@@ -132,13 +133,15 @@
       <div class="row" align="center">
         <div class=col-6>
           <div id="infobox-PM10" style="display:none;">
-            <b>PM10</b></br> Ingen data tilgjengelig 
+            <b>PM10</b>
+            </br> Ingen data tilgjengelig
           </div>
           <div id="chart-PM10" class="chart" style="display:inline-block;"></div>
         </div>
         <div class=col-6>
           <div id="infobox-NO2" style="display:none;">
-            <b>NO2</b></br> Ingen data tilgjengelig 
+            <b>NO2</b>
+            </br> Ingen data tilgjengelig
           </div>
           <div id="chart-NO2" class="chart" style="display:inline-block;"></div>
         </div>
@@ -162,16 +165,26 @@
         <h5 data-toggle="collapse" data-target="#select_area" onmouseover="" style="cursor: pointer;">Velg område</h5>
         <div id="select_area" class="collapse">
           For å angi søkeområde kan du:
-          <ul>  
-            <li><b>Velge område fra nedtrekksliste</b></li>
-            <img src="../public/img/select.png" style="margin:10px;"><br/>
-            Ved å velge område fra nedtrekkslisten, vil søket ta utgangspunkt i et sentrumsnært punkt i området og returnere alle datapunkter innenfor en 7 km radius. 
-            <li><b>Angi område på kartet</b></li>
-            Dersom du ønsker å angi koordinater og radius selv, eller velge et område som ikke er angitt på listen, kan dette gjøres ved å markere et område på kartet på følgende måte: klikk på knappen med sirkel på oppe i høyre hjørne, flytt pekeren til ønsket punkt på kartet, og klikk og dra ut pekeren for å lage en sirkel av ønsket størrelse. 
-            <img id="map-image1" src="../public/img/map1.png"><br/>
-            Dersom sirkelen ikke ble som dere ønsket, kan du slette den ved å klikke på søppelbøtten i øvre høyre hjørne, klikke på sirkelen som du vil fjerne og trykke "save".   
-            <img id="map-image2"  src="../public/img/map3.png"><br/> 
-            TIPS: Bruk gjerne listen fra forrige punkt til å navigere deg rundt på kartet når du skal markere et egendefinert område. Dersom du har laget en sirkel på kartet, vil koordinatene fra denne overstyre listevalget når du trykker "Søk".
+          <ul>
+            <li>
+              <b>Velge område fra nedtrekksliste</b>
+            </li>
+            <img src="../public/img/select.png" style="margin:10px;">
+            <br/> Ved å velge område fra nedtrekkslisten, vil søket ta utgangspunkt i et sentrumsnært punkt i området og returnere
+            alle datapunkter innenfor en 7 km radius.
+            <li>
+              <b>Angi område på kartet</b>
+            </li>
+            Dersom du ønsker å angi koordinater og radius selv, eller velge et område som ikke er angitt på listen, kan dette gjøres
+            ved å markere et område på kartet på følgende måte: klikk på knappen med sirkel på oppe i høyre hjørne, flytt
+            pekeren til ønsket punkt på kartet, og klikk og dra ut pekeren for å lage en sirkel av ønsket størrelse.
+            <img id="map-image1" src="../public/img/map1.png">
+            <br/> Dersom sirkelen ikke ble som dere ønsket, kan du slette den ved å klikke på søppelbøtten i øvre høyre hjørne,
+            klikke på sirkelen som du vil fjerne og trykke "save".
+            <img id="map-image2" src="../public/img/map3.png">
+            <br/> TIPS: Bruk gjerne listen fra forrige punkt til å navigere deg rundt på kartet når du skal markere et egendefinert
+            område. Dersom du har laget en sirkel på kartet, vil koordinatene fra denne overstyre listevalget når du trykker
+            "Søk".
           </ul>
         </div>
         <hr class="my-6" />
@@ -179,30 +192,37 @@
         <div id="select_time" class="collapse">
           For å angi tidsrom kan du:
           <ul>
-            <li><b>Velge et av de forhåndsdefinerte alternativene</b></li>
-            <img id="time-image1" src="../public/img/time1.png"><br/>
-            <li><b>Spesifisere eget tidsrom.</b></li>
-            <img id="time-image2" src="../public/img/time2.png"><br/>
+            <li>
+              <b>Velge et av de forhåndsdefinerte alternativene</b>
+            </li>
+            <img id="time-image1" src="../public/img/time1.png">
+            <br/>
+            <li>
+              <b>Spesifisere eget tidsrom.</b>
+            </li>
+            <img id="time-image2" src="../public/img/time2.png">
+            <br/>
         </div>
         <hr class="my-6" />
         <h5 data-toggle="collapse" data-target="#select_data_source" onmouseover="" style="cursor: pointer;">Velg datakilder</h5>
         <div id="select_data_source" class="collapse">
-          Det er mulig å hente ut målepunkter fra elever og fra NILU. For å angi datakilde, kryss av for ønsket alternativ.<br/>
-          <img id="data-source-image" src="../public/img/datasources.png"><br/>
-          MERK: NILU har kun målestasjoner i Tromsø, Bodø, Harstad og Narvik. <br/>
-          MERK2: Dersom du gjør et egendefinert områdesøk, vil ikke data fra NILU sine målestasjoner komme med. 
+          Det er mulig å hente ut målepunkter fra elever og fra NILU. For å angi datakilde, kryss av for ønsket alternativ.
+          <br/>
+          <img id="data-source-image" src="../public/img/datasources.png">
+          <br/> MERK: NILU har kun målestasjoner i Tromsø, Bodø, Harstad og Narvik.
+          <br/> MERK2: Dersom du gjør et egendefinert områdesøk, vil ikke data fra NILU sine målestasjoner komme med.
         </div>
         <hr class="my-6" />
         <h5 data-toggle="collapse" data-target="#download-data" onmouseover="" style="cursor: pointer;">Last ned data</h5>
         <div id="download-data" class="collapse">
-          For å laste ned data velger dere et område fra nedtrekkslisten eller direkte på kartet, velger tidsområde og datakilde og trykker på "Last ned"-knappen.
+          For å laste ned data velger dere et område fra nedtrekkslisten eller direkte på kartet, velger tidsområde og datakilde og
+          trykker på "Last ned"-knappen.
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
+{{ template "scripts" . }}
 <script>
   $(document).ready(function () {
     $('input[type="radio"]').click(function () {
@@ -228,18 +248,18 @@
   if (map != undefined) {
     map.remove();
   }
-    
-  getCoordinates();  
+
+  getCoordinates();
   map = drawCustomAreaMap();
-  
+
   // reset map if selected area changes
-  $('select').on('change', function() {
+  $('select').on('change', function () {
     if (map != undefined) {
       map.remove();
     }
-      
-    getCoordinates();  
-    map = drawCustomAreaMap();  
+
+    getCoordinates();
+    map = drawCustomAreaMap();
   });
 
   $('#history-button').click(function (e) {
@@ -250,7 +270,7 @@
     }
 
     if (customGPS == false) {
-      getCoordinates();  
+      getCoordinates();
     }
 
     map = drawCustomAreaMap();
@@ -276,7 +296,7 @@
 
     if ($('#checkbox-student').is(':checked')) {
       if (customGPS == true) {
-        within = coordinates.slice(0,2)
+        within = coordinates.slice(0, 2)
         within.push(radius)
         area = within.join()
       }
@@ -330,7 +350,7 @@
       } else {
         location.replace(uri);
       }
-    } else  {
+    } else {
       urls.forEach(function (url) {
         // loading a file and add it in a zip file
         JSZipUtils.getBinaryContent(url, function (err, data) {
@@ -353,7 +373,4 @@
       });
     }
   }
-</script>
-
-
-{{ end }}
+</script> {{ end }}
