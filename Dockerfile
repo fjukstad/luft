@@ -1,4 +1,4 @@
-FROM node AS wiki-gen
+FROM node:8.10.0 AS wiki-gen
 ADD wiki /wiki
 WORKDIR /wiki
 # Install node modules for wiki-gen
@@ -6,7 +6,7 @@ RUN ["npm", "install"]
 # Run wiki auto-generation
 RUN ["node", "airbit.wiki.js"]
 
-FROM golang
+FROM golang:1.10
 
 RUN go get github.com/fjukstad/luftkvalitet
 RUN go get github.com/fjukstad/met
