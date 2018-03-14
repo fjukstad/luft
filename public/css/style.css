@@ -64,7 +64,8 @@ body {
 
 .navbar .navbar-brand {
   color: #fff;
-  font-family: 'Source Code Pro', monospace;
+  /* font-family: 'Source Code Pro', monospace; */
+  font-family: monospace;
 }
 
 #index-nav a {
