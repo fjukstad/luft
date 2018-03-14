@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
 	"github.com/fjukstad/luftkvalitet"
 	"github.com/paulmach/go.geojson"
 )

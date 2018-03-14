@@ -1,12 +1,13 @@
 package controllers
 
 import (
-	"encoding/json"
 	"encoding/csv"
+	"encoding/json"
 	"net/http"
 	"net/url"
 	"strconv"
 	"time"
+
 	"github.com/paulmach/go.geojson"
 	"github.com/pkg/errors"
 )
@@ -18,7 +19,7 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Could not parse time: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
-	
+
 	var within string = ""
 	var area string = ""
 	var plotMap string = ""
@@ -38,13 +39,13 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := StudentFilter{
-			ToTime:     to,
-			FromTime:   from,
-			Within:			within,
-			Area:			  area,
-			PlotMap:  	plotMap,
-			PlotChart:  plotChart,
-	}	
+		ToTime:    to,
+		FromTime:  from,
+		Within:    within,
+		Area:      area,
+		PlotMap:   plotMap,
+		PlotChart: plotChart,
+	}
 
 	data, err := getStudentData(filter)
 	if err != nil {
@@ -77,14 +78,13 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-
 type StudentFilter struct {
-	Area 				string
-	Within 			string
-	FromTime 		time.Time
-	ToTime 			time.Time
-	PlotMap			string
-	PlotChart   string
+	Area      string
+	Within    string
+	FromTime  time.Time
+	ToTime    time.Time
+	PlotMap   string
+	PlotChart string
 }
 
 func StudentHandler(w http.ResponseWriter, r *http.Request) {
@@ -115,13 +115,13 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	filter := StudentFilter{
-		ToTime:     to,
-		FromTime:   from,
-		Within:			within,
-		Area:			  area,
-		PlotMap:  	plotMap,
-		PlotChart:  plotChart,
-	}		
+		ToTime:    to,
+		FromTime:  from,
+		Within:    within,
+		Area:      area,
+		PlotMap:   plotMap,
+		PlotChart: plotChart,
+	}
 
 	data, err := getStudentData(filter)
 	if err != nil {
@@ -134,38 +134,38 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	records = append(records, header)
 
 	for _, measurement := range data {
-		var latitude 				 float64
-		var longitude 			 float64
-		var valuePmTen 			 float64
-		var valuePmTwoFive 	 float64
-		var valueHumidity		 float64
+		var latitude float64
+		var longitude float64
+		var valuePmTen float64
+		var valuePmTwoFive float64
+		var valueHumidity float64
 		var valueTemperature float64
-		
-		latitude 					= measurement.Latitude
-		longitude 				= measurement.Longitude
-		valuePmTen 				= measurement.PmTen
-		valuePmTwoFive 		= measurement.PmTwoFive
-		valueHumidity 		= measurement.Humidity
-		valueTemperature 	= measurement.Temperature
 
-		formattedLatitude 				:= strconv.FormatFloat(latitude, 'f', -1, 64)
-		formattedLongitude 				:= strconv.FormatFloat(longitude, 'f', -1, 64)
-		formattedPmTenValue 			:= strconv.FormatFloat(valuePmTen, 'f', -1, 64)
-		formattedPmTwoFiveValue 	:= strconv.FormatFloat(valuePmTwoFive, 'f', -1, 64)
-		formattedHumidityValue		:= strconv.FormatFloat(valueHumidity, 'f', -1, 64)
+		latitude = measurement.Latitude
+		longitude = measurement.Longitude
+		valuePmTen = measurement.PmTen
+		valuePmTwoFive = measurement.PmTwoFive
+		valueHumidity = measurement.Humidity
+		valueTemperature = measurement.Temperature
+
+		formattedLatitude := strconv.FormatFloat(latitude, 'f', -1, 64)
+		formattedLongitude := strconv.FormatFloat(longitude, 'f', -1, 64)
+		formattedPmTenValue := strconv.FormatFloat(valuePmTen, 'f', -1, 64)
+		formattedPmTwoFiveValue := strconv.FormatFloat(valuePmTwoFive, 'f', -1, 64)
+		formattedHumidityValue := strconv.FormatFloat(valueHumidity, 'f', -1, 64)
 		formattedTemperatureValue := strconv.FormatFloat(valueTemperature, 'f', -1, 64)
 
 		timestamp := measurement.Date
 
 		record := []string{
-							timestamp, 
-							formattedLatitude,
-							formattedLongitude,
-							formattedPmTenValue,  
-							formattedPmTwoFiveValue, 
-							formattedHumidityValue,  
-							formattedTemperatureValue, 
-						}
+			timestamp,
+			formattedLatitude,
+			formattedLongitude,
+			formattedPmTenValue,
+			formattedPmTwoFiveValue,
+			formattedHumidityValue,
+			formattedTemperatureValue,
+		}
 		records = append(records, record)
 	}
 
@@ -185,13 +185,13 @@ var studentTimeLayout string = "2006-01-02T15:04:05"
 var studentResponseTimeLayout string = "2006-01-02 15:04:05 -0700"
 
 type Measurement struct {
-	Latitude      float64
-	Longitude     float64
-	PmTen         float64
-	PmTwoFive     float64
-	Humidity      float64
-	Temperature   float64
-	Date          string
+	Latitude    float64
+	Longitude   float64
+	PmTen       float64
+	PmTwoFive   float64
+	Humidity    float64
+	Temperature float64
+	Date        string
 }
 
 // Fetches and parses the student collected data
@@ -214,22 +214,21 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 	// }
 	if len(within) > 0 {
 		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
-	}	else if len(area) > 0 {
+	} else if len(area) > 0 {
 		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
-	}	else {
+	} else {
 		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate
 	}
 
 	if len(plotMap) > 0 {
-		u += "&plotmap=" + plotMap 
-	}	else if len(plotChart) > 0 {
-		u += "&plotchart=" + plotChart 
+		u += "&plotmap=" + plotMap
+	} else if len(plotChart) > 0 {
+		u += "&plotchart=" + plotChart
 	}
 	resp, err := http.Get(u)
 	if err != nil {
 		return []Measurement{}, errors.Wrap(err, "Could not download data from luftprosjekttromso")
 	}
-
 
 	var data []Measurement
 	json.NewDecoder(resp.Body).Decode(&data)

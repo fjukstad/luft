@@ -1,142 +1,142 @@
-{{ define "content" }}   
+{{ define "content" }}
 <div class="container">
-	<div class="row">
-	  <div class="col col-sm-3">
-	  </div>
-	  <div class="col-6 col-sm-6" id="input-div">
-		 	<br/>
-		 	<h4>Last opp fil(er)</h4>
-	    <form action="/sendfile" method="post" enctype="multipart/form-data" id="upload-form">	
-		    <div class="input-group">
-		      <label class="input-group-btn">
-		          <span class="btn btn-primary">
-		              Utforsk&hellip; <input type="file" accept="text/csv" name="uploadFile" id="uploadFile" style="display: none;" multiple>
-		          </span>
-		      </label>
-		      <input type="text" class="form-control" name="browseFile" id="browseFile" readonly><span class="fa fa-times" id="remove-file" aria-hidden="true"></span>
-		    </div>
-		    <div id="responseMessage" style="display: none;">
-		    	<p></p>
-		    </div>
-		  <!-- 	<div class="form-group"> -->
-				<!-- </div> -->
-			</form>
-			<button class="btn btn-primary" id="submitButton" >Last opp</button>
-		</div>	  
-	</div>
-
-
+  <div class="row">
+    <div class="col col-sm-3">
+    </div>
+    <div class="col-6 col-sm-6" id="input-div">
+      <br/>
+      <h4>Last opp fil(er)</h4>
+      <form action="/sendfile" method="post" enctype="multipart/form-data" id="upload-form">
+        <div class="input-group">
+          <label class="input-group-btn">
+            <span class="btn btn-primary">
+              Utforsk&hellip;
+              <input type="file" accept="text/csv" name="uploadFile" id="uploadFile" style="display: none;" multiple>
+            </span>
+          </label>
+          <input type="text" class="form-control" name="browseFile" id="browseFile" readonly>
+          <span class="fa fa-times" id="remove-file" aria-hidden="true"></span>
+        </div>
+        <div id="responseMessage" style="display: none;">
+          <p></p>
+        </div>
+        <!-- 	<div class="form-group"> -->
+        <!-- </div> -->
+      </form>
+      <button class="btn btn-primary" id="submitButton">Last opp</button>
+    </div>
+  </div>
+</div>
 {{ template "scripts" . }}
 <script>
-	$(function() {	
-	  // We can attach the `fileselect` event to all file inputs on the page
-	  $(document).on('change', ':file', function() {
-	    var input = $(this),
-	        numFiles = input.get(0).files ? input.get(0).files.length : 1,
-	        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-	    input.trigger('fileselect', [numFiles, label]);
-	  });
+  $(function () {
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function () {
+      var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [numFiles, label]);
+    });
 
-	  // We can watch for our custom `fileselect` event like this
-	  $(document).ready( function() {
-	      $(':file').on('fileselect', function(event, numFiles, label) {
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready(function () {
+      $(':file').on('fileselect', function (event, numFiles, label) {
 
-	          var input = $(this).parents('.input-group').find(':text'),
-	              log = numFiles > 1 ? numFiles + ' valgte filer' : label;
+        var input = $(this).parents('.input-group').find(':text'),
+          log = numFiles > 1 ? numFiles + ' valgte filer' : label;
 
-	          if( input.length ) {
-	              input.val(log);
-	          } else {
-	              if( log ) alert(log);
-	          }
+        if (input.length) {
+          input.val(log);
+        } else {
+          if (log) alert(log);
+        }
 
-	      });
-	  });
-	  
-	}); 
+      });
+    });
 
-	 $(function () {
+  });
+
+  $(function () {
     $(document).on('click', '#submitButton', function () {
-			var files = document.getElementById("uploadFile").files
-	    var responseMessage = document.getElementById('responseMessage'); 
-	    var body = document.getElementsByTagName("BODY")[0]
-			var re = /(\.csv)$/i;
-	    
-		  if (files.length == 0) {
-	   		responseMessage.classList.remove('success-message')
-    		responseMessage.classList.add('error-message');
+      var files = document.getElementById("uploadFile").files
+      var responseMessage = document.getElementById('responseMessage');
+      var body = document.getElementsByTagName("BODY")[0]
+      var re = /(\.csv)$/i;
+
+      if (files.length == 0) {
+        responseMessage.classList.remove('success-message')
+        responseMessage.classList.add('error-message');
         responseMessage.innerHTML = "Vennligst angi en fil før du trykker 'Last opp'";
         responseMessage.style.display = 'block';
-        setTimeout(function() {
-    			$('#responseMessage').fadeOut('slow');
-				}, 2000);
+        setTimeout(function () {
+          $('#responseMessage').fadeOut('slow');
+        }, 2000);
         return false;
-	    }
-	    else {
-				var response = ""
-		    for (i = 0; i < files.length; i++ ) {
-					if (!re.exec(files[i].name)) {
-						response = "Alle angitte filer må være av typen '.csv'.";
-						break
-					}
+      }
+      else {
+        var response = ""
+        for (i = 0; i < files.length; i++) {
+          if (!re.exec(files[i].name)) {
+            response = "Alle angitte filer må være av typen '.csv'.";
+            break
+          }
 
-					if (files[i].name.includes(" ")) {
-						response = "Filnavn kan ikke inneholde mellomrom."
-						break
-					}
-		    }
+          if (files[i].name.includes(" ")) {
+            response = "Filnavn kan ikke inneholde mellomrom."
+            break
+          }
+        }
 
-		    if (response != "") {
-	  			responseMessage.classList.remove('success-message')
-	  			responseMessage.classList.add('error-message');
-		      responseMessage.innerHTML = response;
-		      responseMessage.style.display = 'block';
-		      setTimeout(function() {
-		  			$('#responseMessage').fadeOut('slow');
-					}, 2000);
-		      return false;
-		    }	
-		  	
-	    	document.getElementById("submitButton").disabled = true;
-	      body.classList.add('wait');
-		  	
-		    var form = new FormData(document.getElementById('upload-form'));
-		    $.ajax({
-					url: 'sendfile',
-					type: 'post',
-					dataType: 'html',
-					data : form,
-					processData: false,
-					contentType: false,
-					success : function(data) {
-			      body.classList.remove('wait');
-		  			document.getElementById("uploadFile").value = "";
-						document.getElementById("browseFile").value = "";
-	    			responseMessage.classList.remove('error-message')
-	    			responseMessage.classList.add('success-message');
-	    			responseMessage.innerHTML = data
-	    			responseMessage.style.display = 'block';
-	    			setTimeout(function() {
-			  			$('#responseMessage').fadeOut('slow');
-						}, 2000);
-    				document.getElementById("submitButton").disabled = false;
-					},
-					error : function() {
-			      body.classList.remove('wait');
-			    	document.getElementById("submitButton").disabled = true;
-					}
-				});
-		  }
-		});
-	});
+        if (response != "") {
+          responseMessage.classList.remove('success-message')
+          responseMessage.classList.add('error-message');
+          responseMessage.innerHTML = response;
+          responseMessage.style.display = 'block';
+          setTimeout(function () {
+            $('#responseMessage').fadeOut('slow');
+          }, 2000);
+          return false;
+        }
 
-	$(function () {
+        document.getElementById("submitButton").disabled = true;
+        body.classList.add('wait');
+
+        var form = new FormData(document.getElementById('upload-form'));
+        $.ajax({
+          url: 'sendfile',
+          type: 'post',
+          dataType: 'html',
+          data: form,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+            body.classList.remove('wait');
+            document.getElementById("uploadFile").value = "";
+            document.getElementById("browseFile").value = "";
+            responseMessage.classList.remove('error-message')
+            responseMessage.classList.add('success-message');
+            responseMessage.innerHTML = data
+            responseMessage.style.display = 'block';
+            setTimeout(function () {
+              $('#responseMessage').fadeOut('slow');
+            }, 2000);
+            document.getElementById("submitButton").disabled = false;
+          },
+          error: function () {
+            body.classList.remove('wait');
+            document.getElementById("submitButton").disabled = true;
+          }
+        });
+      }
+    });
+  });
+
+  $(function () {
     $(document).on('click', '.fa.fa-times', function () {
-			document.getElementById("uploadFile").value = "";
-			document.getElementById("browseFile").value = "";
+      document.getElementById("uploadFile").value = "";
+      document.getElementById("browseFile").value = "";
       return false;
     });
-	}); 
-	
-</script>
-{{ end }}
+  });
+
+</script> {{ end }}
