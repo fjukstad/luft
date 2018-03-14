@@ -8,9 +8,8 @@
     </div>
   </div>
   <div class="col-1" align="center" onmouseover="" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">
-    <i class="fas fa-question-circle fa-2x" style="margin: 10px;"></i>
-    </br>
-    Slik bruker du søkesiden
+    <em class="fas fa-question-circle fa-2x" style="margin: 10px;"></em>
+    <br/> Slik bruker du søkesiden
   </div>
 </div>
 
@@ -19,7 +18,7 @@
     <form class="form-inline justify-content-center" id="area-form">
       <div class="form-group justify-content-center" style="display: flex;">
         <label form="area-form">
-          <b>Velg område</b>
+          <strong>Velg område</strong>
         </label>
         <div class="form-group justify-content-center" id="gps-form-group">
           <select class="form-control" name="area" id="area">
@@ -43,7 +42,7 @@
     <form class="form-inline justify-content-center" id="time-form">
       <div class="form-group" style="display: block;">
         <label for="time-form">
-          <b>Angi tidsintervall</b>
+          <strong>Angi tidsintervall</strong>
         </label>
         <div class="form-group">
           <input class="history-radio" type="radio" name="time" id="hour" value="hour" checked="checked">
@@ -73,7 +72,7 @@
     <form class="form-inline justify-content-center" id="data-form">
       <div class="form-group" style="display: block;">
         <label for="data-form">
-          <b>Inkluder data fra:</b>
+          <strong>Inkluder data fra:</strong>
         </label>
         <div class="form-check">
           <label class="form-check-label">
@@ -133,14 +132,14 @@
       <div class="row" align="center">
         <div class=col-6>
           <div id="infobox-PM10" style="display:none;">
-            <b>PM10</b>
+            <strong>PM10</strong>
             </br> Ingen data tilgjengelig
           </div>
           <div id="chart-PM10" class="chart" style="display:inline-block;"></div>
         </div>
         <div class=col-6>
           <div id="infobox-NO2" style="display:none;">
-            <b>NO2</b>
+            <strong>NO2</strong>
             </br> Ingen data tilgjengelig
           </div>
           <div id="chart-NO2" class="chart" style="display:inline-block;"></div>
@@ -167,13 +166,13 @@
           For å angi søkeområde kan du:
           <ul>
             <li>
-              <b>Velge område fra nedtrekksliste</b>
+              <strong>Velge område fra nedtrekksliste</strong>
             </li>
             <img src="../public/img/select.png" style="margin:10px;">
             <br/> Ved å velge område fra nedtrekkslisten, vil søket ta utgangspunkt i et sentrumsnært punkt i området og returnere
             alle datapunkter innenfor en 7 km radius.
             <li>
-              <b>Angi område på kartet</b>
+              <strong>Angi område på kartet</strong>
             </li>
             Dersom du ønsker å angi koordinater og radius selv, eller velge et område som ikke er angitt på listen, kan dette gjøres
             ved å markere et område på kartet på følgende måte: klikk på knappen med sirkel på oppe i høyre hjørne, flytt
@@ -193,12 +192,12 @@
           For å angi tidsrom kan du:
           <ul>
             <li>
-              <b>Velge et av de forhåndsdefinerte alternativene</b>
+              <strong>Velge et av de forhåndsdefinerte alternativene</strong>
             </li>
             <img id="time-image1" src="../public/img/time1.png">
             <br/>
             <li>
-              <b>Spesifisere eget tidsrom.</b>
+              <strong>Spesifisere eget tidsrom.</strong>
             </li>
             <img id="time-image2" src="../public/img/time2.png">
             <br/>
@@ -373,4 +372,5 @@
       });
     }
   }
+
 </script> {{ end }}
