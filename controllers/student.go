@@ -20,10 +20,10 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var within string = ""
-	var area string = ""
-	var plotMap string = ""
-	var plotChart string = ""
+	var within string
+	var area string
+	var plotMap string
+	var plotChart string
 
 	if len(values["within"]) > 0 {
 		within = values["within"][0]
@@ -96,10 +96,10 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var within string = ""
-	var area string = ""
-	var plotMap string = ""
-	var plotChart string = ""
+	var within string
+	var area string
+	var plotMap string
+	var plotChart string
 
 	if len(values["within"]) > 0 {
 		within = values["within"][0]
@@ -181,8 +181,8 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-var studentTimeLayout string = "2006-01-02T15:04:05"
-var studentResponseTimeLayout string = "2006-01-02 15:04:05 -0700"
+var studentTimeLayout = "2006-01-02T15:04:05"
+var studentResponseTimeLayout = "2006-01-02 15:04:05 -0700"
 
 type Measurement struct {
 	Latitude    float64
