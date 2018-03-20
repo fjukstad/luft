@@ -73,6 +73,58 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.7/papaparse.min.js" integrity="sha256-gCPcsL+cnlJNro1gRMdelVcE6dXBCk67CvTLlArf74A="
   crossorigin="anonymous"></script>
 <script>
+  /**
+    * @param {number} row
+    * @param {number} col
+    * @param {string} value
+    * @param {any[]} errors
+    */
+  function headerCheck(row, col, value, errors) {
+    /** @type {string | undefined} */
+    var searchString = undefined;
+    /** @type {string | undefined} */
+    var expectedString = undefined;
+    switch (col) {
+      case 0:
+        searchString = "TIME";
+        expectedString = "Time";
+        break;
+      case 1:
+        searchString = "LAT";
+        expectedString = "Latitude";
+        break;
+      case 2:
+        searchString = "LON";
+        expectedString = "Longitude";
+        break;
+      case 3:
+        searchString = "PM10";
+        expectedString = "PM10";
+        break;
+      case 4:
+        searchString = "PM2";
+        expectedString = "PM2.5";
+        break;
+      case 5:
+        searchString = "HUMIDITY";
+        expectedString = "Humidity";
+        break;
+      case 6:
+        searchString = "TEMP";
+        expectedString = "Temperature";
+        break;
+    }
+
+    if (typeof searchString !== "undefined" && !value.toUpperCase().includes(searchString)) {
+      errors.push({
+        row: row,
+        type: "Heading",
+        code: "HeaderMismatch",
+        message: "Unexpected header '" + value + "', expected '" + expectedString + "'."
+      });
+    }
+  }
+
   $("#validateBtn").on("click", function (ev) {
     $(this).attr("disabled", true);
     if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
@@ -98,23 +150,31 @@
               for (var j = 0; j < rowCells.length; j++) {
                 if (j == 0) {
                   var time = new Date(rowCells[j]);
-                  if (!time.valueOf() && i > 0) {
-                    results.errors.push({
-                      row: i,
-                      type: "Content",
-                      code: "InvalidTimeFormat",
-                      message: "Unable to parse string '" + rowCells[j] + "' as a Timestamp"
-                    });
+                  if (isNaN(time.valueOf())) {
+                    if (i == 0) {
+                      headerCheck(i, j, rowCells[j], results.errors);
+                    } else {
+                      results.errors.push({
+                        row: i,
+                        type: "Content",
+                        code: "InvalidTimeFormat",
+                        message: "Unable to parse string '" + rowCells[j] + "' as a Timestamp"
+                      });
+                    }
                   }
                 } else if (j < 7) { // 1 <= j < 7
                   var float = parseFloat(rowCells[j]);
-                  if (isNaN(float) && i > 0) {
-                    results.errors.push({
-                      row: i,
-                      type: "Content",
-                      code: "NumerIsNaN",
-                      message: "'" + rowCells[j] + "' parses to a NaN value."
-                    });
+                  if (isNaN(float)) {
+                    if (i == 0) {
+                      headerCheck(i, j, rowCells[j], results.errors);
+                    } else {
+                      results.errors.push({
+                        row: i,
+                        type: "Content",
+                        code: "NumerIsNaN",
+                        message: "'" + rowCells[j] + "' parses to a NaN value."
+                      });
+                    }
                   }
                 }
               }
