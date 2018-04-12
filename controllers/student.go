@@ -7,7 +7,8 @@ import (
 	"net/url"
 	"strconv"
 	"time"
-
+	// "fmt"
+	// "io/ioutil"
 	"github.com/paulmach/go.geojson"
 	"github.com/pkg/errors"
 )
@@ -55,14 +56,14 @@ func StudentAqisHandler(w http.ResponseWriter, r *http.Request) {
 
 	fc := geojson.NewFeatureCollection()
 
-	for _, measurement := range data {
-		geom := geojson.NewPointGeometry([]float64{measurement.Longitude, measurement.Latitude})
+	for _, measurement := range data.Data {
+		geom := geojson.NewPointGeometry([]float64{measurement.Attributes.Longitude, measurement.Attributes.Latitude})
 		f := geojson.NewFeature(geom)
-		f.SetProperty("date", measurement.Date)
-		f.SetProperty("pmTen", measurement.PmTen)
-		f.SetProperty("pmTwoFive", measurement.PmTwoFive)
-		f.SetProperty("humidity", measurement.Humidity)
-		f.SetProperty("temperature", measurement.Temperature)
+		f.SetProperty("date", measurement.Attributes.Date)
+		f.SetProperty("pmTen", measurement.Attributes.PmTen)
+		f.SetProperty("pmTwoFive", measurement.Attributes.PmTwoFive)
+		f.SetProperty("humidity", measurement.Attributes.Humidity)
+		f.SetProperty("temperature", measurement.Attributes.Temperature)
 		f.SetProperty("color", "6ee86e")
 		f.SetProperty("weight", 10)
 		fc = fc.AddFeature(f)
@@ -133,7 +134,7 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 	header := []string{"timestamp", "latitude", "longitude", "pmTen", "pmTwoFive", "humidity", "temperature"}
 	records = append(records, header)
 
-	for _, measurement := range data {
+	for _, measurement := range data.Data {
 		var latitude float64
 		var longitude float64
 		var valuePmTen float64
@@ -141,12 +142,12 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		var valueHumidity float64
 		var valueTemperature float64
 
-		latitude = measurement.Latitude
-		longitude = measurement.Longitude
-		valuePmTen = measurement.PmTen
-		valuePmTwoFive = measurement.PmTwoFive
-		valueHumidity = measurement.Humidity
-		valueTemperature = measurement.Temperature
+		latitude = measurement.Attributes.Latitude
+		longitude = measurement.Attributes.Longitude
+		valuePmTen = measurement.Attributes.PmTen
+		valuePmTwoFive = measurement.Attributes.PmTwoFive
+		valueHumidity = measurement.Attributes.Humidity
+		valueTemperature = measurement.Attributes.Temperature
 
 		formattedLatitude := strconv.FormatFloat(latitude, 'f', -1, 64)
 		formattedLongitude := strconv.FormatFloat(longitude, 'f', -1, 64)
@@ -155,7 +156,9 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 		formattedHumidityValue := strconv.FormatFloat(valueHumidity, 'f', -1, 64)
 		formattedTemperatureValue := strconv.FormatFloat(valueTemperature, 'f', -1, 64)
 
-		timestamp := measurement.Date
+		timestamp := measurement.Attributes.Date
+
+		// fmt.Println(time.Parse(studentResponseTimeLayouttimestamp.Format("2006-01-02 15:04:05"))
 
 		record := []string{
 			timestamp,
@@ -184,18 +187,28 @@ func StudentHandler(w http.ResponseWriter, r *http.Request) {
 var studentTimeLayout = "2006-01-02T15:04:05"
 var studentResponseTimeLayout = "2006-01-02 15:04:05 -0700"
 
+type Result struct {
+	Data []Record `json:"data"`
+}
+
+type Record struct {
+	Id string `json:"id"`
+	Type string `json:"type"`
+	Attributes Measurement `json:"attributes"`
+}
+
 type Measurement struct {
-	Latitude    float64
+	Latitude    float64 
 	Longitude   float64
 	PmTen       float64
 	PmTwoFive   float64
 	Humidity    float64
 	Temperature float64
-	Date        string
+	Date        string `json:"Timestamp"`
 }
 
 // Fetches and parses the student collected data
-func getStudentData(filter StudentFilter) ([]Measurement, error) {
+func getStudentData(filter StudentFilter) (Result, error) {
 
 	fromDate := filter.FromTime.Format(studentTimeLayout)
 	toDate := filter.ToTime.Format(studentTimeLayout)
@@ -205,32 +218,37 @@ func getStudentData(filter StudentFilter) ([]Measurement, error) {
 	plotChart := filter.PlotChart
 
 	var u string
-	// if len(within) > 0 {
-	// 	u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
-	// }	else if len(area) > 0 {
-	// 	u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
-	// }	else {
-	// 	u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate
-	// }
 	if len(within) > 0 {
-		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
-	} else if len(area) > 0 {
-		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
-	} else {
-		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate
+		u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
+	}	else if len(area) > 0 {
+		u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
+	}	else {
+		u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate
 	}
+	// if len(within) > 0 {
+	// 	u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
+	// } else if len(area) > 0 {
+	// 	u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
+	// } else {
+	// 	u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate
+	// }
 
 	if len(plotMap) > 0 {
 		u += "&plotmap=" + plotMap
 	} else if len(plotChart) > 0 {
 		u += "&plotchart=" + plotChart
 	}
+
 	resp, err := http.Get(u)
 	if err != nil {
-		return []Measurement{}, errors.Wrap(err, "Could not download data from luftprosjekttromso")
+		return Result{}, errors.Wrap(err, "Could not download data from luftprosjekttromso")
 	}
 
-	var data []Measurement
-	json.NewDecoder(resp.Body).Decode(&data)
+
+	var data Result
+	// bodyBytes,_ := ioutil.ReadAll(resp.Body)
+ //  bodyString := string(bodyBytes)
+	// fmt.Println(bodyString)
+	err = json.NewDecoder(resp.Body).Decode(&data)
 	return data, nil
 }

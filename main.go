@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"github.com/fjukstad/luft/controllers"
-	// "github.com/luft-1/controllers"
+	// "github.com/fjukstad/luft/controllers"
+	"github.com/luft-1/controllers"
 )
 
 func main() {
