@@ -7,8 +7,6 @@ import (
 	"net/url"
 	"strconv"
 	"time"
-	// "fmt"
-	// "io/ioutil"
 	"github.com/paulmach/go.geojson"
 	"github.com/pkg/errors"
 )
