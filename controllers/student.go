@@ -246,9 +246,6 @@ func getStudentData(filter StudentFilter) (Result, error) {
 
 
 	var data Result
-	// bodyBytes,_ := ioutil.ReadAll(resp.Body)
- //  bodyString := string(bodyBytes)
-	// fmt.Println(bodyString)
 	err = json.NewDecoder(resp.Body).Decode(&data)
 	return data, nil
 }
