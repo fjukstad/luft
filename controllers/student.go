@@ -218,20 +218,20 @@ func getStudentData(filter StudentFilter) (Result, error) {
 	plotChart := filter.PlotChart
 
 	var u string
-	if len(within) > 0 {
-		u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
-	}	else if len(area) > 0 {
-		u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
-	}	else {
-		u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate
-	}
 	// if len(within) > 0 {
-	// 	u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
-	// } else if len(area) > 0 {
-	// 	u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
-	// } else {
-	// 	u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate
+	// 	u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
+	// }	else if len(area) > 0 {
+	// 	u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
+	// }	else {
+	// 	u = "http://localhost:8080/api/data?totime=" + toDate + "&fromtime=" + fromDate
 	// }
+	if len(within) > 0 {
+		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&within=" + within
+	} else if len(area) > 0 {
+		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate + "&area=" + url.QueryEscape(area)
+	} else {
+		u = "https://luft-184208.appspot.com/api/data?totime=" + toDate + "&fromtime=" + fromDate
+	}
 
 	if len(plotMap) > 0 {
 		u += "&plotmap=" + plotMap
