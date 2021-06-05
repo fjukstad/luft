@@ -25,7 +25,7 @@ function addToMap(map, area, customGPS, provider, component, datestring) {
         if (feature.properties) {
             var content = ""
             if (feature.properties.name) {
-                content = "<b>" + feature.properties.name + "</b><br />"
+                content = "<strong>" + feature.properties.name + "</strong><br />"
             }
             if (feature.properties.component) {
                 content += feature.properties.component + ": " + feature.properties.value + "<br />"
